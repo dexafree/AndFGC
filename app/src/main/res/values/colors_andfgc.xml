@@ -4,4 +4,10 @@
     <color name="orange_dark">#ffff8800</color>
     <color name="orange_light">#FFF4842D</color>
     <color name="orange_underline">#ffd17227</color>
+    <color name="blue">#ff33b5e5</color>
+    <color name="primary_grey">#ff222222</color>
+    <color name="secondary_grey">#ff555555</color>
+    <color name="tertiary_grey">#ff999999</color>
+    <color name="divider_grey">#ffdedede</color>
+    <color name="selected_background">#ffc1e9f7</color>
 </resources>

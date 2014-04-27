@@ -6,4 +6,19 @@
     <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
      https://developer.android.com/design/patterns/navigation-drawer.html -->
     <dimen name="navigation_drawer_width">240dp</dimen>
+    <dimen name="primary_padding">15.0dip</dimen>
+    <dimen name="directions_waypoint_input_height">108.0dip</dimen>
+    <dimen name="quaternary_padding">8.0dip</dimen>
+    <item type="dimen" name="directions_input_panel_left_padding">@dimen/quaternary_padding</item>
+    <dimen name="directions_left_icon_area_width">54.0dip</dimen>
+    <dimen name="text_size_medium">17.0sp</dimen>
+    <dimen name="paneloption_directionsoptions_height">48.0dip</dimen>
+    <dimen name="full_width_button_height">60.0dip</dimen>
+    <dimen name="text_spacer">8.0dip</dimen>
+    <dimen name="padding_medium">8.0dip</dimen>
+    <dimen name="text_size_link">15.0sp</dimen>
+    <dimen name="directions_transitdetail_font_padding">15.0dip</dimen>
+    <dimen name="directions_transitdetail_padding">19.0dip</dimen>
+    <dimen name="text_size_small">15.0sp</dimen>
+    <dimen name="generic_divider_width">1.0px</dimen>
 </resources>
