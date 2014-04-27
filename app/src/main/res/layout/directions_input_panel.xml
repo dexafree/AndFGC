@@ -2,32 +2,35 @@
 <LinearLayout android:id="@+id/directions_input_panel" style="@style/DirectionsInputPanelContent"
               xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools">
-    <LinearLayout android:orientation="horizontal" android:layout_height="@dimen/directions_waypoint_input_height" style="@style/DirectionsWaypointsContent">
-        <FrameLayout android:layout_width="@dimen/directions_left_icon_area_width" android:layout_height="fill_parent" android:layout_weight="0.0" style="@style/Container">
-            <ImageView android:layout_gravity="center" android:src="@drawable/ic_directions_form_dots" style="@style/CenteredImage" />
-            <LinearLayout android:layout_gravity="center" android:orientation="vertical" style="@style/MatchParentContainer">
-                <ImageView android:id="@+id/directions_startpoint_icon" android:src="@drawable/ic_directions_form_destination_notselected" android:layout_weight="1.0" style="@style/CenteredImage" />
-                <ImageView android:id="@+id/directions_endpoint_icon" android:src="@drawable/ic_directions_form_destination_notselected" android:layout_weight="1.0" style="@style/CenteredImage" />
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:layout_marginLeft="6dp" android:layout_marginTop="8dp"
+            android:layout_marginRight="6dp" android:layout_marginBottom="8dp"
+            android:background="@drawable/cards_back" style="@style/DirectionsInputPanelContent">
+        <LinearLayout android:orientation="horizontal" android:layout_height="@dimen/directions_waypoint_input_height" style="@style/DirectionsWaypointsContent">
+            <FrameLayout android:layout_width="@dimen/directions_left_icon_area_width" android:layout_height="fill_parent" android:layout_weight="0.0" style="@style/Container">
+                <ImageView android:layout_gravity="center" android:src="@drawable/ic_directions_form_dots" style="@style/CenteredImage" />
+                <LinearLayout android:layout_gravity="center" android:orientation="vertical" style="@style/MatchParentContainer">
+                    <ImageView android:id="@+id/directions_startpoint_icon" android:src="@drawable/ic_directions_form_destination_notselected" android:layout_weight="1.0" style="@style/CenteredImage" />
+                    <ImageView android:id="@+id/directions_endpoint_icon" android:src="@drawable/ic_directions_form_destination_notselected" android:layout_weight="1.0" style="@style/CenteredImage" />
+                </LinearLayout>
+            </FrameLayout>
+            <LinearLayout android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" style="@style/DividerListContent">
+                <TextView android:id="@+id/directions_startpoint_textbox" android:hint="@string/DIRECTIONS_CHOOSE_START_POINT" style="@style/DirectionsWaypointTextBox" />
+                <TextView android:id="@+id/directions_endpoint_textbox" android:hint="@string/DIRECTIONS_CHOOSE_END_POINT" style="@style/DirectionsWaypointTextBox" />
             </LinearLayout>
-        </FrameLayout>
-        <LinearLayout android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" style="@style/DividerListContent">
-            <TextView android:id="@+id/directions_startpoint_textbox" android:hint="@string/DIRECTIONS_CHOOSE_START_POINT" style="@style/DirectionsWaypointTextBox" />
-            <TextView android:id="@+id/directions_endpoint_textbox" android:hint="@string/DIRECTIONS_CHOOSE_END_POINT" style="@style/DirectionsWaypointTextBox" />
+            <FrameLayout android:id="@+id/directions_swapwaypoints_button" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight="0.0" android:contentDescription="@string/ACCESSIBILITY_SWAP_DESTINATION" style="@style/Container">
+                <ImageView android:id="@+id/directions_swapwaypoints_icon" android:layout_marginLeft="@dimen/primary_padding" android:layout_marginRight="@dimen/primary_padding" android:src="@drawable/ic_directions_form_swap" style="@style/LeftAlignedImage" />
+            </FrameLayout>
         </LinearLayout>
-        <FrameLayout android:id="@+id/directions_swapwaypoints_button" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight="0.0" android:contentDescription="@string/ACCESSIBILITY_SWAP_DESTINATION" style="@style/Container">
-            <ImageView android:id="@+id/directions_swapwaypoints_icon" android:layout_marginLeft="@dimen/primary_padding" android:layout_marginRight="@dimen/primary_padding" android:src="@drawable/ic_directions_form_swap" style="@style/LeftAlignedImage" />
-        </FrameLayout>
-    </LinearLayout>
-    <LinearLayout android:id="@+id/options_container" android:minHeight="@dimen/paneloption_directionsoptions_height" style="@style/DirectionsInputPanelButtonsContent">
-        <LinearLayout android:id="@+id/routeoptions_button" android:layout_width="fill_parent" android:layout_weight="0.0" style="@style/DirectionsPanelOptionButton">
-            <ImageView android:layout_width="@dimen/directions_left_icon_area_width" android:src="@drawable/ic_setting" style="@style/CenteredImage" />
-            <TextView android:textAppearance="@style/SmallTertiaryText" android:id="@+id/routeoptions_textbox" android:clickable="false" android:layout_width="fill_parent" style="@style/IconTextButton"
-                    tools:text="Prueba"/>
+        <LinearLayout android:id="@+id/options_container" android:minHeight="@dimen/paneloption_directionsoptions_height" style="@style/DirectionsInputPanelButtonsContent">
+            <LinearLayout android:id="@+id/routeoptions_button" android:layout_width="fill_parent" android:layout_weight="0.0" style="@style/DirectionsPanelOptionButton"
+                    >
+                <ImageView android:layout_width="@dimen/directions_left_icon_area_width" android:src="@drawable/ic_directions_transit" style="@style/CenteredImage" />
+                <TextView android:textAppearance="@style/SmallTertiaryText" android:id="@+id/routeoptions_textbox" android:clickable="false" android:layout_width="fill_parent" style="@style/IconTextButton"
+                          tools:text="Buscar"/>
+            </LinearLayout>
         </LinearLayout>
-        <LinearLayout android:id="@+id/transitdatetimeoptions_button" android:layout_width="0.0dip" android:layout_weight="1.0" style="@style/DirectionsPanelOptionButton">
-            <ImageView android:layout_width="@dimen/directions_left_icon_area_width" android:src="@drawable/ic_setting" style="@style/CenteredImage" />
-            <TextView android:textAppearance="@style/SmallTertiaryText" android:id="@+id/transitdatetimeoptions_textbox" android:clickable="false" android:layout_width="fill_parent" style="@style/IconTextButton" />
-        </LinearLayout>
-        <TextView android:textAppearance="@style/SmallTertiaryText" android:id="@+id/transitoptions_button" android:layout_width="wrap_content" android:layout_weight="0.0" style="@style/DirectionsInputPanelOptionButton" />
     </LinearLayout>
 </LinearLayout>
