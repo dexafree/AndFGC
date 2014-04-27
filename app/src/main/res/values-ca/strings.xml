@@ -3,4 +3,5 @@
     <string name="no_internet">Comprovi la seva connexió a internet</string>
     <string name="selecciona_linia">Selecciona linia</string>
     <string name="ver_paradas">Veure parades</string>
+    <string name="selecciona_parada">Sel·lecciona parada</string>
 </resources>

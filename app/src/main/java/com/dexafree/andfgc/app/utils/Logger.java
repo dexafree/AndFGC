@@ -7,11 +7,7 @@ import android.util.Log;
  */
 public class Logger {
 
-    public Logger(){
-
-    }
-
-    public void log(String tag, String message){
+    public static void d(String tag, String message){
         if(Constants.DEBUG){
             Log.d(tag, message);
         }

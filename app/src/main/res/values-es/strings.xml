@@ -3,4 +3,5 @@
     <string name="no_internet">Compruebe su conexión a internet</string>
     <string name="selecciona_linia">Selecciona línea</string>
     <string name="ver_paradas">Ver paradas</string>
+    <string name="selecciona_parada">Selecciona parada</string>
 </resources>

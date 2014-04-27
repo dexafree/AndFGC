@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class PruebaPanelFragment extends Fragment {
 
     private Context mContext;
-    private Logger l = new Logger();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

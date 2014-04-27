@@ -14,6 +14,7 @@ import android.view.View;
 import com.dexafree.andfgc.app.databases.DataBaseHelper;
 import com.dexafree.andfgc.app.fragments.MainFragment;
 import com.dexafree.andfgc.app.fragments.PruebaPanelFragment;
+import com.dexafree.andfgc.app.fragments.SearchFragment;
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
 
 public class MainActivity extends ActionBarActivity {
@@ -103,6 +104,9 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case 1:
                 f = new PruebaPanelFragment();
+                break;
+            case 2:
+                f = new SearchFragment();
                 break;
             default:
                 f = new MainFragment();
