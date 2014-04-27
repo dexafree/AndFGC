@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="andfgc_color">#ff8800</color>
+    <color name="orange_dark">#ffff8800</color>
+    <color name="orange_light">#FFF4842D</color>
+    <color name="orange_underline">#ffd17227</color>
+</resources>

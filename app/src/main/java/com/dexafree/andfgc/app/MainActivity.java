@@ -1,13 +1,17 @@
 package com.dexafree.andfgc.app;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import android.view.View;
+import com.dexafree.andfgc.app.databases.DataBaseHelper;
 import com.dexafree.andfgc.app.fragments.MainFragment;
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
 
@@ -20,6 +24,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        firstTime();
 
         /*
          * We get the GoogleNavigationDrawer object
@@ -37,26 +43,24 @@ public class MainActivity extends ActionBarActivity {
                 R.string.app_name,
                 R.string.app_name);
 
-
-
-
-
-
         mDrawer.setDrawerListener(drawerToggle); //Attach the DrawerListener
 
         mDrawer.setOnNavigationSectionSelected(new GoogleNavigationDrawer.OnNavigationSectionSelected() {
             @Override
             public void onSectionSelected(View view, int i, long l) {
-                Fragment f;
-                switch(i){
-                    case 0:
-                        f = new MainFragment();
-                }
+                selectOption(i);
             }
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        /*Fragment f = new MainFragment();
+
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
+                .replace(R.id.content_layout, f)
+                .commit();*/
     }
 
     @Override
@@ -88,6 +92,32 @@ public class MainActivity extends ActionBarActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void selectOption(int position){
+        Fragment f;
+        switch(position){
+            case 0:
+                f = new MainFragment();
+                break;
+            default:
+                f = new MainFragment();
+                break;
+        }
+
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
+                .replace(R.id.content_layout, f)
+                .commit();
+    }
+
+    private void firstTime(){
+        SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(this);
+        if(p.getBoolean("first_time", true)){
+            DataBaseHelper dbH = new DataBaseHelper(this);
+            dbH.copyDB("parades.sqlite");
+            p.edit().putBoolean("first_time", false).commit();
+        }
     }
 
 
