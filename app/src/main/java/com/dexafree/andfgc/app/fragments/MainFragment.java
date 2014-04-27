@@ -15,10 +15,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import com.dexafree.andfgc.app.R;
+import com.dexafree.andfgc.app.adapters.ParadaSpinnerAdapter;
 import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.beans.Parada;
 
-import java.util.Collections;
+import java.util.ArrayList;
 
 
 public class MainFragment extends Fragment {
@@ -51,9 +52,10 @@ public class MainFragment extends Fragment {
         final Spinner spinnerParada = (Spinner)v.findViewById(R.id.spinner_parada);
         spinnerParada.setVisibility(View.GONE);
 
+        final String[] linies = new String[]{"1", "2", "3"};
 
         ArrayAdapter<String> adaptadorLinias =
-                new ArrayAdapter<String>(mContext, R.layout.spinner_item, new String[]{"1", "2", "3"});
+                new ArrayAdapter<String>(mContext, R.layout.spinner_item, linies);
 
 
         spinnerLinia.setAdapter(adaptadorLinias);
@@ -66,15 +68,14 @@ public class MainFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i!=0) {
-                    String[] parades = Parada.getParadesFromLiniaAsStringArray(mContext, i + 1);
+                    int linia = Integer.parseInt(linies[i]);
+                    ArrayList<Parada> parades = Parada.getParadesFromLiniaAsArrayList(mContext, linia);
 
 
-                    ArrayAdapter<String> adaptadorParadas =
-                            new ArrayAdapter<String>(mContext, R.layout.spinner_item, parades);
+                    ParadaSpinnerAdapter adaptadorParadas = new ParadaSpinnerAdapter(mContext, parades);
 
                     spinnerParada.setAdapter(adaptadorParadas);
                     spinnerParada.setVisibility(View.VISIBLE);
-                    Log.d("HA PASADO", "POR AQUI");
                 }
             }
 
@@ -83,10 +84,6 @@ public class MainFragment extends Fragment {
 
             }
         });
-
-
-
-
 
         return v;
     }

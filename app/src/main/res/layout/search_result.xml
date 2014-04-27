@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:background="@drawable/cards_back"
+            android:layout_marginLeft="6dp" android:layout_marginTop="8dp" android:layout_marginRight="6dp"
+            android:layout_marginBottom="8dp">
+        <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
+                android:layout_marginTop="6dp" android:layout_marginBottom="6dp" android:layout_marginRight="4dp"
+                android:layout_marginLeft="4dp" android:id="@+id/row_departure" android:gravity="center_vertical"
+                android:layout_centerVertical="true">
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/departure_icon"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_margin="4dp"
+                    android:src="@drawable/ic_action_upload"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/departure_text"
+                    android:textStyle="bold"
+                    tools:text="NOM PARADA"
+                    android:layout_alignTop="@+id/departure_icon" android:layout_toRightOf="@+id/departure_icon"
+                    android:layout_margin="4dp" android:layout_centerVertical="true" android:textSize="20dp"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/departure_hour"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/departure_text"
+                    android:layout_margin="4dp"
+                    tools:text="09:00" android:textSize="20dp"/>
+        </RelativeLayout>
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#cdcdcd" android:layout_below="@+id/row_departure"
+                android:layout_centerHorizontal="true" android:layout_marginTop="4dp"
+                android:id="@+id/separador" android:layout_marginRight="10dp" android:layout_marginLeft="10dp"/>
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                        android:id="@+id/row_arrival"
+                        android:gravity="center_vertical" android:layout_below="@+id/separador"
+                        android:layout_alignEnd="@+id/separador" android:layout_centerVertical="true"
+                        android:layout_marginLeft="4dp" android:layout_marginTop="6dp" android:layout_marginRight="4dp"
+                        android:layout_marginBottom="6dp">
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                       android:id="@+id/arrival_icon" android:layout_alignParentTop="true"
+                       android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
+                       android:layout_margin="4dp" android:src="@drawable/ic_action_upload"/>
+            <TextView tools:text="NOM PARADA" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/arrival_text" android:textStyle="bold"
+                      android:layout_alignTop="@+id/arrival_icon" android:layout_toRightOf="@+id/arrival_icon"
+                      android:layout_margin="4dp" android:layout_centerVertical="true" android:textSize="20dp"/>
+            <TextView tools:text="09:00" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="New Text" android:id="@+id/arrival_hour" android:layout_centerVertical="true"
+                      android:layout_toRightOf="@+id/arrival_text" android:layout_margin="4dp"
+                      android:textSize="20dp"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>
