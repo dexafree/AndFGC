@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/routeoptions_button"
+              android:layout_width="fill_parent"
+              android:layout_weight="0.0"
+              style="@style/DirectionsPanelOptionButton">
+    <ImageView
+            android:id="@+id/icono_circulo"
+            android:layout_width="@dimen/directions_left_icon_area_width"
+            android:src="@drawable/ic_directions_form_destination"
+            style="@style/CenteredImage" />
+    <TextView
+            android:textAppearance="@style/SmallTertiaryText"
+            android:id="@+id/nombre_parada_expanded"
+            android:layout_width="fill_parent"
+            style="@style/IconTextButton"
+            tools:text="Nombre de parada"/>
+</LinearLayout>

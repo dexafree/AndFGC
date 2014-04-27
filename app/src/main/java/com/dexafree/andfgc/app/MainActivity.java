@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import com.dexafree.andfgc.app.databases.DataBaseHelper;
 import com.dexafree.andfgc.app.fragments.MainFragment;
+import com.dexafree.andfgc.app.fragments.PruebaPanelFragment;
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
 
 public class MainActivity extends ActionBarActivity {
@@ -99,6 +100,9 @@ public class MainActivity extends ActionBarActivity {
         switch(position){
             case 0:
                 f = new MainFragment();
+                break;
+            case 1:
+                f = new PruebaPanelFragment();
                 break;
             default:
                 f = new MainFragment();

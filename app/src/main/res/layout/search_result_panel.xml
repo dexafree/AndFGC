@@ -48,13 +48,11 @@
                           tools:text="Hora de llegada"/>
             </LinearLayout>
         </LinearLayout>
-        <LinearLayout android:id="@+id/options_container" android:minHeight="@dimen/paneloption_directionsoptions_height" style="@style/DirectionsInputPanelButtonsContent">
-            <LinearLayout android:id="@+id/routeoptions_button" android:layout_width="fill_parent" android:layout_weight="0.0" style="@style/DirectionsPanelOptionButton"
-                    >
-                <ImageView android:layout_width="@dimen/directions_left_icon_area_width" android:src="@drawable/ic_directions_transit" style="@style/CenteredImage" />
-                <TextView android:textAppearance="@style/SmallTertiaryText" android:id="@+id/routeoptions_textbox" android:clickable="false" android:layout_width="fill_parent" style="@style/IconTextButton"
-                          tools:text="Buscar"/>
-            </LinearLayout>
-        </LinearLayout>
+        <ExpandableListView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lista_paradas">
+
+        </ExpandableListView>
     </LinearLayout>
 </LinearLayout>

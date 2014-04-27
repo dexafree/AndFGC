@@ -5,6 +5,8 @@ package com.dexafree.andfgc.app.utils;
  */
 public class Constants {
 
+    public final static boolean DEBUG = true;
+
     public final String ESTACIO_ABRERA = "AB";
     public final String ESTACIO_ÀGER = "AG";
     public final String ESTACIO_ALCOLETGE = "AC";
