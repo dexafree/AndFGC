@@ -38,11 +38,11 @@
             </FrameLayout>
             <LinearLayout style="@style/DividerListContent" android:layout_width="0.0dip"
                           android:layout_height="fill_parent" android:layout_weight="1.0">
-                <TextView style="@style/DirectionsWaypointTextBox" android:id="@+id/textView"
+                <TextView style="@style/DirectionsWaypointTextBox" android:id="@+id/departure_hour"
                           android:hint="@string/DIRECTIONS_CHOOSE_START_POINT" android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           tools:text="Hora de salida"/>
-                <TextView style="@style/DirectionsWaypointTextBox" android:id="@+id/textView2"
+                <CheckBox style="@style/DirectionsWaypointTextBox" android:id="@+id/salida_llegada_checkbox"
                           android:hint="@string/DIRECTIONS_CHOOSE_END_POINT" android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           tools:text="Hora de llegada"/>

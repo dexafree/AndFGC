@@ -5,7 +5,7 @@ android {
     buildToolsVersion '19.0.3'
 
     defaultConfig {
-        minSdkVersion 8
+        minSdkVersion 9
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"
@@ -26,4 +26,6 @@ dependencies {
     compile 'com.arasthel:gnavdrawer-library:1.0.+'
     compile 'com.koushikdutta.ion:ion:1.2.4'
     compile 'org.jsoup:jsoup:1.7.2'
+    compile 'com.doomonafireball.betterpickers:library:1.5.2'
+    compile 'joda-time:joda-time:2.3'
 }
