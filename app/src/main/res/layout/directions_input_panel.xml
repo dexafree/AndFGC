@@ -9,6 +9,20 @@
             android:layout_marginRight="6dp" android:layout_marginBottom="8dp"
             android:background="@drawable/cards_back" style="@style/DirectionsInputPanelContent"
             android:id="@+id/main_layout">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" style="@style/DirectionsWaypointsContent">
+            <LinearLayout style="@style/DirectionsPanelOptionButton" android:id="@+id/linearLayout2"
+                          android:layout_width="fill_parent" android:layout_weight="0.0"
+                          android:layout_height="wrap_content">
+                <ImageView style="@style/CenteredImage" android:layout_width="@dimen/directions_left_icon_area_width"
+                           android:src="@drawable/ic_directions_transit" android:layout_height="wrap_content"/>
+                <TextView style="@style/IconTextButton" tools:text="Selecciona linea"
+                          android:textAppearance="@style/SmallTertiaryText" android:id="@+id/selecciona_linea"
+                          android:clickable="false" android:layout_width="fill_parent"/>
+            </LinearLayout>
+        </LinearLayout>
         <LinearLayout android:orientation="horizontal" android:layout_height="@dimen/directions_waypoint_input_height" style="@style/DirectionsWaypointsContent"
                       android:id="@+id/origin_destination_layout">
             <FrameLayout android:layout_width="@dimen/directions_left_icon_area_width" android:layout_height="fill_parent" android:layout_weight="0.0" style="@style/Container">
@@ -19,8 +33,8 @@
                 </LinearLayout>
             </FrameLayout>
             <LinearLayout android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" style="@style/DividerListContent">
-                <TextView android:id="@+id/directions_startpoint_textbox" android:hint="@string/DIRECTIONS_CHOOSE_START_POINT" style="@style/DirectionsWaypointTextBox" tools:text="Estación de origen" />
-                <TextView android:id="@+id/directions_endpoint_textbox" android:hint="@string/DIRECTIONS_CHOOSE_END_POINT" style="@style/DirectionsWaypointTextBox" tools:text="Estación de destino" />
+                <TextView android:id="@+id/directions_startpoint_textbox" android:hint="@string/DIRECTIONS_CHOOSE_START_POINT" style="@style/DirectionsWaypointTextBoxDisabled" tools:text="Estación de origen" />
+                <TextView android:id="@+id/directions_endpoint_textbox" android:hint="@string/DIRECTIONS_CHOOSE_END_POINT" style="@style/DirectionsWaypointTextBoxDisabled" tools:text="Estación de destino" />
             </LinearLayout>
             <FrameLayout android:id="@+id/directions_swapwaypoints_button" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight="0.0" android:contentDescription="@string/ACCESSIBILITY_SWAP_DESTINATION" style="@style/Container">
                 <ImageView android:id="@+id/directions_swapwaypoints_icon" android:layout_marginLeft="@dimen/primary_padding" android:layout_marginRight="@dimen/primary_padding" android:src="@drawable/ic_directions_form_swap" style="@style/LeftAlignedImage" />
@@ -52,7 +66,7 @@
             <LinearLayout android:id="@+id/routeoptions_button" android:layout_width="fill_parent" android:layout_weight="0.0" style="@style/DirectionsPanelOptionButton"
                     >
                 <ImageView android:layout_width="@dimen/directions_left_icon_area_width" android:src="@drawable/ic_directions_transit" style="@style/CenteredImage" />
-                <TextView android:textAppearance="@style/SmallTertiaryText" android:id="@+id/routeoptions_textbox" android:clickable="false" android:layout_width="fill_parent" style="@style/IconTextButton"
+                <TextView android:textAppearance="@style/SmallTertiaryText" android:id="@+id/routeoptions_textbox" android:clickable="false" android:layout_width="fill_parent" style="@style/IconTextButtonDisabled"
                           tools:text="Buscar"/>
             </LinearLayout>
         </LinearLayout>

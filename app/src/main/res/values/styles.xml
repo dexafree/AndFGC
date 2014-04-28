@@ -90,6 +90,19 @@
         <item name="android:layout_weight">1.0</item>
         <item name="android:textAlignment">viewStart</item>
     </style>
+
+    <style name="DirectionsWaypointTextBoxDisabled" parent="@style/DirectionsWaypointTextBox">
+        <item name="android:textColor">@color/tertiary_grey</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="DirectionsWaypointTextBoxEnabled" parent="@style/DirectionsWaypointTextBox">
+        <item name="android:textColor">@color/secondary_grey</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+
+
     <style name="LeftAlignedImage" parent="@style/Image">
         <item name="android:layout_gravity">left|center</item>
     </style>
@@ -102,6 +115,13 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">@dimen/full_width_button_height</item>
         <item name="android:drawablePadding">@dimen/text_spacer</item>
+    </style>
+
+    <style name="IconTextButtonDisabled" parent="IconTextButton">
+        <item name="android:textColor">@color/tertiary_grey</item>
+    </style>
+    <style name="IconTextButtonEnabled" parent="IconTextButton">
+        <item name="android:textColor">@color/secondary_grey</item>
     </style>
 
     <style name="TextButton" parent="@style/Button">

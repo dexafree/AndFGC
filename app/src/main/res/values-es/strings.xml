@@ -4,4 +4,6 @@
     <string name="selecciona_linia">Selecciona línea</string>
     <string name="ver_paradas">Ver paradas</string>
     <string name="selecciona_parada">Selecciona parada</string>
+    <string name="searching_title">Espere por favor</string>
+    <string name="searching_message">Realizando la búsqueda...</string>
 </resources>
