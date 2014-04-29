@@ -1,12 +1,8 @@
 package com.dexafree.andfgc.app.fragments;
 
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +11,7 @@ import android.widget.TextView;
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.beans.Opcio;
-import com.dexafree.andfgc.app.connections.BuscaHoraris;
+import com.dexafree.andfgc.app.beans.Parada;
 
 /**
  * Created by Carlos on 28/04/2014.
@@ -29,20 +25,24 @@ public class SearchResultFragment extends Fragment {
     private TextView departureHour;
     private TextView arrivalHour;
 
-
     private Cerca c;
 
-    private BroadcastReceiver searchFinishedReceiver;
-
     private ProgressDialog dialog;
+
+    public static final SearchResultFragment newInstance(Cerca c){
+        SearchResultFragment f = new SearchResultFragment();
+        f.setCerca(c);
+        return f;
+    }
+
+    private void setCerca(Cerca c){
+        this.c = c;
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        dialog = new ProgressDialog(mContext);
-        dialog.setMessage(getString(R.string.searching_message));
-        dialog.setTitle(getString(R.string.searching_title));
-        dialog.show();
+
     }
 
     @Override
@@ -50,7 +50,6 @@ public class SearchResultFragment extends Fragment {
         View v = inflater.inflate(R.layout.search_result_panel, null);
         mContext = getActivity();
         setup(v);
-        mContext.registerReceiver(searchFinishedReceiver, new IntentFilter(BuscaHoraris.SEARCH_COMPLETED));
         return v;
     }
 
@@ -61,30 +60,11 @@ public class SearchResultFragment extends Fragment {
         departureHour = (TextView)v.findViewById(R.id.departure_hour);
         arrivalHour = (TextView)v.findViewById(R.id.arrival_hour);
 
+        Opcio op = c.getFromOptions(0);
+        Parada departureStationStop = op.getPrimeraParada(mContext);
+        Parada arrivalStationStop = op.getUltimaParada(mContext);
+        departureStation.setText(departureStationStop.getNom());
+        arrivalStation.setText(arrivalStationStop.getNom());
 
-
-
-        searchFinishedReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-
-                c = intent.getExtras().getParcelable("CERCA");
-                Opcio op = c.getFromOptions(0);
-                departureStation.setText(op.getSortida());
-                arrivalStation.setText(op.getArribada());
-                fillLayout();
-                dialog.dismiss();
-            }
-        };
-    }
-
-    private void fillLayout(){
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mContext.unregisterReceiver(searchFinishedReceiver);
     }
 }

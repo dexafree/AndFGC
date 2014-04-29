@@ -1,6 +1,6 @@
 package com.dexafree.andfgc.app;
 
-import android.content.SharedPreferences;
+import android.content.*;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -11,10 +11,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import android.view.View;
+import com.dexafree.andfgc.app.beans.Cerca;
+import com.dexafree.andfgc.app.connections.BuscaHoraris;
 import com.dexafree.andfgc.app.databases.DataBaseHelper;
 import com.dexafree.andfgc.app.fragments.MainFragment;
 import com.dexafree.andfgc.app.fragments.PruebaPanelFragment;
 import com.dexafree.andfgc.app.fragments.SearchFragment;
+import com.dexafree.andfgc.app.fragments.SearchResultFragment;
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
 
 public class MainActivity extends ActionBarActivity {
@@ -22,10 +25,22 @@ public class MainActivity extends ActionBarActivity {
     private ActionBarDrawerToggle drawerToggle;
     private GoogleNavigationDrawer mDrawer;
 
+    private BroadcastReceiver searchFinishedReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        searchFinishedReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Cerca c = intent.getExtras().getParcelable("CERCA");
+
+            }
+        };
+
+        registerReceiver(searchFinishedReceiver, new IntentFilter(BuscaHoraris.SEARCH_COMPLETED));
 
         firstTime();
 
@@ -63,6 +78,12 @@ public class MainActivity extends ActionBarActivity {
         fm.beginTransaction()
                 .replace(R.id.content_layout, f)
                 .commit();*/
+
+
+    }
+
+    public void showSearchResults(Cerca cerca){
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_layout, SearchResultFragment.newInstance(cerca)).commit();
     }
 
     @Override

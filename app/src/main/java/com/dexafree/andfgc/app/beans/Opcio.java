@@ -1,5 +1,6 @@
 package com.dexafree.andfgc.app.beans;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -7,8 +8,8 @@ import android.os.Parcelable;
 public class Opcio implements Parcelable {
 
     private String linia;
-    private String sortida;
-    private String arribada;
+    private String horaSortida;
+    private String horaArribada;
     private String[] estacions;
 
     public Opcio(){
@@ -17,32 +18,32 @@ public class Opcio implements Parcelable {
 
     public Opcio(Parcel parcel){
         this.linia = parcel.readString();
-        this.sortida = parcel.readString();
-        this.arribada = parcel.readString();
+        this.horaSortida = parcel.readString();
+        this.horaArribada = parcel.readString();
         estacions = parcel.createStringArray();
     }
 
     public Opcio(String linia, String sortida, String arribada, String[] estacions){
         this.linia = linia;
-        this.sortida = sortida;
-        this.arribada = arribada;
+        this.horaSortida = sortida;
+        this.horaArribada = arribada;
         this.estacions = estacions;
     }
 
-    public String getSortida() {
-        return sortida;
+    public String getHoraSortida() {
+        return horaSortida;
     }
 
-    public void setSortida(String sortida) {
-        this.sortida = sortida;
+    public void setHoraSortida(String horaSortida) {
+        this.horaSortida = horaSortida;
     }
 
-    public String getArribada() {
-        return arribada;
+    public String getHoraArribada() {
+        return horaArribada;
     }
 
-    public void setArribada(String arribada) {
-        this.arribada = arribada;
+    public void setHoraArribada(String horaArribada) {
+        this.horaArribada = horaArribada;
     }
 
     public String[] getEstacions() {
@@ -61,6 +62,18 @@ public class Opcio implements Parcelable {
         this.linia = linia;
     }
 
+    public Parada getPrimeraParada(Context context){
+        Parada p;
+        p = Parada.getParadaFromAbreviatura(context, estacions[0]);
+        return p;
+    }
+
+    public Parada getUltimaParada(Context context){
+        Parada p;
+        p = Parada.getParadaFromAbreviatura(context, estacions[estacions.length-1]);
+        return p;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -69,8 +82,8 @@ public class Opcio implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(linia);
-        parcel.writeString(sortida);
-        parcel.writeString(arribada);
+        parcel.writeString(horaSortida);
+        parcel.writeString(horaArribada);
         parcel.writeStringArray(estacions);
     }
 

@@ -2,6 +2,7 @@ package com.dexafree.andfgc.app.fragments;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.*;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -10,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.dexafree.andfgc.app.MainActivity;
 import com.dexafree.andfgc.app.R;
+import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.beans.Parada;
 import com.dexafree.andfgc.app.connections.BuscaHoraris;
 import com.dexafree.andfgc.app.utils.Logger;
@@ -34,14 +37,17 @@ public class SearchFragment extends Fragment {
     public static final String LINE_SELECTED_STRING = "COM.DEXAFREE.ANDFGC.LINE_SELECTED";
     public static final String NOMBRE_PARADA = "NOMBRE_PARADA";
     public static final String NUMERO_LINEA = "NUMERO_LINEA";
+    public static final String NOMBRE_LINEA = "NOMBRE_LINEA";
 
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
 
     private BroadcastReceiver departureStationSelected;
     private BroadcastReceiver arrivalStationSelected;
     private BroadcastReceiver lineSelectedReceiver;
+    private BroadcastReceiver searchFinished;
 
     private AlertDialog dialog;
+    private ProgressDialog pDialog;
 
     private TextView departureStation;
     private TextView arrivalStation;
@@ -49,7 +55,9 @@ public class SearchFragment extends Fragment {
     private TextView buscarText;
     private TextView lineSelect;
     private CheckBox checkBox;
+
     private Context mContext;
+    private MainActivity mainActivity;
 
     private boolean isHourSelected = false;
     private boolean isDepartureStationSelected = false;
@@ -84,6 +92,7 @@ public class SearchFragment extends Fragment {
         mContext.registerReceiver(departureStationSelected, new IntentFilter(DEPARTURE_SELECTED_STRING));
         mContext.registerReceiver(arrivalStationSelected, new IntentFilter(ARRIVAL_SELECTED_STRING));
         mContext.registerReceiver(lineSelectedReceiver, new IntentFilter(LINE_SELECTED_STRING));
+        mContext.registerReceiver(searchFinished, new IntentFilter(BuscaHoraris.SEARCH_COMPLETED));
 
         lineSelect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +127,7 @@ public class SearchFragment extends Fragment {
 
     private void setup(View v){
         mContext = getActivity();
+        mainActivity = (MainActivity) getActivity();
         departureStation = (TextView)v.findViewById(R.id.directions_startpoint_textbox);
         arrivalStation = (TextView)v.findViewById(R.id.directions_endpoint_textbox);
         departureHour = (TextView)v.findViewById(R.id.departure_hour);
@@ -125,12 +135,15 @@ public class SearchFragment extends Fragment {
         buscarText = (TextView)v.findViewById(R.id.routeoptions_textbox);
         checkBox = (CheckBox)v.findViewById(R.id.salida_llegada_checkbox);
 
+
         lineSelectedReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 linia = intent.getExtras().getInt(NUMERO_LINEA);
+                String nombreLinea = intent.getExtras().getString(NOMBRE_LINEA);
                 enableText(departureStation);
                 enableText(arrivalStation);
+                lineSelect.setText(nombreLinea);
             }
         };
 
@@ -152,11 +165,24 @@ public class SearchFragment extends Fragment {
             }
         };
 
+        searchFinished = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                pDialog.dismiss();
+                Cerca c = intent.getExtras().getParcelable("CERCA");
+                mainActivity.showSearchResults(c);
+
+            }
+        };
+
         buscarText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pDialog = new ProgressDialog(mContext);
+                pDialog.setMessage(getString(R.string.searching_message));
+                pDialog.setTitle(getString(R.string.searching_title));
+                pDialog.show();
                 buscaHoraris.cercar();
-                getChildFragmentManager().beginTransaction().replace(R.id.directions_input_panel, new SearchResultFragment()).commit();
             }
         });
 
@@ -192,12 +218,18 @@ public class SearchFragment extends Fragment {
     private void showLineDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(R.string.selecciona_linia);
-        final String[] linies = new String[]{"1", "2", "3"};
+        final String[] linies = new String[]{
+                "Barcelona - Vallès",
+                "Llobregat - Anoia",
+                "Lleida - La Pobla de Segur"};
         builder.setItems(linies, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String linia = linies[i];
-                mContext.sendBroadcast(new Intent().setAction(LINE_SELECTED_STRING).putExtra(NUMERO_LINEA, Integer.parseInt(linia)));
+                Intent intent = new Intent();
+                intent.setAction(LINE_SELECTED_STRING);
+                intent.putExtra(NUMERO_LINEA, i+1);
+                intent.putExtra(NOMBRE_LINEA, linies[i]);
+                mContext.sendBroadcast(intent);
                 dialog.dismiss();
             }
         });
