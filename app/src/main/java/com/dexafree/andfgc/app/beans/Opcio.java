@@ -15,6 +15,13 @@ public class Opcio implements Parcelable {
 
     }
 
+    public Opcio(Parcel parcel){
+        this.linia = parcel.readString();
+        this.sortida = parcel.readString();
+        this.arribada = parcel.readString();
+        estacions = parcel.createStringArray();
+    }
+
     public Opcio(String linia, String sortida, String arribada, String[] estacions){
         this.linia = linia;
         this.sortida = sortida;
@@ -66,4 +73,14 @@ public class Opcio implements Parcelable {
         parcel.writeString(arribada);
         parcel.writeStringArray(estacions);
     }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Opcio createFromParcel(Parcel in) {
+            return new Opcio(in);
+        }
+
+        public Opcio[] newArray(int size) {
+            return new Opcio[size];
+        }
+    };
 }

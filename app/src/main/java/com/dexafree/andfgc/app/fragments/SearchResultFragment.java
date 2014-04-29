@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.beans.Opcio;
+import com.dexafree.andfgc.app.connections.BuscaHoraris;
 
 /**
  * Created by Carlos on 28/04/2014.
@@ -36,6 +39,7 @@ public class SearchResultFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        dialog = new ProgressDialog(mContext);
         dialog.setMessage(getString(R.string.searching_message));
         dialog.setTitle(getString(R.string.searching_title));
         dialog.show();
@@ -44,7 +48,9 @@ public class SearchResultFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.search_result_panel, null);
+        mContext = getActivity();
         setup(v);
+        mContext.registerReceiver(searchFinishedReceiver, new IntentFilter(BuscaHoraris.SEARCH_COMPLETED));
         return v;
     }
 
@@ -55,16 +61,17 @@ public class SearchResultFragment extends Fragment {
         departureHour = (TextView)v.findViewById(R.id.departure_hour);
         arrivalHour = (TextView)v.findViewById(R.id.arrival_hour);
 
-        Opcio op = c.getFromOptions(0);
-        departureStation.setText(op.getSortida());
-        arrivalStation.setText(op.getArribada());
-        departureHour.setText(op.);
+
 
 
         searchFinishedReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+
                 c = intent.getExtras().getParcelable("CERCA");
+                Opcio op = c.getFromOptions(0);
+                departureStation.setText(op.getSortida());
+                arrivalStation.setText(op.getArribada());
                 fillLayout();
                 dialog.dismiss();
             }

@@ -8,12 +8,17 @@ import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.beans.Opcio;
 import com.dexafree.andfgc.app.utils.Checkers;
+import com.dexafree.andfgc.app.utils.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.util.ArrayList;
+
 public class BuscaHoraris {
+
+    public final static String SEARCH_COMPLETED = "COM.DEXAFREE.ANDFGC.CERCA_FINALITZADA";
 
     private int linea;
     private String lineaAsString;
@@ -135,11 +140,14 @@ public class BuscaHoraris {
 
     public void cercar(){
 
-        final Cerca c = new Cerca();
+        Cerca c = new Cerca();
+        Logger.d("DIA", dia);
 
         if(Checkers.hasInternet(mContext)){
-            Ion.with(mContext, "http://www.fgc.cat/cercador/cerca.asp")
-                    .setBodyParameter("lineasel", lineaAsString)
+            Ion.with(mContext)
+                    .load("POST", "http://www.fgc.cat/cercador/cerca.asp")
+                    .setHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .setBodyParameter("liniasel", lineaAsString)
                     .setBodyParameter("estacio_origen", origen)
                     .setBodyParameter("estacio_desti", desti)
                     .setBodyParameter("tipus", tipus)
@@ -150,27 +158,36 @@ public class BuscaHoraris {
                     .setCallback(new FutureCallback<JsonArray>() {
                         @Override
                         public void onCompleted(Exception e, JsonArray result) {
+                            Cerca c;
+                            ArrayList<Opcio> opcions = new ArrayList<Opcio>();
                             JsonArray main = result.get(0).getAsJsonArray().get(0).getAsJsonArray();
                             for(int i=0;i<main.size();i++){
-                                JsonObject mainObject = main.get(i).getAsJsonObject();
+                                JsonObject mainObject = main.get(i).getAsJsonArray().get(0).getAsJsonObject();
                                 String linia = mainObject.get("linia").getAsString();
                                 String sortida = mainObject.get("sortida").getAsString();
                                 String arribada = mainObject.get("arribada").getAsString();
                                 JsonArray parades = mainObject.get("estacions").getAsJsonArray();
                                 String[] estacions = new String[parades.size()];
                                 for(int j=0;j<parades.size();j++){
-                                    estacions[j] = parades.get(i).getAsString();
+                                    estacions[j] = parades.get(j).getAsString();
                                 }
                                 Opcio o = new Opcio(linia, sortida, arribada, estacions);
-                                c.addToOptions(o);
+                                opcions.add(o);
+
                             }
+
+                            c = new Cerca();
+
+                            c.setOpcions(opcions);
 
                             Intent i = new Intent();
                             i.putExtra("CERCA", c);
-                            i.setAction("COM.DEXAFREE.ANDFGC.CERCA_FINALITZADA");
+                            //i.putExtra("OPCIO", opcions.get(0));
+                            i.setAction(SEARCH_COMPLETED);
                             mContext.sendBroadcast(i);
                         }
                     });
+
 
         } else {
             Toast.makeText(mContext, R.string.no_internet, Toast.LENGTH_SHORT).show();

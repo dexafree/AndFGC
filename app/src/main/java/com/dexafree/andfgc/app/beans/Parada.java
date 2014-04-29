@@ -12,10 +12,12 @@ import java.util.Collection;
 /**
  * Created by Carlos on 27/04/2014.
  */
-public class Parada {
+public class Parada  {
 
     private String nom;
     private String abreviatura;
+
+    public static int cosaEstatica = 0;
 
     public Parada(){
 

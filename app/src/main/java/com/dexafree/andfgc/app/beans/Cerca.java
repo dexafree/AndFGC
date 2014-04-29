@@ -3,6 +3,7 @@ package com.dexafree.andfgc.app.beans;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,24 +19,18 @@ public class Cerca implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeList(opcions);
-
     }
 
     public Cerca(){
 
     }
 
-    public Cerca(List<Opcio> opcions) {
-        this.opcions = opcions;
+    public Cerca(Parcel parcel){
+        opcions = new ArrayList<Opcio>();
+        parcel.readList(opcions, getClass().getClassLoader());
     }
 
-
-
-    public List<Opcio> getOpcions(){
-        return opcions;
-    }
-
-    public void setOpcions(List<Opcio> opcions){
+    public void setOpcions(ArrayList<Opcio> opcions){
         this.opcions = opcions;
     }
 
@@ -46,4 +41,15 @@ public class Cerca implements Parcelable {
     public Opcio getFromOptions(int pos){
         return opcions.get(pos);
     }
+
+    public static final Parcelable.Creator<Cerca> CREATOR = new Parcelable.Creator<Cerca>() {
+        public Cerca createFromParcel(Parcel in) {
+            return new Cerca(in);
+        }
+
+        public Cerca[] newArray(int size) {
+            return new Cerca[size];
+        }
+    };
+
 }

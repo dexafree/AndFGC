@@ -57,6 +57,18 @@ public class MainFragment extends Fragment {
         ArrayAdapter<String> adaptadorLinias =
                 new ArrayAdapter<String>(mContext, R.layout.spinner_item, linies);
 
+        Parada p1 = new Parada("PARADA", "AB");
+
+        p1.cosaEstatica = 1;
+
+        Parada p2 = new Parada("caca", "culo");
+
+        p2.cosaEstatica = 2;
+
+
+
+
+
 
         spinnerLinia.setAdapter(adaptadorLinias);
 

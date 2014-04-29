@@ -175,7 +175,7 @@ public class SearchFragment extends Fragment {
     }
 
     private void enableText(TextView tv){
-        tv.setTextColor(Resources.getSystem().getColor(R.color.secondary_grey));
+        tv.setTextColor(mContext.getResources().getColor(R.color.secondary_grey));
         tv.setClickable(true);
     }
 
@@ -191,7 +191,7 @@ public class SearchFragment extends Fragment {
 
     private void showLineDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle(R.string.selecciona_parada);
+        builder.setTitle(R.string.selecciona_linia);
         final String[] linies = new String[]{"1", "2", "3"};
         builder.setItems(linies, new DialogInterface.OnClickListener() {
             @Override
@@ -228,10 +228,14 @@ public class SearchFragment extends Fragment {
     private class MyDateSetHandler implements CalendarDatePickerDialog.OnDateSetListener {
         @Override
         public void onDateSet(CalendarDatePickerDialog dialog, int year, int month, int day){
-            Logger.d("year", year+"");
-            Logger.d("month", month+"");
-            Logger.d("day", day+"");
-            fecha = day+"/"+month+"/"+year;
+            String monthString;
+            String dayString;
+            if((month + 1) < 10) monthString = "0" + (month + 1);
+            else monthString = (month + 1)+"";
+
+            if(day < 10) dayString = "0"+day;
+            else dayString = day+"";
+            fecha = dayString+"/"+monthString+"/"+year;
             showTimeDialog();
         }
     }
@@ -263,6 +267,8 @@ public class SearchFragment extends Fragment {
         super.onDestroy();
         mContext.unregisterReceiver(departureStationSelected);
         mContext.unregisterReceiver(arrivalStationSelected);
+        mContext.unregisterReceiver(lineSelectedReceiver);
+
     }
 
     @Override

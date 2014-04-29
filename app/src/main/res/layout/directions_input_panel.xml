@@ -20,7 +20,8 @@
                            android:src="@drawable/ic_directions_transit" android:layout_height="wrap_content"/>
                 <TextView style="@style/IconTextButton" tools:text="Selecciona linea"
                           android:textAppearance="@style/SmallTertiaryText" android:id="@+id/selecciona_linea"
-                          android:clickable="false" android:layout_width="fill_parent"/>
+                          android:clickable="false" android:layout_width="fill_parent"
+                            android:text="@string/selecciona_linia"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout android:orientation="horizontal" android:layout_height="@dimen/directions_waypoint_input_height" style="@style/DirectionsWaypointsContent"
