@@ -25,22 +25,11 @@ public class MainActivity extends ActionBarActivity {
     private ActionBarDrawerToggle drawerToggle;
     private GoogleNavigationDrawer mDrawer;
 
-    private BroadcastReceiver searchFinishedReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        searchFinishedReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Cerca c = intent.getExtras().getParcelable("CERCA");
-
-            }
-        };
-
-        registerReceiver(searchFinishedReceiver, new IntentFilter(BuscaHoraris.SEARCH_COMPLETED));
 
         firstTime();
 
@@ -82,8 +71,8 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    public void showSearchResults(Cerca cerca){
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_layout, SearchResultFragment.newInstance(cerca)).commit();
+    public void showSearchResults(Cerca cerca, String dataBuscada){
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_layout, SearchResultFragment.newInstance(cerca, dataBuscada)).commit();
     }
 
     @Override

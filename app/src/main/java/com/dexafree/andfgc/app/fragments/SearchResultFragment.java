@@ -32,19 +32,34 @@ public class SearchResultFragment extends Fragment {
     private TextView departureHour;
     private TextView arrivalHour;
 
+    private String dataBuscada;
+
     private ExpandableListView elv;
 
 
     private Cerca c;
 
-    public static final SearchResultFragment newInstance(Cerca c){
+    public static final SearchResultFragment newInstance(Cerca c, String data){
         SearchResultFragment f = new SearchResultFragment();
         f.setCerca(c);
+        f.setDataBuscada(data);
         return f;
     }
 
     private void setCerca(Cerca c){
         this.c = c;
+    }
+
+    private void setDataBuscada(String data){
+        this.dataBuscada = data;
+    }
+
+    private String preparaHora(String data){
+        String[] array = data.split(" ");
+
+        String hora = dataBuscada+" "+array[1];
+
+        return hora;
     }
 
     @Override
@@ -73,8 +88,8 @@ public class SearchResultFragment extends Fragment {
         Parada arrivalStationStop = op.getUltimaParada(mContext);
         departureStation.setText(departureStationStop.getNom());
         arrivalStation.setText(arrivalStationStop.getNom());
-        departureHour.setText(op.getHoraSortida());
-        arrivalHour.setText(op.getHoraArribada());
+        departureHour.setText(preparaHora(op.getHoraSortida()));
+        arrivalHour.setText(preparaHora(op.getHoraArribada()));
 
 
         ArrayList<Parada> parades = new ArrayList<Parada>();

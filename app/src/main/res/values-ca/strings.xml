@@ -12,4 +12,6 @@
     <string name="select_hour">Sel·lecciona hora</string>
     <string name="departure">Sortida</string>
     <string name="arrival">Arribada</string>
+    <string name="select_all">Assegura\'t de sel·leccionar tots els camps</string>
+    <string name="select_line_first">Sel·lecciona abans la linia</string>
 </resources>

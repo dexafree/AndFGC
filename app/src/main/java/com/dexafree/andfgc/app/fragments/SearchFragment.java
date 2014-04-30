@@ -76,7 +76,7 @@ public class SearchFragment extends Fragment {
     private String origen;
     private String desti;
 
-    private int linia;
+    private int linia = -1;
     private int horaInt;
     private int minutosInt;
 
@@ -105,14 +105,16 @@ public class SearchFragment extends Fragment {
         departureStation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showStationDialog(DEPARTURE_SELECTED_STRING);
+                if(linia == -1) Toast.makeText(mContext, R.string.select_line_first, Toast.LENGTH_SHORT).show();
+                else showStationDialog(DEPARTURE_SELECTED_STRING);
             }
         });
 
         arrivalStation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showStationDialog(ARRIVAL_SELECTED_STRING);
+                if(linia == -1) Toast.makeText(mContext, R.string.select_line_first, Toast.LENGTH_SHORT).show();
+                else showStationDialog(ARRIVAL_SELECTED_STRING);
             }
         });
 
@@ -126,11 +128,15 @@ public class SearchFragment extends Fragment {
         buscarText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pDialog = new ProgressDialog(mContext);
-                pDialog.setMessage(getString(R.string.searching_message));
-                pDialog.setTitle(getString(R.string.searching_title));
-                pDialog.show();
-                buscaHoraris.cercar();
+                if(isArrivalStationSelected && isDepartureStationSelected && isHourSelected) {
+                    pDialog = new ProgressDialog(mContext);
+                    pDialog.setMessage(getString(R.string.searching_message));
+                    pDialog.setTitle(getString(R.string.searching_title));
+                    pDialog.show();
+                    buscaHoraris.cercar();
+                } else {
+                    Toast.makeText(mContext, R.string.select_all, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -184,7 +190,8 @@ public class SearchFragment extends Fragment {
             public void onReceive(Context context, Intent intent) {
                 pDialog.dismiss();
                 Cerca c = intent.getExtras().getParcelable("CERCA");
-                mainActivity.showSearchResults(c);
+                Logger.d("FECHA", fecha);
+                mainActivity.showSearchResults(c, fecha);
 
             }
         };
@@ -193,7 +200,7 @@ public class SearchFragment extends Fragment {
 
         dsh = new MyDateSetHandler();
 
-        dpb = new CalendarDatePickerDialog()
+        dpb = CalendarDatePickerDialog
                 .newInstance(dsh, now.getYear(), now.getMonthOfYear() -1, now.getDayOfMonth());
 
         tpb = new TimePickerBuilder()
@@ -208,6 +215,7 @@ public class SearchFragment extends Fragment {
     }
 
     private void enableSearchButton(){
+
         if(isArrivalStationSelected && isDepartureStationSelected && isHourSelected){
             enableText(buscarText);
             String sortidaArribada;

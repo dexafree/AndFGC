@@ -163,7 +163,7 @@ public class ParadaController {
     public static Parada getParadaFromAbreviatura(Context c, String abreviatura){
         SQLiteDatabase db = getDb(c);
         String sqlSeq = "SELECT * FROM parades WHERE ABREVIACIO = '"+abreviatura+"'";
-        Logger.d("SQLSEQ", sqlSeq);
+
 
         Cursor cursor = db.rawQuery(sqlSeq, null);
 
@@ -172,15 +172,13 @@ public class ParadaController {
         if(cursor.moveToFirst()){
             do {
                 nom = cursor.getString(cursor.getColumnIndex("COMPLET"));
-                Logger.d("NOM", nom);
+
             } while(cursor.moveToNext());
         }
 
         db.close();
 
         Parada p = new Parada(nom, abreviatura);
-
-        Logger.d("PARADANOM", p.getNom());
 
         return p;
 
