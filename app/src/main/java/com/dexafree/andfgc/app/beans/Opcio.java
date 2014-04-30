@@ -3,6 +3,7 @@ package com.dexafree.andfgc.app.beans;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.dexafree.andfgc.app.controllers.ParadaController;
 
 
 public class Opcio implements Parcelable {
@@ -64,13 +65,13 @@ public class Opcio implements Parcelable {
 
     public Parada getPrimeraParada(Context context){
         Parada p;
-        p = Parada.getParadaFromAbreviatura(context, estacions[0]);
+        p = ParadaController.getParadaFromAbreviatura(context, estacions[0]);
         return p;
     }
 
     public Parada getUltimaParada(Context context){
         Parada p;
-        p = Parada.getParadaFromAbreviatura(context, estacions[estacions.length-1]);
+        p = ParadaController.getParadaFromAbreviatura(context, estacions[estacions.length-1]);
         return p;
     }
 

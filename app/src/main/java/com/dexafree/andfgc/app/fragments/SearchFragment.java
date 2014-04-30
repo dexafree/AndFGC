@@ -16,6 +16,7 @@ import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.beans.Parada;
 import com.dexafree.andfgc.app.connections.BuscaHoraris;
+import com.dexafree.andfgc.app.controllers.ParadaController;
 import com.dexafree.andfgc.app.utils.Logger;
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
@@ -122,6 +123,19 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        buscarText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pDialog = new ProgressDialog(mContext);
+                pDialog.setMessage(getString(R.string.searching_message));
+                pDialog.setTitle(getString(R.string.searching_title));
+                pDialog.show();
+                buscaHoraris.cercar();
+            }
+        });
+
+        buscarText.setText(getString(R.string.search));
+
         return v;
     }
 
@@ -174,18 +188,6 @@ public class SearchFragment extends Fragment {
 
             }
         };
-
-        buscarText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pDialog = new ProgressDialog(mContext);
-                pDialog.setMessage(getString(R.string.searching_message));
-                pDialog.setTitle(getString(R.string.searching_title));
-                pDialog.show();
-                buscaHoraris.cercar();
-            }
-        });
-
 
         DateTime now = DateTime.now();
 
@@ -240,8 +242,8 @@ public class SearchFragment extends Fragment {
     private void showStationDialog(final String broadcast){
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(R.string.selecciona_parada);
-        final String[] parades = Parada.getParadesFromLiniaAsStringArray(mContext, linia);
-        final ArrayList<Parada> paradesArrayList = Parada.getParadesFromLiniaAsArrayList(mContext, linia);
+        final String[] parades = ParadaController.getParadesFromLiniaAsStringArray(mContext, linia);
+        final ArrayList<Parada> paradesArrayList = ParadaController.getParadesFromLiniaAsArrayList(mContext, linia);
         builder.setItems(parades, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

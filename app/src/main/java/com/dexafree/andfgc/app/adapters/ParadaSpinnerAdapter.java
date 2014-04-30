@@ -91,9 +91,6 @@ public class ParadaSpinnerAdapter extends BaseAdapter {
 
             holder.nomParada = (TextView) convertView.findViewById(R.id.nom_parada);
 
-
-
-
             convertView.setTag(holder);
 
         } else{

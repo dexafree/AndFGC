@@ -10,7 +10,7 @@
             android:id="@+id/icono_tren"
             android:layout_width="@dimen/directions_left_icon_area_width"
             android:src="@drawable/ic_directions_transit"
-            style="@style/CenteredImage" />
+            style="@style/CenteredImage" android:layout_marginLeft="8dp"/>
     <TextView android:textAppearance="@style/SmallTertiaryText"
               android:id="@+id/ver_paradas_text"
               android:layout_width="fill_parent"

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.beans.Parada;
+import org.w3c.dom.Text;
 
 public class VerParadasExpandidasAdapter extends BaseExpandableListAdapter {
 
@@ -18,6 +19,7 @@ public class VerParadasExpandidasAdapter extends BaseExpandableListAdapter {
     private LayoutInflater inflater;
     private Parada child;
     private Context mContext;
+    private static int convertViewCounter = 0;
 
     static class ViewHolder {
         LinearLayout layout;
@@ -36,25 +38,32 @@ public class VerParadasExpandidasAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
-        child = parades.get(groupPosition);
+        ViewHolder holder;
 
-        TextView textView = null;
+        child = parades.get(childPosition);
 
         if (convertView == null) {
+            holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.search_result_paradas_list_item, null);
+            convertViewCounter++;
+
+            holder.nombreParada = (TextView) convertView.findViewById(R.id.nombre_parada_expanded);
+
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
-        textView = (TextView) convertView.findViewById(R.id.nombre_parada_expanded);
-        textView.setText(child.getNom());
+        holder.nombreParada.setText(child.getNom());
 
-        convertView.setOnClickListener(new OnClickListener() {
+        /*convertView.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext, child.getNom(),
                         Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
         return convertView;
     }
@@ -62,17 +71,26 @@ public class VerParadasExpandidasAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
+        ViewHolder holder;
+
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.boton_ver_paradas, null);
+            holder = new ViewHolder();
+            holder.layout = (LinearLayout)convertView.findViewById(R.id.routeoptions_button);
+            holder.nombreParada = (TextView)convertView.findViewById(R.id.ver_paradas_text);
+            holder.icono = (ImageView)convertView.findViewById(R.id.icono_tren);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
-        ViewHolder holder = new ViewHolder();
-        holder.layout = (LinearLayout)convertView.findViewById(R.id.routeoptions_button);
-        holder.layout.setClickable(false);
-        holder.nombreParada = (TextView)convertView.findViewById(R.id.ver_paradas_text);
-        holder.icono = (ImageView)convertView.findViewById(R.id.icono_tren);
-        holder.nombreParada.setText(mContext.getString(R.string.ver_paradas));
+
         holder.nombreParada.setClickable(false);
         holder.icono.setClickable(false);
+        holder.layout.setClickable(false);
+        holder.nombreParada.setText(mContext.getString(R.string.ver_paradas));
+
+
+
 
 
         return convertView;

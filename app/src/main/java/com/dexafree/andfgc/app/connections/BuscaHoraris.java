@@ -182,7 +182,6 @@ public class BuscaHoraris {
 
                             Intent i = new Intent();
                             i.putExtra("CERCA", c);
-                            //i.putExtra("OPCIO", opcions.get(0));
                             i.setAction(SEARCH_COMPLETED);
                             mContext.sendBroadcast(i);
                         }

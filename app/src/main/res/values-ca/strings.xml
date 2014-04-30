@@ -6,4 +6,10 @@
     <string name="selecciona_parada">Sel·lecciona parada</string>
     <string name="searching_title">Esperi si us plau</string>
     <string name="searching_message">Realitzant la cerca...</string>
+    <string name="search">Buscar</string>
+    <string name="start_station">Estació origen</string>
+    <string name="end_station">Estació destí</string>
+    <string name="select_hour">Sel·lecciona hora</string>
+    <string name="departure">Sortida</string>
+    <string name="arrival">Arribada</string>
 </resources>

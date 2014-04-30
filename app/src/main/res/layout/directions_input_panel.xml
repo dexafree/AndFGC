@@ -34,10 +34,10 @@
                 </LinearLayout>
             </FrameLayout>
             <LinearLayout android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" style="@style/DividerListContent">
-                <TextView android:id="@+id/directions_startpoint_textbox" android:hint="@string/DIRECTIONS_CHOOSE_START_POINT" style="@style/DirectionsWaypointTextBoxDisabled" tools:text="Estación de origen" />
-                <TextView android:id="@+id/directions_endpoint_textbox" android:hint="@string/DIRECTIONS_CHOOSE_END_POINT" style="@style/DirectionsWaypointTextBoxDisabled" tools:text="Estación de destino" />
+                <TextView android:id="@+id/directions_startpoint_textbox" android:hint="@string/start_station" style="@style/DirectionsWaypointTextBoxDisabled" tools:text="Estación de origen" />
+                <TextView android:id="@+id/directions_endpoint_textbox" android:hint="@string/end_station" style="@style/DirectionsWaypointTextBoxDisabled" tools:text="Estación de destino" />
             </LinearLayout>
-            <FrameLayout android:id="@+id/directions_swapwaypoints_button" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight="0.0" android:contentDescription="@string/ACCESSIBILITY_SWAP_DESTINATION" style="@style/Container">
+            <FrameLayout android:id="@+id/directions_swapwaypoints_button" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight="0.0" style="@style/Container">
                 <ImageView android:id="@+id/directions_swapwaypoints_icon" android:layout_marginLeft="@dimen/primary_padding" android:layout_marginRight="@dimen/primary_padding" android:src="@drawable/ic_directions_form_swap" style="@style/LeftAlignedImage" />
             </FrameLayout>
         </LinearLayout>
@@ -54,11 +54,11 @@
             <LinearLayout style="@style/DividerListContent" android:layout_width="0.0dip"
                           android:layout_height="fill_parent" android:layout_weight="1.0">
                 <TextView style="@style/DirectionsWaypointTextBox" android:id="@+id/departure_hour"
-                          android:hint="@string/DIRECTIONS_CHOOSE_START_POINT" android:layout_width="wrap_content"
+                          android:hint="@string/select_hour" android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           tools:text="Hora de salida"/>
                 <CheckBox style="@style/DirectionsWaypointTextBox" android:id="@+id/salida_llegada_checkbox"
-                          android:hint="@string/DIRECTIONS_CHOOSE_END_POINT" android:layout_width="wrap_content"
+                          android:hint="@string/arrival" android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           tools:text="Hora de llegada"/>
             </LinearLayout>
@@ -68,7 +68,7 @@
                     >
                 <ImageView android:layout_width="@dimen/directions_left_icon_area_width" android:src="@drawable/ic_directions_transit" style="@style/CenteredImage" />
                 <TextView android:textAppearance="@style/SmallTertiaryText" android:id="@+id/routeoptions_textbox" android:clickable="false" android:layout_width="fill_parent" style="@style/IconTextButtonDisabled"
-                          tools:text="Buscar"/>
+                          tools:text="Buscar" android:text="@string/search"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

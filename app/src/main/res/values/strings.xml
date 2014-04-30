@@ -4,8 +4,4 @@
     <string name="app_name">AndFGC</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="DIRECTIONS_CHOOSE_START_POINT">Choose starting point...</string>
-    <string name="DIRECTIONS_CHOOSE_END_POINT">Choose destination...</string>
-    <string name="ACCESSIBILITY_SWAP_DESTINATION">Swap start and destination</string>
-
 </resources>

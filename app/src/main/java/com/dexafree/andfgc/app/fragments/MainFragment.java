@@ -18,6 +18,7 @@ import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.adapters.ParadaSpinnerAdapter;
 import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.beans.Parada;
+import com.dexafree.andfgc.app.controllers.ParadaController;
 
 import java.util.ArrayList;
 
@@ -57,18 +58,6 @@ public class MainFragment extends Fragment {
         ArrayAdapter<String> adaptadorLinias =
                 new ArrayAdapter<String>(mContext, R.layout.spinner_item, linies);
 
-        Parada p1 = new Parada("PARADA", "AB");
-
-        p1.cosaEstatica = 1;
-
-        Parada p2 = new Parada("caca", "culo");
-
-        p2.cosaEstatica = 2;
-
-
-
-
-
 
         spinnerLinia.setAdapter(adaptadorLinias);
 
@@ -81,7 +70,7 @@ public class MainFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i!=0) {
                     int linia = Integer.parseInt(linies[i]);
-                    ArrayList<Parada> parades = Parada.getParadesFromLiniaAsArrayList(mContext, linia);
+                    ArrayList<Parada> parades = ParadaController.getParadesFromLiniaAsArrayList(mContext, linia);
 
 
                     ParadaSpinnerAdapter adaptadorParadas = new ParadaSpinnerAdapter(mContext, parades);
