@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:id="@+id/directions_input_panel" style="@style/DirectionsInputPanelContent"
               xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools">
+              xmlns:tools="http://schemas.android.com/tools" android:divider="null">
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
@@ -48,11 +48,16 @@
                           tools:text="Hora de llegada"/>
             </LinearLayout>
         </LinearLayout>
-        <ExpandableListView
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:id="@+id/stations_layout">
+        <ListView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/lista_paradas">
-
-        </ExpandableListView>
+                android:id="@+id/lista_paradas" android:layout_marginLeft="6dp" android:layout_marginTop="8dp"
+                android:layout_marginRight="6dp" android:layout_marginBottom="8dp"
+                android:background="@drawable/cards_back" style="@style/DirectionsInputPanelContent"/>
     </LinearLayout>
 </LinearLayout>

@@ -15,7 +15,7 @@ import com.dexafree.andfgc.app.beans.Transbord;
 import com.dexafree.andfgc.app.utils.Logger;
 import org.w3c.dom.Text;
 
-public class VerParadasExpandidasAdapter extends BaseExpandableListAdapter {
+public class VerParadasExpandidasAdapter extends BaseAdapter {
 
     private ArrayList<Transbord> transbords;
     private ArrayList<Parada> parades = new ArrayList<Parada>();
@@ -43,10 +43,8 @@ public class VerParadasExpandidasAdapter extends BaseExpandableListAdapter {
         this.inflater  = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-
-
     @Override
-    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getView(int childPosition, View convertView, ViewGroup viewGroup) {
 
         ViewHolder holder;
 
@@ -90,85 +88,17 @@ public class VerParadasExpandidasAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-
-        ViewHolder holder;
-
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.boton_ver_paradas, null);
-            holder = new ViewHolder();
-            holder.layout = (LinearLayout)convertView.findViewById(R.id.routeoptions_button);
-            holder.nombreParada = (TextView)convertView.findViewById(R.id.ver_paradas_text);
-            holder.icono = (ImageView)convertView.findViewById(R.id.icono_tren);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        holder.nombreParada.setClickable(false);
-        holder.icono.setClickable(false);
-        holder.layout.setClickable(false);
-        holder.nombreParada.setText(mContext.getString(R.string.ver_paradas));
-
-
-
-
-
-        return convertView;
-    }
-
-    @Override
-    public Object getChild(int groupPosition, int childPosition) {
-        return null;
-    }
-
-    @Override
-    public long getChildId(int groupPosition, int childPosition) {
+    public long getItemId(int i) {
         return 0;
     }
 
     @Override
-    public int getChildrenCount(int groupPosition) {
-        int size = 0;
-        for(int i=0;i<transbords.size();i++){
-            size += transbords.get(i).getParades().size();
-        }
-        return size;
+    public Object getItem(int i) {
+        return parades.get(i);
     }
 
     @Override
-    public Object getGroup(int groupPosition) {
-        return null;
+    public int getCount() {
+        return parades.size();
     }
-
-    @Override
-    public int getGroupCount() {
-        return 1;
-    }
-
-    @Override
-    public void onGroupCollapsed(int groupPosition) {
-        super.onGroupCollapsed(groupPosition);
-    }
-
-    @Override
-    public void onGroupExpanded(int groupPosition) {
-        super.onGroupExpanded(groupPosition);
-    }
-
-    @Override
-    public long getGroupId(int groupPosition) {
-        return 0;
-    }
-
-    @Override
-    public boolean hasStableIds() {
-        return false;
-    }
-
-    @Override
-    public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
-    }
-
 }

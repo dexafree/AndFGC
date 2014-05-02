@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
 import android.widget.TextView;
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.adapters.VerParadasExpandidasAdapter;
@@ -35,7 +36,7 @@ public class SearchResultFragment extends Fragment {
 
     private String dataBuscada;
 
-    private ExpandableListView elv;
+    private ListView slv;
 
 
     private Cerca c;
@@ -82,7 +83,7 @@ public class SearchResultFragment extends Fragment {
         arrivalStation = (TextView)v.findViewById(R.id.directions_endpoint_textbox);
         departureHour = (TextView)v.findViewById(R.id.departure_hour);
         arrivalHour = (TextView)v.findViewById(R.id.arrival_hour);
-        elv = (ExpandableListView)v.findViewById(R.id.lista_paradas);
+        slv = (ListView)v.findViewById(R.id.lista_paradas);
 
         Opcio op = c.getFromOptions(0);
 
@@ -98,7 +99,7 @@ public class SearchResultFragment extends Fragment {
 
         VerParadasExpandidasAdapter adapter = new VerParadasExpandidasAdapter(mContext, transbords);
 
-        elv.setClickable(true);
-        elv.setAdapter(adapter);
+        slv.setClickable(true);
+        slv.setAdapter(adapter);
     }
 }
