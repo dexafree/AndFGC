@@ -183,6 +183,7 @@ public class SearchFragment extends Fragment {
             public void onReceive(Context context, Intent intent) {
                 departureStation.setText(intent.getExtras().getString(NOMBRE_PARADA));
                 isDepartureStationSelected = true;
+                enableSearchButton();
             }
         };
 
@@ -191,6 +192,7 @@ public class SearchFragment extends Fragment {
             public void onReceive(Context context, Intent intent) {
                 arrivalStation.setText(intent.getExtras().getString(NOMBRE_PARADA));
                 isArrivalStationSelected = true;
+                enableSearchButton();
             }
         };
 
@@ -223,7 +225,8 @@ public class SearchFragment extends Fragment {
     }
 
     private void enableText(TextView tv){
-        tv.setTextColor(mContext.getResources().getColor(R.color.secondary_grey));
+        Logger.d("ACTIVADO", "TEXTVIEW");
+        tv.setTextColor(mContext.getResources().getColor(R.color.primary_grey));
         tv.setClickable(true);
     }
 
@@ -247,6 +250,14 @@ public class SearchFragment extends Fragment {
         });
         dialog = builder.create();
         dialog.show();
+    }
+
+    private void enableSearchButton(){
+
+        if(isHourSelected && isDepartureStationSelected && isArrivalStationSelected){
+            buscarText.setTextColor(mContext.getResources().getColor(R.color.primary_grey));
+        }
+
     }
 
     private void showStationDialog(final String broadcast){
@@ -302,6 +313,8 @@ public class SearchFragment extends Fragment {
             departureHour.setText(fechaHora);
 
             isHourSelected = true;
+
+            enableSearchButton();
         }
     }
 
@@ -311,7 +324,6 @@ public class SearchFragment extends Fragment {
         mContext.unregisterReceiver(departureStationSelected);
         mContext.unregisterReceiver(arrivalStationSelected);
         mContext.unregisterReceiver(lineSelectedReceiver);
-
     }
 
     @Override
