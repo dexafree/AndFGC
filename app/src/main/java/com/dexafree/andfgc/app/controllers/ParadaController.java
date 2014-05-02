@@ -168,15 +168,18 @@ public class ParadaController {
         Cursor cursor = db.rawQuery(sqlSeq, null);
 
         String nom = "";
-
+        boolean hasBeenFound = false;
         if(cursor.moveToFirst()){
             do {
                 nom = cursor.getString(cursor.getColumnIndex("COMPLET"));
-
+                hasBeenFound = true;
             } while(cursor.moveToNext());
         }
 
         db.close();
+
+        if(!hasBeenFound) nom = abreviatura;
+
 
         Parada p = new Parada(nom, abreviatura);
 

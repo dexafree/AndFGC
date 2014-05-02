@@ -15,7 +15,6 @@ import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.connections.BuscaHoraris;
 import com.dexafree.andfgc.app.databases.DataBaseHelper;
 import com.dexafree.andfgc.app.fragments.MainFragment;
-import com.dexafree.andfgc.app.fragments.PruebaPanelFragment;
 import com.dexafree.andfgc.app.fragments.SearchFragment;
 import com.dexafree.andfgc.app.fragments.SearchResultFragment;
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
@@ -72,7 +71,10 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void showSearchResults(Cerca cerca, String dataBuscada){
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_layout, SearchResultFragment.newInstance(cerca, dataBuscada)).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_layout, SearchResultFragment.newInstance(cerca, dataBuscada))
+                .commit();
     }
 
     @Override
@@ -113,7 +115,7 @@ public class MainActivity extends ActionBarActivity {
                 f = new MainFragment();
                 break;
             case 1:
-                f = new PruebaPanelFragment();
+                f = new SearchFragment();
                 break;
             case 2:
                 f = new SearchFragment();

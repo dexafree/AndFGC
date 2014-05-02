@@ -5,13 +5,15 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.dexafree.andfgc.app.controllers.ParadaController;
 
+import java.util.ArrayList;
+
 
 public class Opcio implements Parcelable {
 
     private String linia;
     private String horaSortida;
     private String horaArribada;
-    private String[] estacions;
+    private ArrayList<Transbord> transbords;
 
     public Opcio(){
 
@@ -21,14 +23,15 @@ public class Opcio implements Parcelable {
         this.linia = parcel.readString();
         this.horaSortida = parcel.readString();
         this.horaArribada = parcel.readString();
-        estacions = parcel.createStringArray();
+        transbords = new ArrayList<Transbord>();
+        parcel.readList(transbords, getClass().getClassLoader());
     }
 
-    public Opcio(String linia, String sortida, String arribada, String[] estacions){
+    public Opcio(String linia, String sortida, String arribada, ArrayList<Transbord> transbords){
         this.linia = linia;
         this.horaSortida = sortida;
         this.horaArribada = arribada;
-        this.estacions = estacions;
+        this.transbords = transbords;
     }
 
     public String getHoraSortida() {
@@ -47,12 +50,12 @@ public class Opcio implements Parcelable {
         this.horaArribada = horaArribada;
     }
 
-    public String[] getEstacions() {
-        return estacions;
+    public ArrayList<Transbord> getTransbords() {
+        return transbords;
     }
 
-    public void setEstacions(String[] estacions) {
-        this.estacions = estacions;
+    public void setTransbords(ArrayList<Transbord> transbords) {
+        this.transbords = transbords;
     }
 
     public String getLinia() {
@@ -65,13 +68,14 @@ public class Opcio implements Parcelable {
 
     public Parada getPrimeraParada(Context context){
         Parada p;
-        p = ParadaController.getParadaFromAbreviatura(context, estacions[0]);
+        p = ParadaController.getParadaFromAbreviatura(context, transbords.get(0).getParades().get(0).getAbreviatura());
         return p;
     }
 
     public Parada getUltimaParada(Context context){
         Parada p;
-        p = ParadaController.getParadaFromAbreviatura(context, estacions[estacions.length-1]);
+        ArrayList<Parada> totalParades = transbords.get(transbords.size()-1).getParades();
+        p = ParadaController.getParadaFromAbreviatura(context, totalParades.get(totalParades.size()-1).getAbreviatura());
         return p;
     }
 
@@ -85,7 +89,7 @@ public class Opcio implements Parcelable {
         parcel.writeString(linia);
         parcel.writeString(horaSortida);
         parcel.writeString(horaArribada);
-        parcel.writeStringArray(estacions);
+        parcel.writeList(transbords);
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

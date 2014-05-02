@@ -54,13 +54,13 @@
             <LinearLayout style="@style/DividerListContent" android:layout_width="0.0dip"
                           android:layout_height="fill_parent" android:layout_weight="1.0">
                 <TextView style="@style/DirectionsWaypointTextBox" android:id="@+id/departure_hour"
-                          android:hint="@string/select_hour" android:layout_width="wrap_content"
+                          android:hint="@string/select_hour" android:layout_width="fill_parent"
                           android:layout_height="wrap_content"
                           tools:text="Hora de salida"/>
                 <CheckBox style="@style/DirectionsWaypointTextBox" android:id="@+id/salida_llegada_checkbox"
                           android:hint="@string/arrival" android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
-                          tools:text="Hora de llegada"/>
+                          tools:text="Hora de llegada" android:checked="false"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout android:id="@+id/options_container" android:minHeight="@dimen/paneloption_directionsoptions_height" style="@style/DirectionsInputPanelButtonsContent">

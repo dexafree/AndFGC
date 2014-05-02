@@ -13,6 +13,7 @@ import com.dexafree.andfgc.app.adapters.VerParadasExpandidasAdapter;
 import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.beans.Opcio;
 import com.dexafree.andfgc.app.beans.Parada;
+import com.dexafree.andfgc.app.beans.Transbord;
 import com.dexafree.andfgc.app.controllers.ParadaController;
 import com.dexafree.andfgc.app.utils.Logger;
 
@@ -84,25 +85,18 @@ public class SearchResultFragment extends Fragment {
         elv = (ExpandableListView)v.findViewById(R.id.lista_paradas);
 
         Opcio op = c.getFromOptions(0);
-        Parada departureStationStop = op.getPrimeraParada(mContext);
-        Parada arrivalStationStop = op.getUltimaParada(mContext);
-        departureStation.setText(departureStationStop.getNom());
-        arrivalStation.setText(arrivalStationStop.getNom());
+
+        Logger.d("PARADAIniciFragment", c.getParadaInici());
+        Logger.d("PARADAFiFragment", c.getParadaFi());
+        departureStation.setText(ParadaController.getParadaFromAbreviatura(mContext, c.getParadaInici()).getNom());
+        arrivalStation.setText(ParadaController.getParadaFromAbreviatura(mContext, c.getParadaFi()).getNom());
         departureHour.setText(preparaHora(op.getHoraSortida()));
         arrivalHour.setText(preparaHora(op.getHoraArribada()));
 
 
-        ArrayList<Parada> parades = new ArrayList<Parada>();
+        ArrayList<Transbord> transbords = op.getTransbords();
 
-        String[] estacionsParcial = op.getEstacions();
-
-        for(int i=0;i<estacionsParcial.length;i++){
-            Logger.d("ESTACIO", estacionsParcial[i]);
-            Parada p = ParadaController.getParadaFromAbreviatura(mContext, estacionsParcial[i]);
-            parades.add(p);
-        }
-
-        VerParadasExpandidasAdapter adapter = new VerParadasExpandidasAdapter(mContext, parades);
+        VerParadasExpandidasAdapter adapter = new VerParadasExpandidasAdapter(mContext, transbords);
 
         elv.setClickable(true);
         elv.setAdapter(adapter);

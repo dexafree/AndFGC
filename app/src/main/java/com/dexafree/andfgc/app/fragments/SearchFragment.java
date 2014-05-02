@@ -64,7 +64,7 @@ public class SearchFragment extends Fragment {
     private boolean isDepartureStationSelected = false;
     private boolean isArrivalStationSelected = false;
 
-    private boolean isTimeDeparture = true;
+    private boolean isTimeArrival = false;
 
     private BuscaHoraris buscaHoraris;
 
@@ -133,6 +133,10 @@ public class SearchFragment extends Fragment {
                     pDialog.setMessage(getString(R.string.searching_message));
                     pDialog.setTitle(getString(R.string.searching_title));
                     pDialog.show();
+                    String sortidaArribada;
+                    if(isTimeArrival) sortidaArribada = "A";
+                    else sortidaArribada = "S";
+                    buscaHoraris = new BuscaHoraris(linia, origen, desti, sortidaArribada, fecha, horaInt, minutosInt, mContext);
                     buscaHoraris.cercar();
                 } else {
                     Toast.makeText(mContext, R.string.select_all, Toast.LENGTH_SHORT).show();
@@ -141,6 +145,13 @@ public class SearchFragment extends Fragment {
         });
 
         buscarText.setText(getString(R.string.search));
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                isTimeArrival = b;
+            }
+        });
 
         return v;
     }
@@ -172,7 +183,6 @@ public class SearchFragment extends Fragment {
             public void onReceive(Context context, Intent intent) {
                 departureStation.setText(intent.getExtras().getString(NOMBRE_PARADA));
                 isDepartureStationSelected = true;
-                enableSearchButton();
             }
         };
 
@@ -181,14 +191,17 @@ public class SearchFragment extends Fragment {
             public void onReceive(Context context, Intent intent) {
                 arrivalStation.setText(intent.getExtras().getString(NOMBRE_PARADA));
                 isArrivalStationSelected = true;
-                enableSearchButton();
             }
         };
 
         searchFinished = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                pDialog.dismiss();
+                try{
+                    pDialog.dismiss();
+                } catch (NullPointerException e){
+                    e.printStackTrace();
+                }
                 Cerca c = intent.getExtras().getParcelable("CERCA");
                 Logger.d("FECHA", fecha);
                 mainActivity.showSearchResults(c, fecha);
@@ -212,17 +225,6 @@ public class SearchFragment extends Fragment {
     private void enableText(TextView tv){
         tv.setTextColor(mContext.getResources().getColor(R.color.secondary_grey));
         tv.setClickable(true);
-    }
-
-    private void enableSearchButton(){
-
-        if(isArrivalStationSelected && isDepartureStationSelected && isHourSelected){
-            enableText(buscarText);
-            String sortidaArribada;
-            if(checkBox.isChecked()) sortidaArribada = "S";
-            else sortidaArribada = "A";
-            buscaHoraris = new BuscaHoraris(linia, origen, desti, sortidaArribada, fecha, horaInt, minutosInt, mContext);
-        }
     }
 
     private void showLineDialog(){
@@ -300,7 +302,6 @@ public class SearchFragment extends Fragment {
             departureHour.setText(fechaHora);
 
             isHourSelected = true;
-            enableSearchButton();
         }
     }
 
@@ -315,7 +316,6 @@ public class SearchFragment extends Fragment {
 
     @Override
     public void onResume() {
-        // Example of reattaching to the fragment
         super.onResume();
         CalendarDatePickerDialog calendarDatePickerDialog = (CalendarDatePickerDialog) getChildFragmentManager()
                 .findFragmentByTag(FRAG_TAG_DATE_PICKER);

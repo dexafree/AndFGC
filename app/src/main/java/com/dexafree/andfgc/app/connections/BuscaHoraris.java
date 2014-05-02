@@ -7,6 +7,9 @@ import android.widget.Toast;
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.beans.Opcio;
+import com.dexafree.andfgc.app.beans.Parada;
+import com.dexafree.andfgc.app.beans.Transbord;
+import com.dexafree.andfgc.app.controllers.ParadaController;
 import com.dexafree.andfgc.app.utils.Checkers;
 import com.dexafree.andfgc.app.utils.Logger;
 import com.google.gson.JsonArray;
@@ -15,6 +18,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class BuscaHoraris {
 
@@ -138,6 +142,11 @@ public class BuscaHoraris {
         }
     }
 
+    private boolean isOptionValid(Opcio opcio){
+
+        return !(opcio.getLinia().equalsIgnoreCase("NO"));
+    }
+
     public void cercar(){
 
         Cerca c = new Cerca();
@@ -158,32 +167,79 @@ public class BuscaHoraris {
                     .setCallback(new FutureCallback<JsonArray>() {
                         @Override
                         public void onCompleted(Exception e, JsonArray result) {
-                            Cerca c;
-                            ArrayList<Opcio> opcions = new ArrayList<Opcio>();
-                            JsonArray main = result.get(0).getAsJsonArray().get(0).getAsJsonArray();
-                            for(int i=0;i<main.size();i++){
-                                JsonObject mainObject = main.get(i).getAsJsonArray().get(0).getAsJsonObject();
-                                String linia = mainObject.get("linia").getAsString();
-                                String sortida = mainObject.get("sortida").getAsString();
-                                String arribada = mainObject.get("arribada").getAsString();
-                                JsonArray parades = mainObject.get("estacions").getAsJsonArray();
-                                String[] estacions = new String[parades.size()];
-                                for(int j=0;j<parades.size();j++){
-                                    estacions[j] = parades.get(j).getAsString();
+                            try {
+                                Cerca c;
+
+                                ArrayList<Opcio> opcions = new ArrayList<Opcio>();
+                                JsonArray main = result.get(0).getAsJsonArray().get(0).getAsJsonArray();
+                                String paradaInici = "";
+                                String paradaFi = "";
+
+                                for (int i = 0; i < main.size(); i++) {
+
+                                    JsonArray transbords = main.get(i).getAsJsonArray();
+                                    ArrayList<Transbord> transbordsList = new ArrayList<Transbord>();
+                                    String linia = "";
+                                    String sortida = "";
+                                    String arribada = "";
+
+                                    for (int k = 0; k < transbords.size(); k++) {
+
+                                        JsonObject mainObject = transbords.get(k).getAsJsonObject();
+                                        linia = mainObject.get("linia").getAsString();
+                                        sortida = mainObject.get("sortida").getAsString();
+                                        arribada = mainObject.get("arribada").getAsString();
+                                        JsonArray parades = mainObject.get("estacions").getAsJsonArray();
+                                        ArrayList<Parada> estacions = new ArrayList<Parada>();
+
+                                        for (int z = 0; z < parades.size(); z++) {
+                                            Parada p = ParadaController.getParadaFromAbreviatura(mContext, parades.get(z).getAsString());
+                                            p.setLinia(linia);
+                                            estacions.add(p);
+                                        }
+                                        //Collections.reverse(estacions);
+                                        Transbord t = new Transbord(linia, sortida, arribada, estacions);
+                                        transbordsList.add(t);
+                                    }
+                                    Opcio op = new Opcio();
+                                    op.setLinia(linia);
+
+                                    sortida = transbordsList.get(0).getSortida();
+
+                                    arribada = transbordsList.get(transbordsList.size()-1).getArribada();
+
+                                    op.setHoraSortida(sortida);
+                                    op.setHoraArribada(arribada);
+                                    op.setTransbords(transbordsList);
+                                    if(isOptionValid(op))
+                                        opcions.add(op);
                                 }
-                                Opcio o = new Opcio(linia, sortida, arribada, estacions);
-                                opcions.add(o);
 
+                                c = new Cerca();
+
+                                paradaInici = opcions.get(0).getTransbords().get(0).getParades().get(0).getNom();
+                                ArrayList<Transbord> t = opcions
+                                        .get(opcions.size()-1)
+                                        .getTransbords();
+
+                                ArrayList<Parada> pa = t.get(t.size()-1).getParades();
+
+                                paradaFi = pa.get(pa.size()-1).getNom();
+
+                                c.setOpcions(opcions);
+                                c.setParadaInici(paradaInici);
+                                c.setParadaFi(paradaFi);
+
+                                Intent i = new Intent();
+                                i.putExtra("CERCA", c);
+                                i.setAction(SEARCH_COMPLETED);
+                                mContext.sendBroadcast(i);
+                            } catch (ClassCastException exception){
+                                JsonObject object = result.getAsJsonObject();
+                                String error = object.get("path").getAsString();
+
+                                Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
                             }
-
-                            c = new Cerca();
-
-                            c.setOpcions(opcions);
-
-                            Intent i = new Intent();
-                            i.putExtra("CERCA", c);
-                            i.setAction(SEARCH_COMPLETED);
-                            mContext.sendBroadcast(i);
                         }
                     });
 

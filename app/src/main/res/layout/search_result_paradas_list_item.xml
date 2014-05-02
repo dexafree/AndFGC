@@ -11,6 +11,10 @@
             android:layout_width="@dimen/directions_left_icon_area_width"
             android:src="@drawable/ic_directions_form_destination"
             style="@style/CenteredImage" />
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/icono_linea"/>
     <TextView
             android:textAppearance="@style/SmallTertiaryText"
             android:id="@+id/nombre_parada_expanded"

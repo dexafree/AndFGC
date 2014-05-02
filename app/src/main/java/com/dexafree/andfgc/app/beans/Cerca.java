@@ -10,6 +10,24 @@ import java.util.List;
 public class Cerca implements Parcelable {
 
     private List<Opcio> opcions;
+    private String paradaInici;
+    private String paradaFi;
+
+    public String getParadaInici() {
+        return paradaInici;
+    }
+
+    public void setParadaInici(String paradaInici) {
+        this.paradaInici = paradaInici;
+    }
+
+    public String getParadaFi() {
+        return paradaFi;
+    }
+
+    public void setParadaFi(String paradaFi) {
+        this.paradaFi = paradaFi;
+    }
 
     @Override
     public int describeContents() {
@@ -19,6 +37,8 @@ public class Cerca implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeList(opcions);
+        parcel.writeString(paradaInici);
+        parcel.writeString(paradaFi);
     }
 
     public Cerca(){
@@ -28,6 +48,8 @@ public class Cerca implements Parcelable {
     public Cerca(Parcel parcel){
         opcions = new ArrayList<Opcio>();
         parcel.readList(opcions, getClass().getClassLoader());
+        paradaInici = parcel.readString();
+        paradaFi = parcel.readString();
     }
 
     public void setOpcions(ArrayList<Opcio> opcions){
