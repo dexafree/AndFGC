@@ -1,63 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/directions_input_panel" style="@style/DirectionsInputPanelContent"
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools" android:divider="null">
-    <LinearLayout
-            android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:layout_marginLeft="6dp" android:layout_marginTop="8dp"
-            android:layout_marginRight="6dp" android:layout_marginBottom="8dp"
-            android:background="@drawable/cards_back" style="@style/DirectionsInputPanelContent"
-            android:id="@+id/main_layout">
-        <LinearLayout android:orientation="horizontal" android:layout_height="@dimen/directions_waypoint_input_height" style="@style/DirectionsWaypointsContent"
-                      android:id="@+id/origin_destination_layout">
-            <FrameLayout android:layout_width="@dimen/directions_left_icon_area_width" android:layout_height="fill_parent" android:layout_weight="0.0" style="@style/Container">
-                <ImageView android:layout_gravity="center" android:src="@drawable/ic_directions_form_dots" style="@style/CenteredImage" />
-                <LinearLayout android:layout_gravity="center" android:orientation="vertical" style="@style/MatchParentContainer">
-                    <ImageView android:id="@+id/directions_startpoint_icon" android:src="@drawable/ic_directions_form_destination_notselected" android:layout_weight="1.0" style="@style/CenteredImage" />
-                    <ImageView android:id="@+id/directions_endpoint_icon" android:src="@drawable/ic_directions_form_destination_notselected" android:layout_weight="1.0" style="@style/CenteredImage" />
-                </LinearLayout>
-            </FrameLayout>
-            <LinearLayout android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" style="@style/DividerListContent">
-                <TextView android:id="@+id/directions_startpoint_textbox" style="@style/DirectionsWaypointTextBox" tools:text="Estación de origen" />
-                <TextView android:id="@+id/directions_endpoint_textbox"  style="@style/DirectionsWaypointTextBox" tools:text="Estación de destino" />
-            </LinearLayout>
-            <FrameLayout android:id="@+id/directions_swapwaypoints_button" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight="0.0"  style="@style/Container">
-                <ImageView android:id="@+id/directions_swapwaypoints_icon" android:layout_marginLeft="@dimen/primary_padding" android:layout_marginRight="@dimen/primary_padding" android:src="@drawable/ic_directions_form_swap" style="@style/LeftAlignedImage" />
-            </FrameLayout>
-        </LinearLayout>
-        <LinearLayout style="@style/DirectionsWaypointsContent" android:orientation="horizontal"
-                      android:layout_height="@dimen/directions_waypoint_input_height"
-                      android:id="@+id/linearLayout" android:layout_width="fill_parent"
-                      android:layout_marginRight="25dp">
-            <FrameLayout style="@style/Container" android:layout_width="@dimen/directions_left_icon_area_width"
-                         android:layout_height="fill_parent" android:layout_weight="0.0">
-                <ImageView style="@style/CenteredImage" android:layout_gravity="center"
-                           android:src="@drawable/ic_action_time" android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"/>
-            </FrameLayout>
-            <LinearLayout style="@style/DividerListContent" android:layout_width="0.0dip"
-                          android:layout_height="fill_parent" android:layout_weight="1.0">
-                <TextView style="@style/DirectionsWaypointTextBox" android:id="@+id/departure_hour"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          tools:text="Hora de salida"/>
-                <TextView style="@style/DirectionsWaypointTextBox" android:id="@+id/arrival_hour"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          tools:text="Hora de llegada"/>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:id="@+id/stations_layout">
-        <ListView
+            android:layout_height="fill_parent">
+    <LinearLayout android:id="@+id/directions_input_panel" style="@style/DirectionsInputPanelContent"
+                   android:divider="@color/transparent">
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/lista_paradas" android:layout_marginLeft="6dp" android:layout_marginTop="8dp"
+                android:layout_height="wrap_content" android:layout_marginLeft="6dp" android:layout_marginTop="8dp"
                 android:layout_marginRight="6dp" android:layout_marginBottom="8dp"
-                android:background="@drawable/cards_back" style="@style/DirectionsInputPanelContent"/>
+                android:background="@drawable/cards_back" style="@style/DirectionsInputPanelContent"
+                android:id="@+id/main_layout">
+            <LinearLayout android:orientation="horizontal" android:layout_height="@dimen/directions_waypoint_input_height" style="@style/DirectionsWaypointsContent"
+                          android:id="@+id/origin_destination_layout">
+                <FrameLayout android:layout_width="@dimen/directions_left_icon_area_width" android:layout_height="fill_parent" android:layout_weight="0.0" style="@style/Container">
+                    <ImageView android:layout_gravity="center" android:src="@drawable/ic_directions_form_dots" style="@style/CenteredImage" />
+                    <LinearLayout android:layout_gravity="center" android:orientation="vertical" style="@style/MatchParentContainer">
+                        <ImageView android:id="@+id/directions_startpoint_icon" android:src="@drawable/ic_directions_form_destination_notselected" android:layout_weight="1.0" style="@style/CenteredImage" />
+                        <ImageView android:id="@+id/directions_endpoint_icon" android:src="@drawable/ic_directions_form_destination_notselected" android:layout_weight="1.0" style="@style/CenteredImage" />
+                    </LinearLayout>
+                </FrameLayout>
+                <LinearLayout android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" style="@style/DividerListContent">
+                    <TextView android:id="@+id/directions_startpoint_textbox" style="@style/DirectionsWaypointTextBox" tools:text="Estación de origen" />
+                    <TextView android:id="@+id/directions_endpoint_textbox"  style="@style/DirectionsWaypointTextBox" tools:text="Estación de destino" />
+                </LinearLayout>
+                <FrameLayout android:id="@+id/directions_swapwaypoints_button" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight="0.0"  style="@style/Container">
+                    <ImageView android:id="@+id/directions_swapwaypoints_icon" android:layout_marginLeft="@dimen/primary_padding" android:layout_marginRight="@dimen/primary_padding" android:src="@drawable/ic_directions_form_swap" style="@style/LeftAlignedImage" />
+                </FrameLayout>
+            </LinearLayout>
+            <LinearLayout style="@style/DirectionsWaypointsContent" android:orientation="horizontal"
+                          android:layout_height="@dimen/directions_waypoint_input_height"
+                          android:id="@+id/linearLayout" android:layout_width="fill_parent"
+                          android:layout_marginRight="25dp">
+                <FrameLayout style="@style/Container" android:layout_width="@dimen/directions_left_icon_area_width"
+                             android:layout_height="fill_parent" android:layout_weight="0.0">
+                    <ImageView style="@style/CenteredImage" android:layout_gravity="center"
+                               android:src="@drawable/ic_action_time" android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"/>
+                </FrameLayout>
+                <LinearLayout style="@style/DividerListContent" android:layout_width="0.0dip"
+                              android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView style="@style/DirectionsWaypointTextBox" android:id="@+id/departure_hour"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              tools:text="Hora de salida"/>
+                    <TextView style="@style/DirectionsWaypointTextBox" android:id="@+id/arrival_hour"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              tools:text="Hora de llegada"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:id="@+id/stations_layout" android:layout_marginLeft="6dp"
+                android:layout_marginTop="8dp" android:layout_marginRight="6dp" android:layout_marginBottom="8dp"
+                android:background="@drawable/cards_back" style="@style/DirectionsInputPanelContent">
+        </LinearLayout>
+        <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" android:id="@+id/more_options_layout"
+                android:layout_marginLeft="6dp" android:layout_marginTop="8dp" android:layout_marginRight="6dp"
+                android:layout_marginBottom="8dp" android:background="@drawable/cards_back"
+                style="@style/DirectionsInputPanelContent">
+            <TextView style="@style/DirectionsWaypointTextBox" tools:text="Ver más opciones"
+                      android:id="@+id/textView" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_centerVertical="true" android:layout_centerHorizontal="true"
+                      android:text="@string/view_more_options" android:layout_marginTop="10dp"
+                      android:layout_marginBottom="10dp"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=">"
+                    android:id="@+id/textView2" android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
+                    style="@style/DirectionsWaypointTextBox" android:layout_marginRight="10dp" android:textSize="25dp"
+                    android:textColor="@color/tertiary_grey"/>
+        </RelativeLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

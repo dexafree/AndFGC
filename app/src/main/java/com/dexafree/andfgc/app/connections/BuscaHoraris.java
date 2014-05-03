@@ -10,6 +10,7 @@ import com.dexafree.andfgc.app.beans.Opcio;
 import com.dexafree.andfgc.app.beans.Parada;
 import com.dexafree.andfgc.app.beans.Transbord;
 import com.dexafree.andfgc.app.controllers.ParadaController;
+import com.dexafree.andfgc.app.controllers.TransbordController;
 import com.dexafree.andfgc.app.utils.Checkers;
 import com.dexafree.andfgc.app.utils.Logger;
 import com.google.gson.JsonArray;
@@ -204,9 +205,13 @@ public class BuscaHoraris {
                                     Opcio op = new Opcio();
                                     op.setLinia(linia);
 
+                                    if(tipus.equalsIgnoreCase("A")) Collections.reverse(transbordsList);
+
                                     sortida = transbordsList.get(0).getSortida();
 
                                     arribada = transbordsList.get(transbordsList.size()-1).getArribada();
+
+
 
                                     op.setHoraSortida(sortida);
                                     op.setHoraArribada(arribada);
@@ -217,13 +222,16 @@ public class BuscaHoraris {
 
                                 c = new Cerca();
 
-                                paradaInici = opcions.get(0).getTransbords().get(0).getParades().get(0).getNom();
+
                                 ArrayList<Transbord> t = opcions
-                                        .get(opcions.size()-1)
+                                        .get(0)
                                         .getTransbords();
 
-                                ArrayList<Parada> pa = t.get(t.size()-1).getParades();
 
+
+
+                                ArrayList<Parada> pa = TransbordController.getAllParadesFromTransbords(t);
+                                paradaInici = pa.get(0).getNom();
                                 paradaFi = pa.get(pa.size()-1).getNom();
 
                                 c.setOpcions(opcions);

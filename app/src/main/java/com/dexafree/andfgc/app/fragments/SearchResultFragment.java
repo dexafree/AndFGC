@@ -6,9 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.adapters.VerParadasExpandidasAdapter;
 import com.dexafree.andfgc.app.beans.Cerca;
@@ -16,6 +14,7 @@ import com.dexafree.andfgc.app.beans.Opcio;
 import com.dexafree.andfgc.app.beans.Parada;
 import com.dexafree.andfgc.app.beans.Transbord;
 import com.dexafree.andfgc.app.controllers.ParadaController;
+import com.dexafree.andfgc.app.controllers.TransbordController;
 import com.dexafree.andfgc.app.utils.Logger;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class SearchResultFragment extends Fragment {
 
     private String dataBuscada;
 
-    private ListView slv;
+    private LinearLayout paradasLayout;
 
 
     private Cerca c;
@@ -74,32 +73,63 @@ public class SearchResultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.search_result_panel, null);
         mContext = getActivity();
-        setup(v);
+        setup(v, inflater);
         return v;
     }
 
-    private void setup(View v){
+    private void setup(View v, LayoutInflater inflater){
         departureStation = (TextView)v.findViewById(R.id.directions_startpoint_textbox);
         arrivalStation = (TextView)v.findViewById(R.id.directions_endpoint_textbox);
         departureHour = (TextView)v.findViewById(R.id.departure_hour);
         arrivalHour = (TextView)v.findViewById(R.id.arrival_hour);
-        slv = (ListView)v.findViewById(R.id.lista_paradas);
+        paradasLayout = (LinearLayout)v.findViewById(R.id.stations_layout);
 
         Opcio op = c.getFromOptions(0);
+        ArrayList<Transbord> transbords = op.getTransbords();;
+        ArrayList<Parada> parades = TransbordController.getAllParadesFromTransbords(transbords);
 
         Logger.d("PARADAIniciFragment", c.getParadaInici());
         Logger.d("PARADAFiFragment", c.getParadaFi());
-        departureStation.setText(ParadaController.getParadaFromAbreviatura(mContext, c.getParadaInici()).getNom());
-        arrivalStation.setText(ParadaController.getParadaFromAbreviatura(mContext, c.getParadaFi()).getNom());
+        departureStation.setText(parades.get(0).getNom());
+        arrivalStation.setText(parades.get(parades.size()-1).getNom());
         departureHour.setText(preparaHora(op.getHoraSortida()));
         arrivalHour.setText(preparaHora(op.getHoraArribada()));
 
 
-        ArrayList<Transbord> transbords = op.getTransbords();
 
-        VerParadasExpandidasAdapter adapter = new VerParadasExpandidasAdapter(mContext, transbords);
 
-        slv.setClickable(true);
-        slv.setAdapter(adapter);
+        View rowView;
+        for(int i=0;i<parades.size();i++){
+            rowView = getParadaView(parades.get(i), inflater);
+            paradasLayout.addView(rowView);
+        }
+
     }
+
+    private View getParadaView(Parada paradaActual, LayoutInflater inflater){
+        View v = inflater.inflate(R.layout.search_result_paradas_list_item, null);
+        ImageView linia = (ImageView)v.findViewById(R.id.icono_linea);
+        TextView nom = (TextView)v.findViewById(R.id.nombre_parada_expanded);
+
+
+        nom.setText(paradaActual.getNom());
+        Logger.d("LINIA", paradaActual.getLinia());
+        int iconoLinea;
+        if(paradaActual.getLinia().equalsIgnoreCase("R6")) iconoLinea = R.drawable.r6;
+        else if(paradaActual.getLinia().equalsIgnoreCase("R60")) iconoLinea = R.drawable.r60;
+        else if(paradaActual.getLinia().equalsIgnoreCase("R5")) iconoLinea = R.drawable.r5;
+        else if(paradaActual.getLinia().equalsIgnoreCase("R50")) iconoLinea = R.drawable.r50;
+        else if(paradaActual.getLinia().equalsIgnoreCase("L8")) iconoLinea = R.drawable.l8;
+        else if(paradaActual.getLinia().equalsIgnoreCase("S1")) iconoLinea = R.drawable.s1;
+        else if(paradaActual.getLinia().equalsIgnoreCase("S2")) iconoLinea = R.drawable.s2;
+        else if(paradaActual.getLinia().equalsIgnoreCase("S4")) iconoLinea = R.drawable.s4;
+        else if(paradaActual.getLinia().equalsIgnoreCase("S8")) iconoLinea = R.drawable.s8;
+        else if(paradaActual.getLinia().equalsIgnoreCase("S33")) iconoLinea = R.drawable.s33;
+        else iconoLinea = R.drawable.fgclogo;
+        linia.setImageResource(iconoLinea);
+
+        return v;
+
+    }
+
 }

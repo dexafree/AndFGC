@@ -201,13 +201,13 @@ public class SearchFragment extends Fragment {
             public void onReceive(Context context, Intent intent) {
                 try{
                     pDialog.dismiss();
+                    Cerca c = intent.getExtras().getParcelable("CERCA");
+                    Logger.d("FECHA", fecha);
+                    mainActivity.showSearchResults(c, fecha);
                 } catch (NullPointerException e){
                     e.printStackTrace();
+                    Toast.makeText(mContext, R.string.error_while_search, Toast.LENGTH_SHORT).show();
                 }
-                Cerca c = intent.getExtras().getParcelable("CERCA");
-                Logger.d("FECHA", fecha);
-                mainActivity.showSearchResults(c, fecha);
-
             }
         };
 

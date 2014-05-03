@@ -14,4 +14,6 @@
     <string name="arrival">Llegada</string>
     <string name="select_all">Assegúrate de seleccionar todos los campos</string>
     <string name="select_line_first">Selecciona antes la línea</string>
+    <string name="error_while_search">Ha sucedido un error durante la búsqueda</string>
+    <string name="view_more_options">Ver otras opciones</string>
 </resources>

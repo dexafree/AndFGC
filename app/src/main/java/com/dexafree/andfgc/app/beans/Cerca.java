@@ -13,6 +13,14 @@ public class Cerca implements Parcelable {
     private String paradaInici;
     private String paradaFi;
 
+    public List<Opcio> getOpcions() {
+        return opcions;
+    }
+
+    public void setOpcions(List<Opcio> opcions) {
+        this.opcions = opcions;
+    }
+
     public String getParadaInici() {
         return paradaInici;
     }
