@@ -16,7 +16,6 @@ import java.util.ArrayList;
  */
 public class AlternativesAdapter extends BaseAdapter {
 
-    private Context mContext;
     private ArrayList<Opcio> opcions;
     private LayoutInflater inflater;
     private String dataBuscada;
@@ -27,7 +26,6 @@ public class AlternativesAdapter extends BaseAdapter {
     }
 
     public AlternativesAdapter(Context c, ArrayList<Opcio> opts, String data){
-        this.mContext = c;
         this.opcions = opts;
         this.inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.dataBuscada = data;
