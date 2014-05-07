@@ -21,4 +21,5 @@
     <dimen name="directions_transitdetail_padding">19.0dip</dimen>
     <dimen name="text_size_small">15.0sp</dimen>
     <dimen name="generic_divider_width">1.0px</dimen>
+    <integer name="grid_columns">1</integer>
 </resources>

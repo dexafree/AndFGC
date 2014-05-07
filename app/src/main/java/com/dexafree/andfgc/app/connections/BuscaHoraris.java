@@ -198,7 +198,7 @@ public class BuscaHoraris {
                                             p.setLinia(linia);
                                             estacions.add(p);
                                         }
-                                        //Collections.reverse(estacions);
+
                                         Transbord t = new Transbord(linia, sortida, arribada, estacions);
                                         transbordsList.add(t);
                                     }
@@ -211,13 +211,10 @@ public class BuscaHoraris {
 
                                     arribada = transbordsList.get(transbordsList.size()-1).getArribada();
 
-
-
                                     op.setHoraSortida(sortida);
                                     op.setHoraArribada(arribada);
                                     op.setTransbords(transbordsList);
-                                    if(isOptionValid(op))
-                                        opcions.add(op);
+                                    if(isOptionValid(op)) opcions.add(op);
                                 }
 
                                 c = new Cerca();
@@ -226,8 +223,6 @@ public class BuscaHoraris {
                                 ArrayList<Transbord> t = opcions
                                         .get(0)
                                         .getTransbords();
-
-
 
 
                                 ArrayList<Parada> pa = TransbordController.getAllParadesFromTransbords(t);

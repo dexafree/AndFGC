@@ -14,7 +14,8 @@
 
         <activity
             android:name="com.dexafree.andfgc.app.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

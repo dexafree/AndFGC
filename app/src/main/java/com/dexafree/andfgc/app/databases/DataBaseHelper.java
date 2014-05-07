@@ -50,7 +50,6 @@ public class DataBaseHelper {
             fos.close();
             is.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -81,17 +80,13 @@ public class DataBaseHelper {
 
     private class ParadasSQLiteHelper extends SQLiteOpenHelper {
 
-        //private String createTable = "CREATE TABLE Paradas (id INTEGER, nombre TEXT, longitud DOUBLE, latitud DOUBLE)";
-
         public ParadasSQLiteHelper(Context context, String name,
                                    SQLiteDatabase.CursorFactory factory, int version) {
             super(context, name, factory, version);
-            // TODO Auto-generated constructor stub
         }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            //db.execSQL(createTable);
         }
 
         @Override

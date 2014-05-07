@@ -77,6 +77,13 @@ public class MainActivity extends ActionBarActivity {
                 .commit();
     }
 
+    public void changeFragment(Fragment f){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_layout, f)
+                .commit();
+    }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

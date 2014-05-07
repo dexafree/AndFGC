@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.dexafree.andfgc.app.MainActivity;
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.adapters.VerParadasExpandidasAdapter;
 import com.dexafree.andfgc.app.beans.Cerca;
@@ -27,6 +28,8 @@ import java.util.List;
 public class SearchResultFragment extends Fragment {
 
     private Context mContext;
+    private Cerca c;
+    private Opcio opcio;
 
     private TextView departureStation;
     private TextView arrivalStation;
@@ -36,14 +39,25 @@ public class SearchResultFragment extends Fragment {
     private String dataBuscada;
 
     private LinearLayout paradasLayout;
+    private RelativeLayout moreOptionsLayout;
 
+    private boolean fromSearch;
 
-    private Cerca c;
 
     public static final SearchResultFragment newInstance(Cerca c, String data){
         SearchResultFragment f = new SearchResultFragment();
         f.setCerca(c);
         f.setDataBuscada(data);
+        f.setFromSearch(true);
+        return f;
+    }
+
+    public static final SearchResultFragment newInstanceFromOptions(Opcio op, String data, Cerca c){
+        SearchResultFragment f = new SearchResultFragment();
+        f.setFromSearch(false);
+        f.setOpcio(op);
+        f.setDataBuscada(data);
+        f.setCerca(c);
         return f;
     }
 
@@ -53,6 +67,14 @@ public class SearchResultFragment extends Fragment {
 
     private void setDataBuscada(String data){
         this.dataBuscada = data;
+    }
+
+    private void setFromSearch(boolean fromSearch){
+        this.fromSearch = fromSearch;
+    }
+
+    private void setOpcio(Opcio op){
+        this.opcio = op;
     }
 
     private String preparaHora(String data){
@@ -73,37 +95,54 @@ public class SearchResultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.search_result_panel, null);
         mContext = getActivity();
-        setup(v, inflater);
+        setup(v);
+        if(savedInstanceState != null) loadValues(savedInstanceState);
+        setTexts(inflater);
+
         return v;
     }
 
-    private void setup(View v, LayoutInflater inflater){
+    private void setup(View v){
         departureStation = (TextView)v.findViewById(R.id.directions_startpoint_textbox);
         arrivalStation = (TextView)v.findViewById(R.id.directions_endpoint_textbox);
         departureHour = (TextView)v.findViewById(R.id.departure_hour);
         arrivalHour = (TextView)v.findViewById(R.id.arrival_hour);
         paradasLayout = (LinearLayout)v.findViewById(R.id.stations_layout);
+        moreOptionsLayout = (RelativeLayout)v.findViewById(R.id.more_options_layout);
+    }
 
-        Opcio op = c.getFromOptions(0);
-        ArrayList<Transbord> transbords = op.getTransbords();;
-        ArrayList<Parada> parades = TransbordController.getAllParadesFromTransbords(transbords);
+    private void setTexts(LayoutInflater inflater){
+        Opcio op;
+        if(fromSearch) op = c.getFromOptions(0);
+        else op = opcio;
+        ArrayList<Transbord> transbords = op.getTransbords();
+        final ArrayList<Parada> parades = TransbordController.getAllParadesFromTransbords(transbords);
 
-        Logger.d("PARADAIniciFragment", c.getParadaInici());
-        Logger.d("PARADAFiFragment", c.getParadaFi());
         departureStation.setText(parades.get(0).getNom());
         arrivalStation.setText(parades.get(parades.size()-1).getNom());
         departureHour.setText(preparaHora(op.getHoraSortida()));
         arrivalHour.setText(preparaHora(op.getHoraArribada()));
 
-
-
+        moreOptionsLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlternativeOptionsFragment fragment = AlternativeOptionsFragment.newInstance(c, dataBuscada, parades.get(0).getNom(),parades.get(parades.size()-1).getNom());
+                ((MainActivity)mContext).changeFragment(fragment);
+            }
+        });
 
         View rowView;
         for(int i=0;i<parades.size();i++){
             rowView = getParadaView(parades.get(i), inflater);
             paradasLayout.addView(rowView);
         }
+    }
 
+    private void loadValues(Bundle savedState){
+        c = savedState.getParcelable("CERCA");
+        opcio = savedState.getParcelable("OPCIO");
+        dataBuscada = savedState.getString("DATABUSCADA");
+        fromSearch = savedState.getBoolean("FROMSEARCH");
     }
 
     private View getParadaView(Parada paradaActual, LayoutInflater inflater){
@@ -132,4 +171,12 @@ public class SearchResultFragment extends Fragment {
 
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("CERCA", c);
+        outState.putParcelable("OPCIO", opcio);
+        outState.putString("DATABUSCADA", dataBuscada);
+        outState.putBoolean("FROMSEARCH", fromSearch);
+    }
 }

@@ -76,6 +76,11 @@ public class SearchFragment extends Fragment {
     private String origen;
     private String desti;
 
+    private final String[] linies = new String[]{
+            "Barcelona - Vallès",
+            "Llobregat - Anoia",
+            "Lleida - La Pobla de Segur"};
+
     private int linia = -1;
     private int horaInt;
     private int minutosInt;
@@ -89,6 +94,11 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.directions_input_panel, null);
         setup(v);
+
+        if(savedInstanceState != null){
+            loadValues(savedInstanceState);
+            setValues();
+        }
 
         mContext.registerReceiver(departureStationSelected, new IntentFilter(DEPARTURE_SELECTED_STRING));
         mContext.registerReceiver(arrivalStationSelected, new IntentFilter(ARRIVAL_SELECTED_STRING));
@@ -224,6 +234,44 @@ public class SearchFragment extends Fragment {
                 .addTimePickerDialogHandler(new MyHourSetHandler());
     }
 
+    private void loadValues(Bundle savedState){
+        isTimeArrival = savedState.getBoolean("isTimeArrival");
+        isDepartureStationSelected = savedState.getBoolean("isDepartureStationSelected");
+        isArrivalStationSelected = savedState.getBoolean("isArrivalStationSelected");
+        isHourSelected = savedState.getBoolean("isHourSelected");
+
+        fecha = savedState.getString("fecha");
+        fechaHora = savedState.getString("fechaHora");
+        minutos = savedState.getString("minutos");
+        fechaHora = savedState.getString("fechaHora");
+        origen = savedState.getString("origen");
+        desti = savedState.getString("desti");
+
+        linia = savedState.getInt("linia");
+        horaInt = savedState.getInt("horaInt");
+        minutosInt = savedState.getInt("minutosInt");
+    }
+
+    private void setValues(){
+        checkBox.setChecked(isTimeArrival);
+        if(isDepartureStationSelected){
+            enableText(departureStation);
+            departureStation.setText(ParadaController.getParadaFromAbreviatura(mContext,origen).getNom());
+            enableSearchButton();
+        }
+        if(isArrivalStationSelected){
+            enableText(arrivalStation);
+            arrivalStation.setText(ParadaController.getParadaFromAbreviatura(mContext,desti).getNom());
+            enableSearchButton();
+        }
+        if(isHourSelected){
+            departureHour.setText(fechaHora);
+            enableSearchButton();
+        }
+        if(linia != -1) lineSelect.setText(linies[linia-1]);
+
+    }
+
     private void enableText(TextView tv){
         Logger.d("ACTIVADO", "TEXTVIEW");
         tv.setTextColor(mContext.getResources().getColor(R.color.primary_grey));
@@ -233,10 +281,7 @@ public class SearchFragment extends Fragment {
     private void showLineDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(R.string.selecciona_linia);
-        final String[] linies = new String[]{
-                "Barcelona - Vallès",
-                "Llobregat - Anoia",
-                "Lleida - La Pobla de Segur"};
+
         builder.setItems(linies, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -324,6 +369,7 @@ public class SearchFragment extends Fragment {
         mContext.unregisterReceiver(departureStationSelected);
         mContext.unregisterReceiver(arrivalStationSelected);
         mContext.unregisterReceiver(lineSelectedReceiver);
+        mContext.unregisterReceiver(searchFinished);
     }
 
     @Override
@@ -335,5 +381,26 @@ public class SearchFragment extends Fragment {
             if(dsh == null) dsh = new MyDateSetHandler();
             calendarDatePickerDialog.setOnDateSetListener(dsh);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("isTimeArrival", isTimeArrival);
+        outState.putBoolean("isDepartureStationSelected", isDepartureStationSelected);
+        outState.putBoolean("isArrivalStationSelected", isArrivalStationSelected);
+        outState.putBoolean("isHourSelected", isHourSelected);
+
+        outState.putString("fecha", fecha);
+        outState.putString("fechaHora", fechaHora);
+        outState.putString("minutos", minutos);
+        outState.putString("fechaHora", fechaHora);
+        outState.putString("origen", origen);
+        outState.putString("desti", desti);
+
+        outState.putInt("linia", linia);
+        outState.putInt("horaInt", horaInt);
+        outState.putInt("minutosInt", minutosInt);
+
     }
 }

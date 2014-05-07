@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout style="@style/DirectionsWaypointsContent" android:orientation="horizontal"
+                  android:layout_height="@dimen/directions_waypoint_input_height"
+                  android:id="@+id/linearLayout" android:layout_width="fill_parent"
+                  android:layout_marginLeft="3dp" android:layout_marginTop="2dp" android:layout_marginRight="3dp"
+                  android:layout_marginBottom="2dp" android:background="@drawable/cards_back">
+        <FrameLayout style="@style/Container" android:layout_width="@dimen/directions_left_icon_area_width"
+                     android:layout_height="fill_parent" android:layout_weight="0.0">
+            <ImageView style="@style/CenteredImage" android:layout_gravity="center"
+                       android:src="@drawable/ic_action_time" android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+        </FrameLayout>
+        <LinearLayout style="@style/DividerListContent" android:layout_width="0.0dip"
+                      android:layout_height="fill_parent" android:layout_weight="1.0">
+            <TextView style="@style/DirectionsWaypointTextBox" android:id="@+id/departure_hour"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      tools:text="Hora de salida" android:clickable="false"/>
+            <TextView style="@style/DirectionsWaypointTextBox" android:id="@+id/arrival_hour"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      tools:text="Hora de llegada" android:clickable="false"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
