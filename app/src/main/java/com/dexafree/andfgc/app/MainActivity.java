@@ -12,8 +12,8 @@ import android.view.MenuItem;
 
 import android.view.View;
 import com.dexafree.andfgc.app.beans.Cerca;
-import com.dexafree.andfgc.app.connections.BuscaHoraris;
 import com.dexafree.andfgc.app.databases.DataBaseHelper;
+import com.dexafree.andfgc.app.fragments.AlertsNewsFragment;
 import com.dexafree.andfgc.app.fragments.MainFragment;
 import com.dexafree.andfgc.app.fragments.SearchFragment;
 import com.dexafree.andfgc.app.fragments.SearchResultFragment;
@@ -125,7 +125,7 @@ public class MainActivity extends ActionBarActivity {
                 f = new SearchFragment();
                 break;
             case 2:
-                f = new SearchFragment();
+                f = new AlertsNewsFragment();
                 break;
             default:
                 f = new MainFragment();

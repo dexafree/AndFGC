@@ -19,4 +19,7 @@
     <string name="select_line_first">Sel·lecciona abans la linia</string>
     <string name="error_while_search">Ha succeït un error durant la cerca</string>
     <string name="view_more_options">Veure altres opcions</string>
+    <string name="service_status">Estat del servei</string>
+    <string name="service_alerts">Alertes</string>
+    <string name="normal_service">El servei funciona amb normalitat</string>
 </resources>

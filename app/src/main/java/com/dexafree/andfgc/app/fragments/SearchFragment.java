@@ -33,18 +33,8 @@ import java.util.Calendar;
  */
 public class SearchFragment extends Fragment {
 
-    public static final String DEPARTURE_SELECTED_STRING = "COM.DEXAFREE.ANDFGC.DEPARTURE_STATION_SELECTED";
-    public static final String ARRIVAL_SELECTED_STRING = "COM.DEXAFREE.ANDFGC.ARRIVAL_STATION_SELECTED";
-    public static final String LINE_SELECTED_STRING = "COM.DEXAFREE.ANDFGC.LINE_SELECTED";
-    public static final String NOMBRE_PARADA = "NOMBRE_PARADA";
-    public static final String NUMERO_LINEA = "NUMERO_LINEA";
-    public static final String NOMBRE_LINEA = "NOMBRE_LINEA";
-
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
 
-    private BroadcastReceiver departureStationSelected;
-    private BroadcastReceiver arrivalStationSelected;
-    private BroadcastReceiver lineSelectedReceiver;
     private BroadcastReceiver searchFinished;
 
     private AlertDialog dialog;
@@ -100,68 +90,9 @@ public class SearchFragment extends Fragment {
             setValues();
         }
 
-        mContext.registerReceiver(departureStationSelected, new IntentFilter(DEPARTURE_SELECTED_STRING));
-        mContext.registerReceiver(arrivalStationSelected, new IntentFilter(ARRIVAL_SELECTED_STRING));
-        mContext.registerReceiver(lineSelectedReceiver, new IntentFilter(LINE_SELECTED_STRING));
         mContext.registerReceiver(searchFinished, new IntentFilter(BuscaHoraris.SEARCH_COMPLETED));
 
-        lineSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showLineDialog();
-            }
-        });
-
-        departureStation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(linia == -1) Toast.makeText(mContext, R.string.select_line_first, Toast.LENGTH_SHORT).show();
-                else showStationDialog(DEPARTURE_SELECTED_STRING);
-            }
-        });
-
-        arrivalStation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(linia == -1) Toast.makeText(mContext, R.string.select_line_first, Toast.LENGTH_SHORT).show();
-                else showStationDialog(ARRIVAL_SELECTED_STRING);
-            }
-        });
-
-        departureHour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dpb.show(getChildFragmentManager(), FRAG_TAG_DATE_PICKER );
-            }
-        });
-
-        buscarText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(isArrivalStationSelected && isDepartureStationSelected && isHourSelected) {
-                    pDialog = new ProgressDialog(mContext);
-                    pDialog.setMessage(getString(R.string.searching_message));
-                    pDialog.setTitle(getString(R.string.searching_title));
-                    pDialog.show();
-                    String sortidaArribada;
-                    if(isTimeArrival) sortidaArribada = "A";
-                    else sortidaArribada = "S";
-                    buscaHoraris = new BuscaHoraris(linia, origen, desti, sortidaArribada, fecha, horaInt, minutosInt, mContext);
-                    buscaHoraris.cercar();
-                } else {
-                    Toast.makeText(mContext, R.string.select_all, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        buscarText.setText(getString(R.string.search));
-
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                isTimeArrival = b;
-            }
-        });
+        setListeners();
 
         return v;
     }
@@ -175,36 +106,6 @@ public class SearchFragment extends Fragment {
         lineSelect = (TextView)v.findViewById(R.id.selecciona_linea);
         buscarText = (TextView)v.findViewById(R.id.routeoptions_textbox);
         checkBox = (CheckBox)v.findViewById(R.id.salida_llegada_checkbox);
-
-
-        lineSelectedReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                linia = intent.getExtras().getInt(NUMERO_LINEA);
-                String nombreLinea = intent.getExtras().getString(NOMBRE_LINEA);
-                enableText(departureStation);
-                enableText(arrivalStation);
-                lineSelect.setText(nombreLinea);
-            }
-        };
-
-        departureStationSelected = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                departureStation.setText(intent.getExtras().getString(NOMBRE_PARADA));
-                isDepartureStationSelected = true;
-                enableSearchButton();
-            }
-        };
-
-        arrivalStationSelected = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                arrivalStation.setText(intent.getExtras().getString(NOMBRE_PARADA));
-                isArrivalStationSelected = true;
-                enableSearchButton();
-            }
-        };
 
         searchFinished = new BroadcastReceiver() {
             @Override
@@ -240,6 +141,7 @@ public class SearchFragment extends Fragment {
         isArrivalStationSelected = savedState.getBoolean("isArrivalStationSelected");
         isHourSelected = savedState.getBoolean("isHourSelected");
 
+
         fecha = savedState.getString("fecha");
         fechaHora = savedState.getString("fechaHora");
         minutos = savedState.getString("minutos");
@@ -254,26 +156,84 @@ public class SearchFragment extends Fragment {
 
     private void setValues(){
         checkBox.setChecked(isTimeArrival);
-        if(isDepartureStationSelected){
-            enableText(departureStation);
+        if(isDepartureStationSelected)
             departureStation.setText(ParadaController.getParadaFromAbreviatura(mContext,origen).getNom());
-            enableSearchButton();
-        }
-        if(isArrivalStationSelected){
-            enableText(arrivalStation);
+        if(isArrivalStationSelected)
             arrivalStation.setText(ParadaController.getParadaFromAbreviatura(mContext,desti).getNom());
-            enableSearchButton();
-        }
-        if(isHourSelected){
+
+        if(isHourSelected)
             departureHour.setText(fechaHora);
-            enableSearchButton();
+
+        if(linia != -1){
+            lineSelect.setText(linies[linia-1]);
+            enableText(departureStation);
+            enableText(arrivalStation);
         }
-        if(linia != -1) lineSelect.setText(linies[linia-1]);
+
+        enableSearchButton();
 
     }
 
+    private void setListeners(){
+
+        lineSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showLineDialog();
+            }
+        });
+
+        departureStation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(linia == -1) Toast.makeText(mContext, R.string.select_line_first, Toast.LENGTH_SHORT).show();
+                else showStationDialog(false);
+            }
+        });
+
+        arrivalStation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(linia == -1) Toast.makeText(mContext, R.string.select_line_first, Toast.LENGTH_SHORT).show();
+                else showStationDialog(true);
+            }
+        });
+
+        departureHour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dpb.show(getChildFragmentManager(), FRAG_TAG_DATE_PICKER );
+            }
+        });
+
+        buscarText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isArrivalStationSelected && isDepartureStationSelected && isHourSelected) {
+                    pDialog = new ProgressDialog(mContext);
+                    pDialog.setMessage(getString(R.string.searching_message));
+                    pDialog.setTitle(getString(R.string.searching_title));
+                    pDialog.show();
+                    String sortidaArribada;
+                    if(isTimeArrival) sortidaArribada = "A";
+                    else sortidaArribada = "S";
+                    buscaHoraris = new BuscaHoraris(linia, origen, desti, sortidaArribada, fecha, horaInt, minutosInt, mContext);
+                    buscaHoraris.cercar();
+                } else {
+                    Toast.makeText(mContext, R.string.select_all, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                isTimeArrival = b;
+            }
+        });
+    }
+
     private void enableText(TextView tv){
-        Logger.d("ACTIVADO", "TEXTVIEW");
         tv.setTextColor(mContext.getResources().getColor(R.color.primary_grey));
         tv.setClickable(true);
     }
@@ -285,16 +245,36 @@ public class SearchFragment extends Fragment {
         builder.setItems(linies, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent = new Intent();
-                intent.setAction(LINE_SELECTED_STRING);
-                intent.putExtra(NUMERO_LINEA, i+1);
-                intent.putExtra(NOMBRE_LINEA, linies[i]);
-                mContext.sendBroadcast(intent);
-                dialog.dismiss();
+
+                lineSelected(i+1, linies[i]);
             }
         });
         dialog = builder.create();
         dialog.show();
+    }
+
+    private void lineSelected(int numLinia, String nomLinia){
+        linia = numLinia;
+        enableText(departureStation);
+        enableText(arrivalStation);
+        lineSelect.setText(nomLinia);
+    }
+
+    private void stationSelected(boolean isArrival, String nomParada, String abreviatura){
+        if(isArrival){
+            desti = abreviatura;
+            arrivalStation.setText(nomParada);
+            isArrivalStationSelected = true;
+            enableText(arrivalStation);
+
+        } else {
+            origen = abreviatura;
+            departureStation.setText(nomParada);
+            isDepartureStationSelected = true;
+            enableText(departureStation);
+        }
+
+        enableSearchButton();
     }
 
     private void enableSearchButton(){
@@ -305,7 +285,7 @@ public class SearchFragment extends Fragment {
 
     }
 
-    private void showStationDialog(final String broadcast){
+    private void showStationDialog(final boolean isArrival){
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(R.string.selecciona_parada);
         final String[] parades = ParadaController.getParadesFromLiniaAsStringArray(mContext, linia);
@@ -314,15 +294,17 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String parada = parades[i];
-                mContext.sendBroadcast(new Intent().setAction(broadcast).putExtra(NOMBRE_PARADA, parada));
                 String abreviatura = paradesArrayList.get(i).getAbreviatura();
-                if(broadcast.equalsIgnoreCase(DEPARTURE_SELECTED_STRING)) origen = abreviatura;
-                else if(broadcast.equalsIgnoreCase(ARRIVAL_SELECTED_STRING)) desti = abreviatura;
+                stationSelected(isArrival, parada, abreviatura);
                 dialog.dismiss();
             }
         });
         dialog = builder.create();
         dialog.show();
+    }
+
+    private void showTimeDialog(){
+        tpb.show();
     }
 
     private class MyDateSetHandler implements CalendarDatePickerDialog.OnDateSetListener {
@@ -338,10 +320,6 @@ public class SearchFragment extends Fragment {
             fecha = dayString+"/"+monthString+"/"+year;
             showTimeDialog();
         }
-    }
-
-    private void showTimeDialog(){
-        tpb.show();
     }
 
     private class MyHourSetHandler implements TimePickerDialogFragment.TimePickerDialogHandler {
@@ -366,9 +344,6 @@ public class SearchFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mContext.unregisterReceiver(departureStationSelected);
-        mContext.unregisterReceiver(arrivalStationSelected);
-        mContext.unregisterReceiver(lineSelectedReceiver);
         mContext.unregisterReceiver(searchFinished);
     }
 
