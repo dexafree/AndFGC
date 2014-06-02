@@ -22,4 +22,7 @@
     <string name="service_status">Estado del servicio</string>
     <string name="service_alerts">Alertas</string>
     <string name="normal_service">El servicio funciona con normalidad</string>
+    <string name="timetable_downloaded">Descargado el horario de la línea </string>
+    <string name="loading_timetables">Cargando horarios</string>
+    <string name="please_wait">Por favor, espere...</string>
 </resources>

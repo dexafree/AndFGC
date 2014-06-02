@@ -22,4 +22,7 @@
     <string name="service_status">Estat del servei</string>
     <string name="service_alerts">Alertes</string>
     <string name="normal_service">El servei funciona amb normalitat</string>
+    <string name="timetable_downloaded">Descarregat l\'horari de la linia </string>
+    <string name="loading_timetables">Carregant horaris</string>
+    <string name="please_wait">Si us plau, esperi...</string>
 </resources>

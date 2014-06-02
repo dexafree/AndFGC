@@ -56,7 +56,16 @@ public class GetWebInfo {
                             statusDates.clear();
                             statusMessages.add(mContext.getString(R.string.normal_service));
                             DateTime now = DateTime.now();
-                            statusDates.add(now.getDayOfMonth()+"/"+now.getMonthOfYear()+"/"+now.getYear());
+                            int dayInt = now.getDayOfMonth();
+                            int monthInt = now.getMonthOfYear();
+                            String day;
+                            String month;
+                            String year = now.getYear()+"";
+                            if(dayInt < 10) day = "0"+dayInt;
+                            else day = ""+dayInt;
+                            if(monthInt < 10) month = "0"+monthInt;
+                            else month = ""+monthInt;
+                            statusDates.add(day+"/"+month+"/"+year);
                         }
 
                         if(mode==1) BusProvider.getInstance().post(new StatusSearchFinishedEvent(statusMessages, statusDates));

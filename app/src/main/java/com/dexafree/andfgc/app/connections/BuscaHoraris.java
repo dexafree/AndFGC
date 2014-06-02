@@ -11,6 +11,8 @@ import com.dexafree.andfgc.app.beans.Parada;
 import com.dexafree.andfgc.app.beans.Transbord;
 import com.dexafree.andfgc.app.controllers.ParadaController;
 import com.dexafree.andfgc.app.controllers.TransbordController;
+import com.dexafree.andfgc.app.events.BusProvider;
+import com.dexafree.andfgc.app.events.SearchFinishedEvent;
 import com.dexafree.andfgc.app.utils.Checkers;
 import com.dexafree.andfgc.app.utils.Logger;
 import com.google.gson.JsonArray;
@@ -233,10 +235,7 @@ public class BuscaHoraris {
                                 c.setParadaInici(paradaInici);
                                 c.setParadaFi(paradaFi);
 
-                                Intent i = new Intent();
-                                i.putExtra("CERCA", c);
-                                i.setAction(SEARCH_COMPLETED);
-                                mContext.sendBroadcast(i);
+                                BusProvider.getInstance().post(new SearchFinishedEvent(c));
                             } catch (ClassCastException exception){
                                 JsonObject object = result.getAsJsonObject();
                                 String error = object.get("path").getAsString();

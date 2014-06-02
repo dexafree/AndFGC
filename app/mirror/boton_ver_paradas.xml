@@ -1,0 +1,9 @@
+<!-- Generated template screen file. Fill the id tags below with content
+with which to populate your previewed layout. For help with sample
+data, please see http://jimulabs.com/sample-data-specifications/ -->
+<screen>
+    <_content layout="@layout/boton_ver_paradas">
+        <icono_tren></icono_tren>
+        <ver_paradas_text text="textview" />
+    </_content>
+</screen>

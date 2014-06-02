@@ -13,10 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.databases.DataBaseHelper;
-import com.dexafree.andfgc.app.fragments.AlertsNewsFragment;
-import com.dexafree.andfgc.app.fragments.MainFragment;
-import com.dexafree.andfgc.app.fragments.SearchFragment;
-import com.dexafree.andfgc.app.fragments.SearchResultFragment;
+import com.dexafree.andfgc.app.fragments.*;
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
 
 public class MainActivity extends ActionBarActivity {
@@ -126,6 +123,9 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case 2:
                 f = new AlertsNewsFragment();
+                break;
+            case 3:
+                f = new DownloadTimetablesFragment();
                 break;
             default:
                 f = new MainFragment();

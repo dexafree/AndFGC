@@ -1,0 +1,16 @@
+<!-- Generated template screen file. Fill the id tags below with content
+with which to populate your previewed layout. For help with sample
+data, please see http://jimulabs.com/sample-data-specifications/ -->
+<screen>
+    <_content layout="@layout/directions_input_panel">
+        <selecciona_linea text="@string/selecciona_linia" />
+        <directions_startpoint_icon></directions_startpoint_icon>
+        <directions_endpoint_icon></directions_endpoint_icon>
+        <directions_startpoint_textbox text="@string/start_station" />
+        <directions_endpoint_textbox text="@string/end_station" />
+        <directions_swapwaypoints_icon></directions_swapwaypoints_icon>
+        <departure_hour text="@string/select_hour" />
+        <salida_llegada_checkbox></salida_llegada_checkbox>
+        <routeoptions_textbox text="@string/search" />
+    </_content>
+</screen>
