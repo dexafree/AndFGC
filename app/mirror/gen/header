@@ -1,0 +1,8 @@
+#Automatically generated header file. Editing this file may cause problems.
+#Sun May 04 23:05:52 CEST 2014
+dexState=NO_CHANGE
+serverVersion=2.0-beta5
+version=15
+package=com.dexafree.andfgc.app
+serverVersionCode=30
+appTheme=@style/Theme.Andfgc

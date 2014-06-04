@@ -1,0 +1,10 @@
+<!-- Generated template screen file. Fill the id tags below with content
+with which to populate your previewed layout. For help with sample
+data, please see http://jimulabs.com/sample-data-specifications/ -->
+<screen>
+    <_content layout="@layout/search_result_paradas_list_item">
+        <icono_circulo></icono_circulo>
+        <icono_linea></icono_linea>
+        <nombre_parada_expanded text="textview" />
+    </_content>
+</screen>

@@ -17,12 +17,15 @@ import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.beans.Parada;
 import com.dexafree.andfgc.app.connections.BuscaHoraris;
 import com.dexafree.andfgc.app.controllers.ParadaController;
+import com.dexafree.andfgc.app.events.BusProvider;
+import com.dexafree.andfgc.app.events.SearchFinishedEvent;
 import com.dexafree.andfgc.app.utils.Logger;
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
 import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
 import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
+import com.squareup.otto.Subscribe;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -34,8 +37,6 @@ import java.util.Calendar;
 public class SearchFragment extends Fragment {
 
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
-
-    private BroadcastReceiver searchFinished;
 
     private AlertDialog dialog;
     private ProgressDialog pDialog;
@@ -80,6 +81,12 @@ public class SearchFragment extends Fragment {
     private CalendarDatePickerDialog dpb;
     private TimePickerBuilder tpb;
 
+    @Subscribe
+    public void onSearchFinished(SearchFinishedEvent event){
+        pDialog.dismiss();
+        mainActivity.showSearchResults(event.getCerca(), fecha);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.directions_input_panel, null);
@@ -89,8 +96,6 @@ public class SearchFragment extends Fragment {
             loadValues(savedInstanceState);
             setValues();
         }
-
-        mContext.registerReceiver(searchFinished, new IntentFilter(BuscaHoraris.SEARCH_COMPLETED));
 
         setListeners();
 
@@ -106,21 +111,6 @@ public class SearchFragment extends Fragment {
         lineSelect = (TextView)v.findViewById(R.id.selecciona_linea);
         buscarText = (TextView)v.findViewById(R.id.routeoptions_textbox);
         checkBox = (CheckBox)v.findViewById(R.id.salida_llegada_checkbox);
-
-        searchFinished = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                try{
-                    pDialog.dismiss();
-                    Cerca c = intent.getExtras().getParcelable("CERCA");
-                    Logger.d("FECHA", fecha);
-                    mainActivity.showSearchResults(c, fecha);
-                } catch (NullPointerException e){
-                    e.printStackTrace();
-                    Toast.makeText(mContext, R.string.error_while_search, Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
 
         DateTime now = DateTime.now();
 
@@ -342,10 +332,11 @@ public class SearchFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mContext.unregisterReceiver(searchFinished);
+    public void onPause() {
+        super.onPause();
+        BusProvider.getInstance().unregister(this);
     }
+
 
     @Override
     public void onResume() {
@@ -356,6 +347,7 @@ public class SearchFragment extends Fragment {
             if(dsh == null) dsh = new MyDateSetHandler();
             calendarDatePickerDialog.setOnDateSetListener(dsh);
         }
+        BusProvider.getInstance().register(this);
     }
 
     @Override

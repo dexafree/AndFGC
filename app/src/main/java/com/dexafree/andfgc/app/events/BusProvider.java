@@ -7,9 +7,9 @@ import com.squareup.otto.Bus;
  * such as through injection directly into interested classes.
  */
 public final class BusProvider {
-    private static final Bus BUS = new Bus();
+    private static final MainThreadBus BUS = new MainThreadBus(new Bus());
 
-    public static Bus getInstance() {
+    public static MainThreadBus getInstance() {
         return BUS;
     }
 
