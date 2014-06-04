@@ -3,19 +3,18 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="LOCAL" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="C:/Program Files (x86)/Gradle" />
+        <option name="gradleHome" value="" />
         <option name="modules">
           <set>
-            <option value="C:\Users\Carlos\workspace\AndFGC" />
-            <option value="C:\Users\Carlos\workspace\AndFGC\SuperListviewLibrary" />
-            <option value="C:\Users\Carlos\workspace\AndFGC\app" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/SuperListviewLibrary" />
+            <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
       </GradleProjectSettings>
     </option>
-    <option name="gradleVmOptions" value="-Xmx512m" />
   </component>
 </project>
 

@@ -98,6 +98,8 @@ public class AlertsNewsFragment extends Fragment {
         statusDates = savedState.getStringArrayList("STATUSDATES");
         alertMessages = savedState.getStringArrayList("ALERTMESSAGES");
         alertDates = savedState.getStringArrayList("ALERTDATES");
+        statusLoaded = savedState.getBoolean("STATUSLOADED");
+        alertsLoaded = savedState.getBoolean("ALERTSLOADED");
     }
 
     private void bindViews(View v){
@@ -113,6 +115,8 @@ public class AlertsNewsFragment extends Fragment {
         outState.putStringArrayList("STATUSDATES", statusDates);
         outState.putStringArrayList("ALERTMESSAGES", alertMessages);
         outState.putStringArrayList("ALERTDATES", alertDates);
+        outState.putBoolean("STATUSLOADED", statusLoaded);
+        outState.putBoolean("ALERTSLOADED", alertsLoaded);
     }
 
     @Override

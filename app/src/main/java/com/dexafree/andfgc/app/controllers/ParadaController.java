@@ -3,6 +3,8 @@ package com.dexafree.andfgc.app.controllers;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.dexafree.andfgc.app.beans.Coordenada;
 import com.dexafree.andfgc.app.beans.Parada;
 import com.dexafree.andfgc.app.databases.DataBaseHelper;
 import com.dexafree.andfgc.app.utils.Logger;
@@ -184,6 +186,55 @@ public class ParadaController {
         Parada p = new Parada(nom, abreviatura);
 
         return p;
+    }
 
+    public static ArrayList<Coordenada> getAllCoords(Context c){
+        ArrayList<Coordenada> coords = new ArrayList<Coordenada>();
+
+        SQLiteDatabase db = getDb(c);
+        String sqlSeq = "SELECT * FROM coordenadas";
+
+        Cursor cursor = db.rawQuery(sqlSeq, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                String nom = cursor.getString(cursor.getColumnIndex("PARADA"));
+                String abreviacio = cursor.getString(cursor.getColumnIndex("ABREVIACIO"));
+                double x = cursor.getDouble(cursor.getColumnIndex("X"));
+                double y = cursor.getDouble(cursor.getColumnIndex("Y"));
+                Coordenada coord = new Coordenada(nom, abreviacio, x, y);
+                coords.add(coord);
+            }while(cursor.moveToNext());
+        }
+
+        db.close();
+
+        return coords;
+    }
+
+    public static Coordenada getCoordenadaFromParada(Context c, Parada p){
+        Coordenada coord = new Coordenada();
+
+        String abreviacioParada = p.getAbreviatura();
+
+        SQLiteDatabase db = getDb(c);
+        String sqlSeq = "SELECT * FROM coordenadas WHERE ABREVIACIO = '"+abreviacioParada+"'";
+
+        Cursor cursor = db.rawQuery(sqlSeq, null);
+
+        if(cursor.moveToFirst()){
+            String nom = cursor.getString(cursor.getColumnIndex("PARADA"));
+            String abreviacio = cursor.getString(cursor.getColumnIndex("ABREVIACIO"));
+            double x = cursor.getDouble(cursor.getColumnIndex("X"));
+            double y = cursor.getDouble(cursor.getColumnIndex("Y"));
+            coord.setNom(nom);
+            coord.setAbreviacio(abreviacio);
+            coord.setX(x);
+            coord.setY(y);
+        }
+
+        db.close();
+
+        return coord;
     }
 }

@@ -17,6 +17,8 @@ import com.dexafree.andfgc.app.fragments.AlertsNewsFragment;
 import com.dexafree.andfgc.app.fragments.MainFragment;
 import com.dexafree.andfgc.app.fragments.SearchFragment;
 import com.dexafree.andfgc.app.fragments.SearchResultFragment;
+import com.dexafree.andfgc.app.fragments.ShowMapFragment;
+
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
 
 public class MainActivity extends ActionBarActivity {
@@ -126,6 +128,9 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case 2:
                 f = new AlertsNewsFragment();
+                break;
+            case 3:
+                f = new ShowMapFragment();
                 break;
             default:
                 f = new MainFragment();
