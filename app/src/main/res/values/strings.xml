@@ -25,4 +25,7 @@
     <string name="timetable_downloaded">Descarregat l\'horari de la linia </string>
     <string name="loading_timetables">Carregant horaris</string>
     <string name="please_wait">Si us plau, esperi...</string>
+    <string name="downloading_timetable">Descarregant horari de </string>
+    <string name="downloading">Descarregant...</string>
+    <string name="download_finished">Descàrrega finalitzada</string>
 </resources>

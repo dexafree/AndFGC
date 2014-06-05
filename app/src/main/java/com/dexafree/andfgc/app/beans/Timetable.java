@@ -3,6 +3,8 @@ package com.dexafree.andfgc.app.beans;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.dexafree.andfgc.app.utils.Logger;
+
 /**
  * Created by Carlos on 26/05/2014.
  */
@@ -19,7 +21,8 @@ public class Timetable implements Parcelable {
         this.name = name;
         String temp = name.replaceAll("[\\s_\\./]","-");
         this.linea = temp;
-        this.url = url;
+        String tempUrl = url.replace(" ", "%20");
+        this.url = tempUrl;
     }
 
     public String getName() {
@@ -37,7 +40,8 @@ public class Timetable implements Parcelable {
     }
 
     public void setUrl(String url) {
-        this.url = url;
+        String tempUrl = url.replace(" ", "%20");
+        this.url = tempUrl;
     }
 
     public String getLinea(){

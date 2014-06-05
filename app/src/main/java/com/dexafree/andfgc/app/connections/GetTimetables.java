@@ -31,7 +31,6 @@ public class GetTimetables {
             for(int i=0;i<timetables.size();i++){
                 String name = timetables.get(i).text();
                 String url = timetables.get(i).attr("href");
-                Logger.d("URL", url);
                 url = url.replace("..", "http://www.fgc.cat");
 
                 t = new Timetable(name, url);

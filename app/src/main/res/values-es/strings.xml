@@ -17,7 +17,7 @@
     <string name="arrival">Llegada</string>
     <string name="select_all">Assegúrate de seleccionar todos los campos</string>
     <string name="select_line_first">Selecciona antes la línea</string>
-    <string name="error_while_search">Ha sucedido un error durante la búsqueda</string>
+    <string name="error_while_search">Ha ocurrido un error durante la búsqueda</string>
     <string name="view_more_options">Ver otras opciones</string>
     <string name="service_status">Estado del servicio</string>
     <string name="service_alerts">Alertas</string>
@@ -25,4 +25,7 @@
     <string name="timetable_downloaded">Descargado el horario de la línea </string>
     <string name="loading_timetables">Cargando horarios</string>
     <string name="please_wait">Por favor, espere...</string>
+    <string name="downloading_timetable">Descargando horario de </string>
+    <string name="downloading">Descargando...</string>
+    <string name="download_finished">Descarga finalizada</string>
 </resources>
