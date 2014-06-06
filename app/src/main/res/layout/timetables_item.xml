@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:id="@+id/routeoptions_button"
-              android:layout_width="fill_parent"
-              android:layout_weight="0.0"
-              android:clickable="false"
-              style="@style/DirectionsPanelOptionButton">
-    <ImageView
-            android:id="@+id/icono_circulo"
-            android:layout_width="@dimen/directions_left_icon_area_width"
-            android:src="@drawable/fgclogo"
-            android:clickable="false"
-            style="@style/CenteredImage" />
-    <TextView
-            android:textAppearance="@style/SmallTertiaryText"
-            android:id="@+id/timetable_name"
-            android:layout_width="fill_parent"
-            android:clickable="false"
-            style="@style/IconTextButton"
-            tools:text="Nombre de parada" android:layout_marginLeft="4dp"/>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+    <LinearLayout android:id="@+id/routeoptions_button"
+                  android:layout_width="fill_parent"
+                  android:layout_weight="0.0"
+                  android:clickable="false"
+                  style="@style/DirectionsPanelOptionButton"
+                  android:background="@drawable/cards_back" android:layout_marginLeft="6dp"
+                  android:layout_marginTop="4dp" android:layout_marginRight="6dp">
+        <ImageView
+                android:id="@+id/icono_circulo"
+                android:layout_width="@dimen/directions_left_icon_area_width"
+                android:src="@drawable/fgclogo"
+                android:clickable="false"
+                style="@style/CenteredImage" />
+        <TextView
+                android:textAppearance="@style/SmallTertiaryText"
+                android:id="@+id/timetable_name"
+                android:layout_width="fill_parent"
+                android:clickable="false"
+                style="@style/IconTextButton"
+                tools:text="Nombre de parada" android:layout_marginLeft="4dp"/>
+    </LinearLayout>
 </LinearLayout>

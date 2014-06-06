@@ -2,6 +2,8 @@ package com.dexafree.andfgc.app.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,6 +22,7 @@ import com.dexafree.andfgc.app.events.DownloadFinishedEvent;
 import com.dexafree.andfgc.app.utils.Logger;
 import com.squareup.otto.Subscribe;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -37,6 +40,11 @@ public class DownloadTimetablesFragment extends Fragment {
     @Subscribe
     public void onDownloadFinished(DownloadFinishedEvent event){
         Toast.makeText(mContext, getString(R.string.timetable_downloaded)+event.getFilename(), Toast.LENGTH_SHORT).show();
+        File file = event.getFile();
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(file), "application/pdf");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
 
@@ -94,6 +102,8 @@ public class DownloadTimetablesFragment extends Fragment {
     private void setTimetables(){
         TimetablesAdapter adapter = new TimetablesAdapter(mContext, timetables);
         timetableList.setAdapter(adapter);
+        timetableList.setDivider(null);
+        timetableList.setDividerHeight(10);
         timetableList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

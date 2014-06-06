@@ -19,6 +19,7 @@ import com.dexafree.andfgc.app.fragments.MainFragment;
 import com.dexafree.andfgc.app.fragments.SearchFragment;
 import com.dexafree.andfgc.app.fragments.SearchResultFragment;
 import com.dexafree.andfgc.app.fragments.ShowMapFragment;
+import com.dexafree.andfgc.app.utils.Logger;
 
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
 
@@ -26,6 +27,8 @@ public class MainActivity extends ActionBarActivity {
 
     private ActionBarDrawerToggle drawerToggle;
     private GoogleNavigationDrawer mDrawer;
+
+    private int mPosition;
 
 
     @Override
@@ -120,31 +123,39 @@ public class MainActivity extends ActionBarActivity {
 
     private void selectOption(int position){
         Fragment f;
-        switch(position){
-            case 0:
-                f = new MainFragment();
-                break;
-            case 1:
-                f = new SearchFragment();
-                break;
-            case 2:
-                f = new AlertsNewsFragment();
-                break;
-            case 3:
-                f = new DownloadTimetablesFragment();
-                break;
-            case 4:
-                f = new ShowMapFragment();
-                break;
-            default:
-                f = new MainFragment();
-                break;
+        Logger.d("MPOSITION", mPosition+"");
+        Logger.d("POSITION", position+"");
+        if(position != mPosition) {
+            switch (position) {
+                case 0:
+                    f = new MainFragment();
+                    mPosition = position;
+                    break;
+                case 1:
+                    f = new SearchFragment();
+                    mPosition = position;
+                    break;
+                case 2:
+                    f = new AlertsNewsFragment();
+                    mPosition = position;
+                    break;
+                case 3:
+                    f = new DownloadTimetablesFragment();
+                    break;
+                case 4:
+                    f = new ShowMapFragment();
+                    mPosition = position;
+                    break;
+                default:
+                    f = new MainFragment();
+                    break;
+            }
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction()
+                    .replace(R.id.content_layout, f)
+                    .commit();
         }
 
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction()
-                .replace(R.id.content_layout, f)
-                .commit();
     }
 
     private void firstTime(){

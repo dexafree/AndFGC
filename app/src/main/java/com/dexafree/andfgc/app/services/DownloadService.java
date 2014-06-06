@@ -23,6 +23,7 @@ import android.os.Message;
 import android.os.Messenger;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.events.BusProvider;
@@ -123,16 +124,17 @@ public class DownloadService extends IntentService {
                     .setProgress(0, 0, false)
                     .setOngoing(false);
             notificationManager.notify(id, n.build());
+
+            publishResults(fileName, file);
         } catch (IOException f){
             f.printStackTrace();
+
+            Toast.makeText(this, getString(R.string.download_error), Toast.LENGTH_SHORT).show();
         }
 
-
-
-        publishResults(fileName);
     }
 
-    private void publishResults(String filename) {
-        BusProvider.getInstance().post(new DownloadFinishedEvent(filename));
+    private void publishResults(String filename, File file) {
+        BusProvider.getInstance().post(new DownloadFinishedEvent(filename, file));
     }
 }
