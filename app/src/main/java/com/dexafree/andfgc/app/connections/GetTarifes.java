@@ -6,6 +6,7 @@ import com.dexafree.andfgc.app.beans.Property;
 import com.dexafree.andfgc.app.beans.Ticket;
 import com.dexafree.andfgc.app.events.BusProvider;
 import com.dexafree.andfgc.app.events.TarifesSearchFinishedEvent;
+import com.dexafree.andfgc.app.utils.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -14,6 +15,7 @@ import com.koushikdutta.ion.Ion;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by Carlos on 06/06/14.
@@ -21,8 +23,23 @@ import java.util.ArrayList;
 public class GetTarifes {
 
     public static void getTarifes(Context c){
+        String language;
+        String localLang = Locale.getDefault().getLanguage();
+
+        if(localLang.equalsIgnoreCase("es")){
+            language = "esp";
+            Logger.d("ESPAÑOL", "ENTRADO");
+        }else if(localLang.equalsIgnoreCase("en")){
+            language = "eng";
+        }else{
+            language = "cat";
+        }
+
+        Logger.d("LOCALLANG", localLang);
+        Logger.d("LANGUAGE", language);
+
         Ion.with(c)
-           .load("http://www.kimonolabs.com/api/aypr1ui0?apikey=f3c016707fe6e0c44c29c59a3f6cf9be")
+           .load("http://www.kimonolabs.com/api/aypr1ui0?apikey=f3c016707fe6e0c44c29c59a3f6cf9be&kimpath1="+language)
            .asJsonObject()
            .setCallback(new FutureCallback<JsonObject>() {
                @Override
@@ -32,6 +49,7 @@ public class GetTarifes {
                    ArrayList<Ticket> ticketsList = new ArrayList<Ticket>();
                    for(int i=0;i<collection.size();i++){
                        JsonObject ticketObject = collection.get(i).getAsJsonObject();
+
                         if(isValid(ticketObject)){
                             String ticketName = ticketObject.get("title").getAsString();
 
@@ -42,6 +60,10 @@ public class GetTarifes {
                             JsonArray zone4 = ticketObject.get("zone4").getAsJsonArray();
                             JsonArray zone5 = ticketObject.get("zone5").getAsJsonArray();
                             JsonArray zone6 = ticketObject.get("zone6").getAsJsonArray();
+                            String description;
+
+                            description = getDescription(ticketObject);
+
                             ArrayList<Property> properties = new ArrayList<Property>();
                             for(int j=0;j<propertiesArray.size();j++){
                                 ArrayList<String> values = new ArrayList<String>();
@@ -57,7 +79,7 @@ public class GetTarifes {
                                 properties.add(property);
                             }
 
-                            Ticket ticket = new Ticket(ticketName, properties);
+                            Ticket ticket = new Ticket(ticketName, properties, description);
                             ticketsList.add(ticket);
                         }
 
@@ -68,6 +90,27 @@ public class GetTarifes {
     }
 
     private static boolean isValid(JsonObject object){
-        return object.get("zone1").getAsJsonArray().size() > 0;
+        try{
+            return object.get("zone1").getAsJsonArray().size() > 0;
+        } catch(IllegalStateException e){
+            Logger.d("TICKET", object.toString());
+            e.printStackTrace();
+
+        }
+        return false;
+
+    }
+
+    private static String getDescription(JsonObject ticketObject){
+        String description = "";
+        try{
+            description = ticketObject.get("description").getAsString();
+        } catch (UnsupportedOperationException e){
+            e.printStackTrace();
+        } catch (IllegalStateException e){
+            e.printStackTrace();
+        }
+
+        return description;
     }
 }

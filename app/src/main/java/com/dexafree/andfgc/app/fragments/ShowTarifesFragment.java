@@ -1,12 +1,18 @@
 package com.dexafree.andfgc.app.fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.beans.Ticket;
@@ -34,11 +40,15 @@ public class ShowTarifesFragment extends Fragment {
         ticketsList = event.getTickets();
         //setContent();
         dialog.dismiss();
+
+        ((LinearLayout)getView().findViewById(R.id.mainLayout)).addView(generateCards());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.search_fragment_layout, null); // CAMBIAR, SOLO PARA QUE NO PETE
+
+        View v = inflater.inflate(R.layout.tarifas_layout, null); // CAMBIAR, SOLO PARA QUE NO PETE
+
         this.mContext = getActivity();
         //bindViews(v);
         if(savedInstanceState == null){
@@ -56,6 +66,77 @@ public class ShowTarifesFragment extends Fragment {
 
     public void loadValues(Bundle savedState){
         ticketsList = savedState.getParcelableArrayList(TICKETS);
+    }
+
+    private View generateCards(){
+        LinearLayout allTheTickets = new LinearLayout(mContext);
+        allTheTickets.setOrientation(LinearLayout.VERTICAL);
+        for(int i=0;i<ticketsList.size();i++){
+            allTheTickets.addView(generateCard(i));
+        }
+
+        return allTheTickets;
+    }
+
+    private View generateCard(final int position){
+        View v = View.inflate(mContext, R.layout.tarifa_item_layout, null);
+
+        ((TextView)v.findViewById(R.id.ticketTitle)).setText(ticketsList.get(position).getName());
+        ((LinearLayout)v.findViewById(R.id.tarifaContentLayout)).addView(createTable(position));
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showInfoDialog(position);
+            }
+        });
+
+        return v;
+    }
+
+    private View createTable(int position){
+
+        LinearLayout layout = new LinearLayout(mContext);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        int numFilas = ticketsList.get(position).getProperties().size();
+
+        layout.addView(generateHeaderView());
+
+        for(int i=0;i<numFilas;i++) {
+
+            View v = View.inflate(mContext, R.layout.tarifas_row_item_layout, null);
+            ((TextView) v.findViewById(R.id.sectionTitle)).setText(ticketsList.get(position).getProperties().get(i).getName());
+            ((TextView) v.findViewById(R.id.zone1)).setText(ticketsList.get(position).getProperties().get(i).getValues().get(0));
+            ((TextView) v.findViewById(R.id.zone2)).setText(ticketsList.get(position).getProperties().get(i).getValues().get(1));
+            ((TextView) v.findViewById(R.id.zone3)).setText(ticketsList.get(position).getProperties().get(i).getValues().get(2));
+            ((TextView) v.findViewById(R.id.zone4)).setText(ticketsList.get(position).getProperties().get(i).getValues().get(3));
+            ((TextView) v.findViewById(R.id.zone5)).setText(ticketsList.get(position).getProperties().get(i).getValues().get(4));
+            ((TextView) v.findViewById(R.id.zone6)).setText(ticketsList.get(position).getProperties().get(i).getValues().get(5));
+            layout.addView(v);
+        }
+
+        return layout;
+    }
+
+    private View generateHeaderView(){
+        View headerView = View.inflate(mContext,R.layout.tarifas_row_item_layout, null);
+        ((TextView) headerView.findViewById(R.id.sectionTitle)).setText("");
+        ((TextView) headerView.findViewById(R.id.zone1)).setText("ZONA 1");
+        ((TextView) headerView.findViewById(R.id.zone2)).setText("ZONA 2");
+        ((TextView) headerView.findViewById(R.id.zone3)).setText("ZONA 3");
+        ((TextView) headerView.findViewById(R.id.zone4)).setText("ZONA 4");
+        ((TextView) headerView.findViewById(R.id.zone5)).setText("ZONA 5");
+        ((TextView) headerView.findViewById(R.id.zone6)).setText("ZONA 6");
+        return headerView;
+    }
+
+    private void showInfoDialog(int position){
+        Ticket ticket = ticketsList.get(position);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(ticket.getName());
+        builder.setMessage(ticket.getDescription());
+        builder.create().show();
     }
 
     @Override

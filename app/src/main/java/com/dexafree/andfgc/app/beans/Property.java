@@ -45,12 +45,12 @@ public class Property implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
-        dest.writeSerializable(this.values);
+        dest.writeList(this.values);
     }
 
     private Property(Parcel in) {
         this.name = in.readString();
-        this.values = (ArrayList<String>) in.readSerializable();
+        in.readList(values, getClass().getClassLoader());
     }
 
     public static Parcelable.Creator<Property> CREATOR = new Parcelable.Creator<Property>() {

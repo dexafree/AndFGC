@@ -12,12 +12,14 @@ public class Ticket implements Parcelable {
 
     private String name;
     private ArrayList<Property> properties;
+    private String description;
 
     public Ticket(){}
 
-    public Ticket(String name, ArrayList<Property> properties){
+    public Ticket(String name, ArrayList<Property> properties, String description){
         this.name = name;
         this.properties = properties;
+        this.description = description;
     }
 
     public String getName() {
@@ -36,6 +38,14 @@ public class Ticket implements Parcelable {
         this.properties = properties;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 
     @Override
     public int describeContents() {
@@ -44,13 +54,15 @@ public class Ticket implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeSerializable(this.properties);
+        dest.writeList(this.properties);
         dest.writeString(this.name);
+        dest.writeString(this.description);
     }
 
     private Ticket(Parcel in) {
-        this.properties = (ArrayList<Property>) in.readSerializable();
+        in.readList(properties, getClass().getClassLoader());
         this.name = in.readString();
+        this.description = in.readString();
     }
 
     public static Parcelable.Creator<Ticket> CREATOR = new Parcelable.Creator<Ticket>() {

@@ -19,6 +19,7 @@ import com.dexafree.andfgc.app.fragments.MainFragment;
 import com.dexafree.andfgc.app.fragments.SearchFragment;
 import com.dexafree.andfgc.app.fragments.SearchResultFragment;
 import com.dexafree.andfgc.app.fragments.ShowMapFragment;
+import com.dexafree.andfgc.app.fragments.ShowTarifesFragment;
 import com.dexafree.andfgc.app.utils.Logger;
 
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
@@ -144,6 +145,10 @@ public class MainActivity extends ActionBarActivity {
                     break;
                 case 4:
                     f = new ShowMapFragment();
+                    mPosition = position;
+                    break;
+                case 5:
+                    f = new ShowTarifesFragment();
                     mPosition = position;
                     break;
                 default:
