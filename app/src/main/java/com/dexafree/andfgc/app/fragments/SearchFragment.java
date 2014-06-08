@@ -36,6 +36,9 @@ import java.util.Calendar;
  */
 public class SearchFragment extends Fragment {
 
+    public static final String FROM_MAP = "FROM_MAP";
+    public static final String FROM_HERE = "FROM_HERE";
+
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
 
     private AlertDialog dialog;
@@ -91,6 +94,26 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.directions_input_panel, null);
         setup(v);
+
+        Bundle args = getArguments();
+
+        if(args != null) {
+            if (args.getBoolean(FROM_MAP)) {
+                Parada p = args.getParcelable("PARADA");
+                int lineTemp = Integer.parseInt(p.getLinia());
+                lineSelected(lineTemp, linies[lineTemp]);
+
+                if (args.getBoolean(FROM_HERE)) {
+                    origen = p.getAbreviatura();
+                    isDepartureStationSelected = true;
+                } else {
+                    desti = p.getAbreviatura();
+                    isArrivalStationSelected = true;
+                }
+
+                setValues();
+            }
+        }
 
         if(savedInstanceState != null){
             loadValues(savedInstanceState);
@@ -148,6 +171,7 @@ public class SearchFragment extends Fragment {
         checkBox.setChecked(isTimeArrival);
         if(isDepartureStationSelected)
             departureStation.setText(ParadaController.getParadaFromAbreviatura(mContext,origen).getNom());
+
         if(isArrivalStationSelected)
             arrivalStation.setText(ParadaController.getParadaFromAbreviatura(mContext,desti).getNom());
 
@@ -248,6 +272,12 @@ public class SearchFragment extends Fragment {
         enableText(departureStation);
         enableText(arrivalStation);
         lineSelect.setText(nomLinia);
+        isDepartureStationSelected = false;
+        isArrivalStationSelected = false;
+        departureStation.setText(R.string.start_station);
+        arrivalStation.setText(R.string.end_station);
+        origen = null;
+        desti = null;
     }
 
     private void stationSelected(boolean isArrival, String nomParada, String abreviatura){
@@ -268,16 +298,15 @@ public class SearchFragment extends Fragment {
     }
 
     private void enableSearchButton(){
-
         if(isHourSelected && isDepartureStationSelected && isArrivalStationSelected){
             buscarText.setTextColor(mContext.getResources().getColor(R.color.primary_grey));
         }
-
     }
 
     private void showStationDialog(final boolean isArrival){
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(R.string.selecciona_parada);
+        //TODO: INTENTAR OPTIMIZAR TENER ESTAS DOS VARIABLES
         final String[] parades = ParadaController.getParadesFromLiniaAsStringArray(mContext, linia);
         final ArrayList<Parada> paradesArrayList = ParadaController.getParadesFromLiniaAsArrayList(mContext, linia);
         builder.setItems(parades, new DialogInterface.OnClickListener() {

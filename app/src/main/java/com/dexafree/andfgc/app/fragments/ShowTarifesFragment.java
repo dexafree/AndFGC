@@ -22,6 +22,8 @@ import java.util.ArrayList;
  */
 public class ShowTarifesFragment extends Fragment {
 
+    private final String TICKETS = "TICKETS";
+
     private Context mContext;
     private ProgressDialog dialog;
 
@@ -30,15 +32,15 @@ public class ShowTarifesFragment extends Fragment {
     @Subscribe
     public void onTarifesSearchFinished(TarifesSearchFinishedEvent event){
         ticketsList = event.getTickets();
-        setContent();
+        //setContent();
         dialog.dismiss();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(, null);
+        View v = inflater.inflate(R.layout.search_fragment_layout, null); // CAMBIAR, SOLO PARA QUE NO PETE
         this.mContext = getActivity();
-        bindViews(v);
+        //bindViews(v);
         if(savedInstanceState == null){
             dialog = new ProgressDialog(mContext);
             dialog.setTitle(getString(R.string.downloading_tickets));
@@ -47,19 +49,19 @@ public class ShowTarifesFragment extends Fragment {
             GetTarifes.getTarifes(mContext);
         } else {
             loadValues(savedInstanceState);
-            setContent();
+            //setContent();
         }
         return v;
     }
 
     public void loadValues(Bundle savedState){
-        ticketsList = savedState.getParcelableArrayList("TICKETS");
+        ticketsList = savedState.getParcelableArrayList(TICKETS);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("TICKETS", ticketsList);
+        outState.putParcelableArrayList(TICKETS, ticketsList);
     }
 
     @Override

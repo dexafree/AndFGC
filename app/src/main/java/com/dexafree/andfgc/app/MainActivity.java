@@ -167,6 +167,10 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    public void changeNavDrawerSelection(int position){
+        mDrawer.check(position);
+    }
+
 
 
 }

@@ -237,4 +237,29 @@ public class ParadaController {
 
         return coord;
     }
+
+    public static Parada getParadaFromCoordenada(Context c, Coordenada coord){
+        Parada p = new Parada();
+
+        String abreviacioParada = coord.getAbreviacio();
+
+        SQLiteDatabase db = getDb(c);
+        String sqlSeq = "SELECT * FROM parades WHERE ABREVIACIO = '"+abreviacioParada+"'";
+
+        Cursor cursor = db.rawQuery(sqlSeq, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                String nom = cursor.getString(cursor.getColumnIndex("COMPLET"));
+                int linia  = cursor.getInt(cursor.getColumnIndex("LINIA"));
+                p.setAbreviatura(abreviacioParada);
+                p.setLinia(linia+"");
+                p.setNom(nom);
+            }while(cursor.moveToNext());
+        }
+
+        db.close();
+
+        return p;
+    }
 }

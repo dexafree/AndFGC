@@ -30,4 +30,6 @@
     <string name="download_finished">Descarga finalizada</string>
     <string name="download_error">Error durante la descarga</string>
     <string name="downloading_tickets">Descargando tarifas</string>
+    <string name="from_here">Desde aquí</string>
+    <string name="to_here">Hasta aquí</string>
 </resources>
