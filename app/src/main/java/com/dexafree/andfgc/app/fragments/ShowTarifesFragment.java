@@ -13,11 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.beans.Ticket;
 import com.dexafree.andfgc.app.connections.GetTarifes;
 import com.dexafree.andfgc.app.events.BusProvider;
+import com.dexafree.andfgc.app.events.ErrorEvent;
 import com.dexafree.andfgc.app.events.TarifesSearchFinishedEvent;
 import com.squareup.otto.Subscribe;
 
@@ -44,10 +46,16 @@ public class ShowTarifesFragment extends Fragment {
         ((LinearLayout)getView().findViewById(R.id.mainLayout)).addView(generateCards());
     }
 
+    @Subscribe
+    public void onErrorEvent(ErrorEvent event){
+        dialog.dismiss();
+        Toast.makeText(mContext, getString(R.string.download_error), Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.tarifas_layout, null); // CAMBIAR, SOLO PARA QUE NO PETE
+        View v = inflater.inflate(R.layout.tarifas_layout, null);
 
         this.mContext = getActivity();
         //bindViews(v);

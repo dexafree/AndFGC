@@ -53,7 +53,16 @@ public class DownloadService extends IntentService {
 
         try{
 
-            Intent tempIntent = new Intent(this, DownloadService.class);
+            File SDCardRoot = Environment.getExternalStorageDirectory();
+            File wallpaperDirectory = new File(SDCardRoot.getPath()+"/FGC/");
+            wallpaperDirectory.mkdirs();
+
+            File file = new File(SDCardRoot+"/FGC/",fileName+".pdf");
+
+            //Intent tempIntent = new Intent(this, DownloadService.class);
+            Intent tempIntent = new Intent(Intent.ACTION_VIEW);
+            tempIntent.setDataAndType(Uri.fromFile(file), "application/pdf");
+            tempIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent pIntent = PendingIntent.getActivity(this, 0, tempIntent, 0);
 
             // build notification
@@ -88,11 +97,7 @@ public class DownloadService extends IntentService {
             urlConnection.connect();
 
 
-            File SDCardRoot = Environment.getExternalStorageDirectory();
-            File wallpaperDirectory = new File(SDCardRoot.getPath()+"/FGC/");
-            wallpaperDirectory.mkdirs();
 
-            File file = new File(SDCardRoot+"/FGC/",fileName+".pdf");
 
             FileOutputStream fileOutput = new FileOutputStream(file);
 
@@ -122,7 +127,8 @@ public class DownloadService extends IntentService {
 
             n.setContentText(getString(R.string.download_finished))
                     .setProgress(0, 0, false)
-                    .setOngoing(false);
+                    .setOngoing(false)
+            .setContentIntent(pIntent);
             notificationManager.notify(id, n.build());
 
             publishResults(fileName, file);
