@@ -3,17 +3,18 @@ package com.dexafree.andfgc.app.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.TextView;
 import com.dexafree.andfgc.app.MainActivity;
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.adapters.AlternativesAdapter;
 import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.beans.Opcio;
-import com.quentindommerc.superlistview.SuperGridview;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,7 @@ public class AlternativeOptionsFragment extends Fragment {
 
     private ArrayList<Opcio> opcions;
 
-    private SuperGridview sgv;
+    private GridView sgv;
     private TextView firstStationTV;
     private TextView lastStationTV;
 
@@ -110,7 +111,7 @@ public class AlternativeOptionsFragment extends Fragment {
     }
 
     private void setup(View v){
-        sgv = (SuperGridview)v.findViewById(R.id.super_grid_view);
+        sgv = (GridView)v.findViewById(R.id.super_grid_view);
         firstStationTV = (TextView)v.findViewById(R.id.directions_startpoint_textbox);
         lastStationTV = (TextView)v.findViewById(R.id.directions_endpoint_textbox);
     }

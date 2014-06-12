@@ -31,18 +31,16 @@
             android:layout_height="wrap_content" android:layout_marginLeft="6dp" android:layout_marginTop="8dp"
             android:layout_marginRight="6dp" android:layout_marginBottom="8dp" android:id="@+id/alternatives_layout">
 
-        <com.quentindommerc.superlistview.SuperGridview
-                xmlns:superlistview="http://schemas.android.com/apk/res-auto"
+        <GridView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                superlistview:superlv__listDivider="@android:color/transparent"
-                superlistview:superlv__listDividerHeight="10dp"
-                superlistview:superlv__listPadding="10dp"
-                superlistview:superlv__listClipToPadding="false"
-                superlistview:supergv__columns="@integer/grid_columns"
+                android:columnCount="@integer/grid_columns"
+                android:paddingLeft="10dp"
+                android:clipToPadding="false"
                 android:id="@+id/super_grid_view">
 
-        </com.quentindommerc.superlistview.SuperGridview>
+
+        </GridView>
 
     </LinearLayout>
 </LinearLayout>
