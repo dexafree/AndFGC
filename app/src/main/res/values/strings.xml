@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">AndFGC</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -32,4 +33,6 @@
     <string name="downloading_tickets">Descarregant tarifes</string>
     <string name="from_here">Des d\'aquí</string>
     <string name="to_here">Fins aquí</string>
+    <string name="welcome_text">ANDFGC és una aplicació de codi lliure destinada a suplir les mancances de l\'app oficial de FGC.\n\nHa estat creada utilitzant els recursos disponibles desde la web oficial de FGC, d\'on extreu directament totes les dades.\n\nMoltes gràcies per utilitzar-la!</string>
+
 </resources>

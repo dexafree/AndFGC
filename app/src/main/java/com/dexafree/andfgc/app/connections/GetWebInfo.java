@@ -5,6 +5,7 @@ import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.events.AlertSearchFinishedEvent;
 import com.dexafree.andfgc.app.events.BusProvider;
 import com.dexafree.andfgc.app.events.StatusSearchFinishedEvent;
+import com.dexafree.andfgc.app.utils.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -26,12 +27,14 @@ public class GetWebInfo {
 
 
     private void load(final int mode){
-        String localLang = Locale.getDefault().getDisplayLanguage();
+        String localLang = Locale.getDefault().getLanguage();
         String language;
         if(localLang.equalsIgnoreCase("es"))language = "esp";
         else if(localLang.equalsIgnoreCase("en")) language = "eng";
         else language = "cat";
 
+        Logger.d("LOCALLANG", localLang);
+        Logger.d("LANG", language);
 
         Ion.with(mContext, "http://fgc.cat/includes/ultimaHoraServer.asp")
                 .setBodyParameter("lang", language)

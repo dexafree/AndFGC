@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.dexafree.andfgc.app" >
 
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -7,8 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <uses-sdk android:minSdkVersion="9"
-              android:targetSdkVersion="19" />
+    <uses-sdk tools:node="replace" />
 
     <application
         android:allowBackup="true"

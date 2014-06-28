@@ -20,6 +20,7 @@ import com.dexafree.andfgc.app.fragments.SearchFragment;
 import com.dexafree.andfgc.app.fragments.SearchResultFragment;
 import com.dexafree.andfgc.app.fragments.ShowMapFragment;
 import com.dexafree.andfgc.app.fragments.ShowTarifesFragment;
+import com.dexafree.andfgc.app.fragments.WelcomeFragment;
 import com.dexafree.andfgc.app.utils.Logger;
 
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
@@ -67,12 +68,12 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        /*Fragment f = new MainFragment();
+        Fragment f = new WelcomeFragment();
 
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
                 .replace(R.id.content_layout, f)
-                .commit();*/
+                .commit();
 
 
     }
@@ -142,6 +143,7 @@ public class MainActivity extends ActionBarActivity {
                     break;
                 case 3:
                     f = new DownloadTimetablesFragment();
+                    mPosition = position;
                     break;
                 case 4:
                     f = new ShowMapFragment();

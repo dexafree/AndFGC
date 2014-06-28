@@ -32,4 +32,5 @@
     <string name="downloading_tickets">Descargando tarifas</string>
     <string name="from_here">Desde aquí</string>
     <string name="to_here">Hasta aquí</string>
+    <string name="welcome_text">ANDFGC es una aplicación de código libre destinada a suplir las carencias de la app oficial de FGC.\n\nHa sido creada utilizando los recursos disponibles desde la web oficial de FGC, de donde extrae directamente todos los datos.\n\nMuchas gracias por utilizarla!</string>
 </resources>
