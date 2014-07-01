@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        style="@style/DirectionsWaypointTextBoxDisabled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green_ticket"
+        android:text="TITULO TARJETA"
+        android:id="@+id/dialog_title"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:capitalize="characters"
+        android:paddingLeft="4dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:gravity="center" />
+
+
+
+</RelativeLayout>

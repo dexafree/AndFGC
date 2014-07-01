@@ -75,4 +75,15 @@
         <item name="dropDownListViewStyle">@style/DropDownListView.Andfgc</item>
     </style>
 
+
+
+    <style name="tarifes_dialog" parent="Theme.Platform.AppCompat.Dialog">
+        <item name="android:windowTitleStyle">@style/dialog_title_style</item>
+    </style>
+
+    <style name="dialog_title_style" parent="android:Widget.TextView">
+        <item name="android:background">@color/green_ticket</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
 </resources>

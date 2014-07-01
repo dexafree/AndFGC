@@ -3,6 +3,7 @@ package com.dexafree.andfgc.app.fragments;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -140,11 +141,41 @@ public class ShowTarifesFragment extends Fragment {
     }
 
     private void showInfoDialog(int position){
+
         Ticket ticket = ticketsList.get(position);
+
+        AlertDialog dialog;
+
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(ticket.getName());
         builder.setMessage(ticket.getDescription());
-        builder.create().show();
+        dialog = builder.create();
+
+        dialog.setCustomTitle(generateDialogHeaderView(ticket.getName()));
+
+        dialog.show();
+
+        int dividerId = dialog.getContext().getResources().getIdentifier("android:id/titleDivider", null, null);
+
+        View divider = dialog.findViewById(dividerId);
+
+        divider.setBackgroundColor(mContext.getResources().getColor(R.color.green_ticket));
+
+
+    }
+
+    private View generateDialogHeaderView(String title){
+
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+
+        View header = inflater.inflate(R.layout.dialog_header, null);
+
+        TextView titleTextView = (TextView)header.findViewById(R.id.dialog_title);
+
+        titleTextView.setText(title);
+
+        return header;
+
     }
 
     @Override
