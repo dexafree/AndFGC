@@ -82,6 +82,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_layout, SearchResultFragment.newInstance(cerca, dataBuscada))
+                .addToBackStack(null)
                 .commit();
     }
 
@@ -89,6 +90,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_layout, f)
+                .addToBackStack(null)
                 .commit();
     }
 
@@ -158,6 +160,8 @@ public class MainActivity extends ActionBarActivity {
                     break;
             }
             FragmentManager fm = getSupportFragmentManager();
+
+
             fm.beginTransaction()
                     .replace(R.id.content_layout, f)
                     .commit();
