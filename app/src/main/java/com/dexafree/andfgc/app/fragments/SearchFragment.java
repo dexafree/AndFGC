@@ -14,6 +14,7 @@ import android.widget.*;
 import com.dexafree.andfgc.app.MainActivity;
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.beans.Cerca;
+import com.dexafree.andfgc.app.beans.Favorito;
 import com.dexafree.andfgc.app.beans.Parada;
 import com.dexafree.andfgc.app.connections.BuscaHoraris;
 import com.dexafree.andfgc.app.controllers.ParadaController;
@@ -38,6 +39,7 @@ public class SearchFragment extends Fragment {
 
     public static final String FROM_MAP = "FROM_MAP";
     public static final String FROM_HERE = "FROM_HERE";
+    public static final String FROM_FAVORITO = "FROM_FAVORITO";
 
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
 
@@ -98,7 +100,8 @@ public class SearchFragment extends Fragment {
         Bundle args = getArguments();
 
         if(args != null) {
-            if (args.getBoolean(FROM_MAP)) {
+
+            if (args.getBoolean(FROM_MAP, false)) {
                 Parada p = args.getParcelable("PARADA");
                 int lineTemp = Integer.parseInt(p.getLinia());
                 lineSelected(lineTemp, linies[lineTemp]);
@@ -111,6 +114,15 @@ public class SearchFragment extends Fragment {
                     isArrivalStationSelected = true;
                 }
 
+                setValues();
+            } else if (args.getBoolean(FROM_FAVORITO, false)){
+                Favorito fav = args.getParcelable("FAVORITO");
+                int lineTemp = fav.getLinia();
+                lineSelected(lineTemp, linies[lineTemp]);
+                origen = fav.getOrigen();
+                desti = fav.getDesti();
+                isDepartureStationSelected = true;
+                isArrivalStationSelected = true;
                 setValues();
             }
         }

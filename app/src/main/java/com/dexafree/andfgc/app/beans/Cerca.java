@@ -12,6 +12,17 @@ public class Cerca implements Parcelable {
     private List<Opcio> opcions;
     private String paradaInici;
     private String paradaFi;
+    private String paradaIniciAbr;
+    private String paradaFiAbr;
+    private int liniaCercada;
+
+    public int getLiniaCercada() {
+        return liniaCercada;
+    }
+
+    public void setLiniaCercada(int liniaCercada) {
+        this.liniaCercada = liniaCercada;
+    }
 
     public List<Opcio> getOpcions() {
         return opcions;
@@ -37,6 +48,22 @@ public class Cerca implements Parcelable {
         this.paradaFi = paradaFi;
     }
 
+    public String getParadaIniciAbr() {
+        return paradaIniciAbr;
+    }
+
+    public void setParadaIniciAbr(String paradaIniciAbr) {
+        this.paradaIniciAbr = paradaIniciAbr;
+    }
+
+    public String getParadaFiAbr() {
+        return paradaFiAbr;
+    }
+
+    public void setParadaFiAbr(String paradaFiAbr) {
+        this.paradaFiAbr = paradaFiAbr;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -47,6 +74,9 @@ public class Cerca implements Parcelable {
         parcel.writeList(opcions);
         parcel.writeString(paradaInici);
         parcel.writeString(paradaFi);
+        parcel.writeString(paradaIniciAbr);
+        parcel.writeString(paradaFiAbr);
+        parcel.writeInt(liniaCercada);
     }
 
     public Cerca(){
@@ -58,6 +88,9 @@ public class Cerca implements Parcelable {
         parcel.readList(opcions, getClass().getClassLoader());
         paradaInici = parcel.readString();
         paradaFi = parcel.readString();
+        paradaIniciAbr = parcel.readString();
+        paradaFiAbr = parcel.readString();
+        liniaCercada = parcel.readInt();
     }
 
     public void setOpcions(ArrayList<Opcio> opcions){

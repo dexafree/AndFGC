@@ -15,6 +15,7 @@ import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.databases.DataBaseHelper;
 import com.dexafree.andfgc.app.fragments.AlertsNewsFragment;
 import com.dexafree.andfgc.app.fragments.DownloadTimetablesFragment;
+import com.dexafree.andfgc.app.fragments.FavoritesFragment;
 import com.dexafree.andfgc.app.fragments.MainFragment;
 import com.dexafree.andfgc.app.fragments.SearchFragment;
 import com.dexafree.andfgc.app.fragments.SearchResultFragment;
@@ -94,6 +95,17 @@ public class MainActivity extends ActionBarActivity {
                 .commit();
     }
 
+    public void changeFragment(Fragment f, int option){
+
+        mDrawer.check(option);
+        mPosition = option;
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_layout, f)
+                .commit();
+    }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -104,6 +116,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        menu.findItem(R.id.action_settings).setVisible(false);
         return true;
     }
 
@@ -127,16 +140,15 @@ public class MainActivity extends ActionBarActivity {
 
     private void selectOption(int position){
         Fragment f;
-        Logger.d("MPOSITION", mPosition+"");
-        Logger.d("POSITION", position+"");
+
         if(position != mPosition) {
             switch (position) {
                 case 0:
-                    f = new MainFragment();
+                    f = new SearchFragment();
                     mPosition = position;
                     break;
                 case 1:
-                    f = new SearchFragment();
+                    f = new FavoritesFragment();
                     mPosition = position;
                     break;
                 case 2:
@@ -148,15 +160,15 @@ public class MainActivity extends ActionBarActivity {
                     mPosition = position;
                     break;
                 case 4:
-                    f = new ShowMapFragment();
-                    mPosition = position;
-                    break;
-                case 5:
                     f = new ShowTarifesFragment();
                     mPosition = position;
                     break;
+                case 5:
+                    f = new ShowMapFragment();
+                    mPosition = position;
+                    break;
                 default:
-                    f = new MainFragment();
+                    f = new WelcomeFragment();
                     break;
             }
             FragmentManager fm = getSupportFragmentManager();

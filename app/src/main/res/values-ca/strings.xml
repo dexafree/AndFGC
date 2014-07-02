@@ -33,4 +33,7 @@
     <string name="from_here">Des d\'aquí</string>
     <string name="to_here">Fins aquí</string>
     <string name="welcome_text">ANDFGC és una aplicació de codi lliure destinada a suplir les mancances de l\'app oficial de FGC.\n\nHa estat creada utilitzant els recursos disponibles desde la web oficial de FGC, d\'on extreu directament totes les dades.\n\nMoltes gràcies per utilitzar-la!</string>
+    <string name="action_favorite">Marcar com a favorit</string>
+    <string name="save_favorite">Introdueix un nom</string>
+    <string name="favorite_deleted">Favorit eliminat amb èxit</string>
 </resources>

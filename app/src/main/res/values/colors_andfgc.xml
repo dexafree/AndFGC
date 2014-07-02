@@ -3,6 +3,7 @@
     <color name="andfgc_color">#F76013</color>
     <color name="orange_dark">#F76013</color>
     <color name="orange_light">#FFF4842D</color>
+    <color name="orange_fgc">#E56B07</color>
     <color name="orange_underline">#ffd17227</color>
     <color name="blue">#ff33b5e5</color>
     <color name="primary_grey">#ff222222</color>
@@ -11,4 +12,5 @@
     <color name="divider_grey">#ffdedede</color>
     <color name="selected_background">#ffc1e9f7</color>
     <color name="green_ticket">#02927A</color>
+    <color name="abs__bright_foreground_disabled_holo_dark">#ff4c4c4c</color>
 </resources>

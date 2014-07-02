@@ -39,9 +39,6 @@ public class BuscaHoraris {
     private String minutsAsString;
     private Context mContext;
 
-    public interface CercaFinalitzada{
-        public Cerca getCerca();
-    }
 
     public BuscaHoraris(int linea, String origen, String desti, String tipus, String dia, int hores, int minuts, Context context){
         this.linea = linea;
@@ -151,10 +148,6 @@ public class BuscaHoraris {
     }
 
     public void cercar(){
-
-        Cerca c = new Cerca();
-        Logger.d("DIA", dia);
-
         if(Checkers.hasInternet(mContext)){
             Ion.with(mContext)
                     .load("POST", "http://www.fgc.cat/cercador/cerca.asp")
@@ -234,6 +227,10 @@ public class BuscaHoraris {
                                 c.setOpcions(opcions);
                                 c.setParadaInici(paradaInici);
                                 c.setParadaFi(paradaFi);
+                                c.setLiniaCercada(linea);
+                                c.setParadaIniciAbr(origen);
+                                c.setParadaFiAbr(desti);
+
 
                                 BusProvider.getInstance().post(new SearchFinishedEvent(c));
                             } catch (ClassCastException exception){

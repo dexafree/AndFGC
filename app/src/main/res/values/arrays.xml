@@ -2,15 +2,15 @@
 <resources>
 
     <string-array name="navigation_main_sections">
-        <item>Home</item>
-        <item>Some Other</item>
+        <item>Buscar</item>
+        <item>Favorits</item>
+        <item>Estat servei</item>
+        <item>Horaris</item>
+        <item>Tarifes</item>
     </string-array>
 
     <string-array name="navigation_secondary_sections">
-        <item>Settings</item>
-        <item>Info</item>
-        <item>Map</item>
-        <item>Tarifes</item>
+        <item>Mapa</item>
     </string-array>
 
     <string-array name="parades_completes">

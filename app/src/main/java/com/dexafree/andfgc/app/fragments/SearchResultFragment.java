@@ -1,9 +1,17 @@
 package com.dexafree.andfgc.app.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -11,9 +19,11 @@ import com.dexafree.andfgc.app.MainActivity;
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.adapters.VerParadasExpandidasAdapter;
 import com.dexafree.andfgc.app.beans.Cerca;
+import com.dexafree.andfgc.app.beans.Favorito;
 import com.dexafree.andfgc.app.beans.Opcio;
 import com.dexafree.andfgc.app.beans.Parada;
 import com.dexafree.andfgc.app.beans.Transbord;
+import com.dexafree.andfgc.app.controllers.FavoritosController;
 import com.dexafree.andfgc.app.controllers.ParadaController;
 import com.dexafree.andfgc.app.controllers.TransbordController;
 import com.dexafree.andfgc.app.utils.Logger;
@@ -37,6 +47,9 @@ public class SearchResultFragment extends Fragment {
     private TextView arrivalHour;
 
     private String dataBuscada;
+
+    private MenuItem favIcon;
+    private MenuItem unFavIcon;
 
     private LinearLayout paradasLayout;
     private RelativeLayout moreOptionsLayout;
@@ -83,6 +96,13 @@ public class SearchResultFragment extends Fragment {
         String hora = dataBuscada+" "+array[1];
 
         return hora;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -152,7 +172,7 @@ public class SearchResultFragment extends Fragment {
 
 
         nom.setText(paradaActual.getNom());
-        Logger.d("LINIA", paradaActual.getLinia());
+        //Logger.d("LINIA", paradaActual.getLinia());
         int iconoLinea;
         if(paradaActual.getLinia().equalsIgnoreCase("R6")) iconoLinea = R.drawable.r6;
         else if(paradaActual.getLinia().equalsIgnoreCase("R60")) iconoLinea = R.drawable.r60;
@@ -171,6 +191,38 @@ public class SearchResultFragment extends Fragment {
 
     }
 
+    private void showFavDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+        View v = LayoutInflater.from(mContext).inflate(R.layout.dialog_edit, null);
+        final EditText favNameText = (EditText)v.findViewById(R.id.fav_name);
+
+        builder.setView(v);
+
+        builder.setTitle(mContext.getString(R.string.save_favorite));
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(TextUtils.isEmpty(favNameText.getText())){
+                    Toast.makeText(mContext, R.string.save_favorite, Toast.LENGTH_SHORT).show();
+                } else {
+                    Favorito f = new Favorito();
+                    f.setOrigen(c.getParadaIniciAbr());
+                    f.setDesti(c.getParadaFiAbr());
+                    f.setLinia(c.getLiniaCercada());
+                    f.setTitle(favNameText.getText().toString());
+                    FavoritosController.insertFavorito(mContext, f);
+                    favIcon.setVisible(false);
+                    unFavIcon.setVisible(true);
+                }
+            }
+        });
+
+        builder.create().show();
+
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -178,5 +230,36 @@ public class SearchResultFragment extends Fragment {
         outState.putParcelable("OPCIO", opcio);
         outState.putString("DATABUSCADA", dataBuscada);
         outState.putBoolean("FROMSEARCH", fromSearch);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+
+        inflater.inflate(R.menu.search_result, menu);
+        if (menu != null) {
+
+            favIcon = menu.findItem(R.id.action_favorite);
+            unFavIcon = menu.findItem(R.id.action_unfavorite);
+
+
+            favIcon.setVisible(true);
+            unFavIcon.setVisible(false);
+
+        }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_favorite:
+                Logger.d("ESTRELLA", "PULSADA");
+                showFavDialog();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
