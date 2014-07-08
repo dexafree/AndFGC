@@ -94,7 +94,7 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
+    public void onPause() {
         super.onDestroy();
         mContext.unregisterReceiver(rec);
     }

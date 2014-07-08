@@ -68,7 +68,7 @@
                 android:layout_marginBottom="8dp" android:background="@drawable/cards_back"
                 style="@style/DirectionsInputPanelContent">
             <TextView style="@style/DirectionsWaypointTextBox" tools:text="Ver más opciones"
-                      android:id="@+id/textView" android:layout_width="wrap_content"
+                      android:id="@+id/account_name" android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_centerVertical="true" android:layout_centerHorizontal="true"
                       android:text="@string/view_more_options" android:layout_marginTop="10dp"

@@ -16,17 +16,18 @@ import com.dexafree.andfgc.app.databases.DataBaseHelper;
 import com.dexafree.andfgc.app.fragments.AlertsNewsFragment;
 import com.dexafree.andfgc.app.fragments.DownloadTimetablesFragment;
 import com.dexafree.andfgc.app.fragments.FavoritesFragment;
-import com.dexafree.andfgc.app.fragments.MainFragment;
 import com.dexafree.andfgc.app.fragments.SearchFragment;
 import com.dexafree.andfgc.app.fragments.SearchResultFragment;
 import com.dexafree.andfgc.app.fragments.ShowMapFragment;
 import com.dexafree.andfgc.app.fragments.ShowTarifesFragment;
+import com.dexafree.andfgc.app.fragments.TwitterFragment;
 import com.dexafree.andfgc.app.fragments.WelcomeFragment;
-import com.dexafree.andfgc.app.utils.Logger;
 
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
 
 public class MainActivity extends ActionBarActivity {
+
+    private final static String POSITION = "POSITION";
 
     private ActionBarDrawerToggle drawerToggle;
     private GoogleNavigationDrawer mDrawer;
@@ -59,6 +60,8 @@ public class MainActivity extends ActionBarActivity {
 
         mDrawer.setDrawerListener(drawerToggle); //Attach the DrawerListener
 
+
+
         mDrawer.setOnNavigationSectionSelected(new GoogleNavigationDrawer.OnNavigationSectionSelected() {
             @Override
             public void onSectionSelected(View view, int i, long l) {
@@ -69,12 +72,23 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        Fragment f = new WelcomeFragment();
 
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction()
-                .replace(R.id.content_layout, f)
-                .commit();
+        if(savedInstanceState == null) {
+            Fragment f = new WelcomeFragment();
+
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction()
+                    .replace(R.id.content_layout, f)
+                    .commit();
+
+            mPosition = -1;
+
+        } else {
+
+            mPosition = savedInstanceState.getInt(POSITION);
+
+
+        }
 
 
     }
@@ -167,6 +181,10 @@ public class MainActivity extends ActionBarActivity {
                     f = new ShowMapFragment();
                     mPosition = position;
                     break;
+                case 6:
+                    f = new TwitterFragment();
+                    mPosition = position;
+                    break;
                 default:
                     f = new WelcomeFragment();
                     break;
@@ -195,5 +213,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(POSITION, mPosition);
+    }
 }

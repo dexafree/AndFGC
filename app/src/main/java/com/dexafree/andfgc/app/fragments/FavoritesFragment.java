@@ -117,7 +117,7 @@ public class FavoritesFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
+    public void onPause() {
         super.onDestroy();
         BusProvider.getInstance().unregister(this);
     }

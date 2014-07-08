@@ -11,6 +11,7 @@
 
     <string-array name="navigation_secondary_sections">
         <item>Mapa</item>
+        <item>Twitter</item>
     </string-array>
 
     <string-array name="parades_completes">
