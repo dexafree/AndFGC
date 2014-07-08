@@ -54,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
          */
         drawerToggle = new ActionBarDrawerToggle(this,
                 mDrawer,
-                R.drawable.ic_launcher,
+                R.drawable.ic_navigation_drawer,
                 R.string.app_name,
                 R.string.app_name);
 

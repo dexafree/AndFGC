@@ -100,7 +100,6 @@ public class ShowMapFragment extends SupportMapFragment{
         b.putBoolean(SearchFragment.FROM_MAP, true);
         b.putBoolean(SearchFragment.FROM_HERE, fromHere);
         f.setArguments(b);
-        ((MainActivity)mContext).changeNavDrawerSelection(1);
-        ((MainActivity)mContext).changeFragment(f);
+        ((MainActivity)mContext).changeFragment(f, 0);
     }
 }

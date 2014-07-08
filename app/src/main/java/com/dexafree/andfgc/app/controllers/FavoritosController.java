@@ -19,8 +19,6 @@ public class FavoritosController {
 
     private static SQLiteDatabase getDb(Context context, boolean readable) {
 
-        if(context == null) Logger.d("ES", "NULL");
-
         FavoritosDataBaseHelper dbHelper = new FavoritosDataBaseHelper(context, null, 1);
 
         SQLiteDatabase db;
