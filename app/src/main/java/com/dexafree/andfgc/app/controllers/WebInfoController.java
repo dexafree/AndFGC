@@ -1,4 +1,4 @@
-package com.dexafree.andfgc.app.connections;
+package com.dexafree.andfgc.app.controllers;
 
 import android.content.Context;
 import com.dexafree.andfgc.app.R;
@@ -17,11 +17,11 @@ import java.util.Locale;
 /**
  * Created by Carlos on 18/05/2014.
  */
-public class GetWebInfo {
+public class WebInfoController {
 
     Context mContext;
 
-    public GetWebInfo(Context c){
+    public WebInfoController(Context c){
         this.mContext = c;
     }
 

@@ -2,7 +2,6 @@ package com.dexafree.andfgc.app.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,11 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.adapters.ServiceStatusAdapter;
-import com.dexafree.andfgc.app.connections.GetWebInfo;
+import com.dexafree.andfgc.app.controllers.WebInfoController;
 import com.dexafree.andfgc.app.events.AlertSearchFinishedEvent;
 import com.dexafree.andfgc.app.events.BusProvider;
 import com.dexafree.andfgc.app.events.StatusSearchFinishedEvent;
-import com.squareup.otto.Produce;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ import java.util.ArrayList;
  */
 public class AlertsNewsFragment extends Fragment {
 
-    private GetWebInfo info;
+    private WebInfoController info;
 
     private Context mContext;
 
@@ -67,7 +65,7 @@ public class AlertsNewsFragment extends Fragment {
         this.mContext = getActivity();
         dialog = new ProgressDialog(mContext);
         bindViews(v);
-        info = new GetWebInfo(mContext);
+        info = new WebInfoController(mContext);
         if(savedInstanceState == null){
             dialog = new ProgressDialog(mContext);
             dialog.show();

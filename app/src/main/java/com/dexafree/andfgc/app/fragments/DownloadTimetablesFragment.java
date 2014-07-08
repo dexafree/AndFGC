@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,10 +15,10 @@ import android.widget.Toast;
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.adapters.TimetablesAdapter;
 import com.dexafree.andfgc.app.beans.Timetable;
-import com.dexafree.andfgc.app.connections.GetTimetables;
+import com.dexafree.andfgc.app.controllers.TimetablesController;
 import com.dexafree.andfgc.app.events.BusProvider;
 import com.dexafree.andfgc.app.events.DownloadFinishedEvent;
-import com.dexafree.andfgc.app.utils.Logger;
+import com.dexafree.andfgc.app.events.TimetablesLoadedEvent;
 import com.squareup.otto.Subscribe;
 
 import java.io.File;
@@ -34,7 +33,7 @@ public class DownloadTimetablesFragment extends Fragment {
 
     private Context mContext;
     private ProgressDialog dialog;
-    private ArrayList<Timetable> timetables;
+    private ArrayList<Timetable> mTimetables;
     private ListView timetableList;
 
     @Subscribe
@@ -47,6 +46,13 @@ public class DownloadTimetablesFragment extends Fragment {
         startActivity(intent);
     }
 
+    @Subscribe
+    public void onTimetablesLoaded(TimetablesLoadedEvent event){
+        mTimetables = event.getTimetablesList();
+        dialog.dismiss();
+        setTimetables();
+    }
+
 
 
     @Override
@@ -56,7 +62,12 @@ public class DownloadTimetablesFragment extends Fragment {
         bindViews(v);
 
         if(savedInstanceState == null){
-            new LoadTimetables().execute();
+            dialog = new ProgressDialog(mContext);
+            //INICIALIZAMOS VALORES DIALOG
+            dialog.setTitle(R.string.loading_timetables);
+            dialog.setMessage(getString(R.string.please_wait));
+            dialog.show();
+            TimetablesController.loadTables(mContext);
         } else {
             loadValues(savedInstanceState);
             setTimetables();
@@ -66,48 +77,24 @@ public class DownloadTimetablesFragment extends Fragment {
     }
 
     private void loadValues(Bundle savedState){
-        timetables = savedState.getParcelableArrayList(TIMETABLES_NAME);
+        mTimetables = savedState.getParcelableArrayList(TIMETABLES_NAME);
     }
 
     private void bindViews(View v){
         timetableList = (ListView)v.findViewById(R.id.listView);
     }
 
-    private class LoadTimetables extends AsyncTask<String, Float, Integer>{
 
-        private ArrayList<Timetable> tables;
-
-        protected void onPreExecute() {
-            dialog = new ProgressDialog(mContext);
-            //INICIALIZAMOS VALORES DIALOG
-            dialog.setTitle(R.string.loading_timetables);
-            dialog.setMessage(getString(R.string.please_wait));
-            dialog.show(); //Mostramos el dialogo antes de comenzar
-        }
-
-        protected Integer doInBackground(String... params) {
-
-            tables = GetTimetables.loadTables();
-
-            return 0;
-        }
-
-        protected void onPostExecute(Integer bytes) {
-            timetables = tables;
-            dialog.dismiss();
-            setTimetables();
-        }
-    }
 
     private void setTimetables(){
-        TimetablesAdapter adapter = new TimetablesAdapter(mContext, timetables);
+        TimetablesAdapter adapter = new TimetablesAdapter(mContext, mTimetables);
         timetableList.setAdapter(adapter);
         timetableList.setDivider(null);
         timetableList.setDividerHeight(10);
         timetableList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                GetTimetables.downloadTimetable(timetables.get(i), mContext);
+                TimetablesController.downloadTimetable(mTimetables.get(i), mContext);
             }
         });
     }
@@ -127,6 +114,6 @@ public class DownloadTimetablesFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(TIMETABLES_NAME, timetables);
+        outState.putParcelableArrayList(TIMETABLES_NAME, mTimetables);
     }
 }

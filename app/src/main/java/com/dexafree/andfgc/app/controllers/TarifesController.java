@@ -1,4 +1,4 @@
-package com.dexafree.andfgc.app.connections;
+package com.dexafree.andfgc.app.controllers;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -23,7 +23,7 @@ import java.util.Locale;
 /**
  * Created by Carlos on 06/06/14.
  */
-public class GetTarifes {
+public class TarifesController {
 
     public static void getTarifes(final Context c){
         String language;

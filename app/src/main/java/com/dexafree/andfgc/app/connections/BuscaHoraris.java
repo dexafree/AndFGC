@@ -25,8 +25,6 @@ import java.util.Collections;
 
 public class BuscaHoraris {
 
-    public final static String SEARCH_COMPLETED = "COM.DEXAFREE.ANDFGC.CERCA_FINALITZADA";
-
     private int linea;
     private String lineaAsString;
     private String origen;
@@ -51,17 +49,13 @@ public class BuscaHoraris {
         this.minuts = minuts;
         this.mContext = context;
 
-        if(hores < 10){
-            this.horesAsString = "0"+hores;
-        } else {
-            this.horesAsString = hores+"";
-        }
+        if(hores < 10) this.horesAsString = "0"+hores;
+        else this.horesAsString = hores+"";
 
-        if(minuts < 10){
-            this.minutsAsString = "0"+minuts;
-        } else {
-            this.minutsAsString = minuts+"";
-        }
+
+        if(minuts < 10) this.minutsAsString = "0"+minuts;
+        else this.minutsAsString = minuts+"";
+
 
     }
 
@@ -231,8 +225,8 @@ public class BuscaHoraris {
                                 c.setParadaIniciAbr(origen);
                                 c.setParadaFiAbr(desti);
 
-
                                 BusProvider.getInstance().post(new SearchFinishedEvent(c));
+
                             } catch (ClassCastException exception){
                                 JsonObject object = result.getAsJsonObject();
                                 String error = object.get("path").getAsString();

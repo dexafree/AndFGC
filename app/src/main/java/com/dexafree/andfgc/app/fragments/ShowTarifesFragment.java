@@ -3,22 +3,18 @@ package com.dexafree.andfgc.app.fragments;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.beans.Ticket;
-import com.dexafree.andfgc.app.connections.GetTarifes;
+import com.dexafree.andfgc.app.controllers.TarifesController;
 import com.dexafree.andfgc.app.events.BusProvider;
 import com.dexafree.andfgc.app.events.ErrorEvent;
 import com.dexafree.andfgc.app.events.TarifesSearchFinishedEvent;
@@ -65,7 +61,7 @@ public class ShowTarifesFragment extends Fragment {
             dialog.setTitle(getString(R.string.downloading_tickets));
             dialog.setMessage(getString(R.string.please_wait));
             dialog.show();
-            GetTarifes.getTarifes(mContext);
+            TarifesController.getTarifes(mContext);
         } else {
             loadValues(savedInstanceState);
             //setContent();

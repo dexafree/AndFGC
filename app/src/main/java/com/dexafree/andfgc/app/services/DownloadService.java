@@ -35,8 +35,7 @@ public class DownloadService extends IntentService {
     private int result = Activity.RESULT_CANCELED;
     public static final String URL = "urlpath";
     public static final String FILENAME = "filename";
-    public static final String FILEPATH = "filepath";
-    public static final String RESULT = "result";
+    public static final String TIMETABLE = "timetable";
 
     int id = 1;
 
@@ -50,6 +49,7 @@ public class DownloadService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         String urlPath = intent.getStringExtra(URL);
         String fileName = intent.getStringExtra(FILENAME);
+        String timetable = intent.getStringExtra(TIMETABLE);
 
         try{
 
@@ -69,7 +69,7 @@ public class DownloadService extends IntentService {
             // the addAction re-use the same intent to keep the example short
             NotificationCompat.Builder n  = new NotificationCompat.Builder(this)
                     .setContentTitle(getString(R.string.downloading))
-                    .setContentText(getString(R.string.downloading_timetable)+" "+fileName)
+                    .setContentText(getString(R.string.downloading_timetable)+" "+timetable)
                     .setSmallIcon(R.drawable.fgclogo)
                     .setContentIntent(pIntent)
                     .setAutoCancel(true)
