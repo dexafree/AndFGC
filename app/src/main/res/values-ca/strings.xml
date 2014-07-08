@@ -37,4 +37,5 @@
     <string name="save_favorite">Introdueix un nom</string>
     <string name="favorite_deleted">Favorit eliminat amb èxit</string>
     <string name="time_ago">Fa </string>
+    <string name="favorite_saved">Favorit guardat amb èxit</string>
 </resources>

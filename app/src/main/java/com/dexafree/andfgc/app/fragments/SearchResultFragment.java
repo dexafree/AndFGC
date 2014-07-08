@@ -3,10 +3,8 @@ package com.dexafree.andfgc.app.fragments;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,24 +15,16 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.dexafree.andfgc.app.MainActivity;
 import com.dexafree.andfgc.app.R;
-import com.dexafree.andfgc.app.adapters.VerParadasExpandidasAdapter;
 import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.beans.Favorito;
 import com.dexafree.andfgc.app.beans.Opcio;
 import com.dexafree.andfgc.app.beans.Parada;
 import com.dexafree.andfgc.app.beans.Transbord;
 import com.dexafree.andfgc.app.controllers.FavoritosController;
-import com.dexafree.andfgc.app.controllers.ParadaController;
 import com.dexafree.andfgc.app.controllers.TransbordController;
-import com.dexafree.andfgc.app.utils.Logger;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-/**
- * Created by Carlos on 28/04/2014.
- */
 public class SearchResultFragment extends Fragment {
 
     private Context mContext;
@@ -101,24 +91,17 @@ public class SearchResultFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        if(savedInstanceState != null) loadValues(savedInstanceState);
         setHasOptionsMenu(true);
-
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.search_result_panel, null);
         mContext = getActivity();
         setup(v);
-        if(savedInstanceState != null) loadValues(savedInstanceState);
         setTexts(inflater);
-
         return v;
     }
 
@@ -174,16 +157,19 @@ public class SearchResultFragment extends Fragment {
         nom.setText(paradaActual.getNom());
         //Logger.d("LINIA", paradaActual.getLinia());
         int iconoLinea;
-        if(paradaActual.getLinia().equalsIgnoreCase("R6")) iconoLinea = R.drawable.r6;
-        else if(paradaActual.getLinia().equalsIgnoreCase("R60")) iconoLinea = R.drawable.r60;
-        else if(paradaActual.getLinia().equalsIgnoreCase("R5")) iconoLinea = R.drawable.r5;
-        else if(paradaActual.getLinia().equalsIgnoreCase("R50")) iconoLinea = R.drawable.r50;
-        else if(paradaActual.getLinia().equalsIgnoreCase("L8")) iconoLinea = R.drawable.l8;
-        else if(paradaActual.getLinia().equalsIgnoreCase("S1")) iconoLinea = R.drawable.s1;
-        else if(paradaActual.getLinia().equalsIgnoreCase("S2")) iconoLinea = R.drawable.s2;
-        else if(paradaActual.getLinia().equalsIgnoreCase("S4")) iconoLinea = R.drawable.s4;
-        else if(paradaActual.getLinia().equalsIgnoreCase("S8")) iconoLinea = R.drawable.s8;
-        else if(paradaActual.getLinia().equalsIgnoreCase("S33")) iconoLinea = R.drawable.s33;
+
+        String tLinia = paradaActual.getLinia();
+
+        if(tLinia.equalsIgnoreCase("R6")) iconoLinea = R.drawable.r6;
+        else if(tLinia.equalsIgnoreCase("R60")) iconoLinea = R.drawable.r60;
+        else if(tLinia.equalsIgnoreCase("R5")) iconoLinea = R.drawable.r5;
+        else if(tLinia.equalsIgnoreCase("R50")) iconoLinea = R.drawable.r50;
+        else if(tLinia.equalsIgnoreCase("L8")) iconoLinea = R.drawable.l8;
+        else if(tLinia.equalsIgnoreCase("S1")) iconoLinea = R.drawable.s1;
+        else if(tLinia.equalsIgnoreCase("S2")) iconoLinea = R.drawable.s2;
+        else if(tLinia.equalsIgnoreCase("S4")) iconoLinea = R.drawable.s4;
+        else if(tLinia.equalsIgnoreCase("S8")) iconoLinea = R.drawable.s8;
+        else if(tLinia.equalsIgnoreCase("S33")) iconoLinea = R.drawable.s33;
         else iconoLinea = R.drawable.fgclogo;
         linia.setImageResource(iconoLinea);
 
@@ -223,6 +209,15 @@ public class SearchResultFragment extends Fragment {
 
     }
 
+    private void deleteFav(){
+        String origin = c.getParadaIniciAbr();
+        String dest = c.getParadaFiAbr();
+
+        FavoritosController.deleteFavoritoFromStations(mContext, origin, dest);
+        favIcon.setVisible(true);
+        unFavIcon.setVisible(false);
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -241,9 +236,18 @@ public class SearchResultFragment extends Fragment {
             favIcon = menu.findItem(R.id.action_favorite);
             unFavIcon = menu.findItem(R.id.action_unfavorite);
 
+            String origin = c.getParadaIniciAbr();
+            String dest = c.getParadaFiAbr();
 
-            favIcon.setVisible(true);
-            unFavIcon.setVisible(false);
+            boolean fill = false;
+
+            if(FavoritosController.isFavoritoSaved(getActivity(), origin, dest)){
+                fill = true;
+            }
+
+
+            favIcon.setVisible(!fill);
+            unFavIcon.setVisible(fill);
 
         }
 
@@ -254,8 +258,11 @@ public class SearchResultFragment extends Fragment {
         // handle item selection
         switch (item.getItemId()) {
             case R.id.action_favorite:
-                Logger.d("ESTRELLA", "PULSADA");
                 showFavDialog();
+                return true;
+
+            case R.id.action_unfavorite:
+                deleteFav();
                 return true;
 
             default:

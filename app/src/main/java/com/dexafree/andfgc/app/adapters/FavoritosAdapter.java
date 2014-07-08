@@ -80,7 +80,7 @@ public class FavoritosAdapter extends BaseAdapter {
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FavoritosController.deleteFavorito(mContext, favoritosList.get(position).getId());
+                FavoritosController.deleteFavoritoFromId(mContext, favoritosList.get(position).getId());
                 BusProvider.getInstance().post(new FavoriteDeletedEvent());
 
             }
