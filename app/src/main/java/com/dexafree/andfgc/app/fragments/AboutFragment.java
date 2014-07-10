@@ -18,6 +18,7 @@ public class AboutFragment extends PreferenceFragment {
     public static final String BETTERPICKERS = "https://github.com/derekbrameyer/android-betterpickers";
     public static final String JSOUP = "http://jsoup.org";
     public static final String JODATIME = "http://www.joda.org/joda-time/";
+    public static final String SUPERLISTVIEW = "https://github.com/dommerq/SuperListview";
     public static final String DEXAFREE = "https://github.com/dexafree";
 
     private Context mContext;
@@ -37,6 +38,7 @@ public class AboutFragment extends PreferenceFragment {
         findPreference("jsoup").setOnPreferenceClickListener(new Listener(JSOUP));
         findPreference("joda").setOnPreferenceClickListener(new Listener(JODATIME));
         findPreference("dexafree").setOnPreferenceClickListener(new Listener(DEXAFREE));
+        findPreference("superlistview").setOnPreferenceClickListener(new Listener(SUPERLISTVIEW));
         findPreference("version").setSummary(getVersionString());
 
     }

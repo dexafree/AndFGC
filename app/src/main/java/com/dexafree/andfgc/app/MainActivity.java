@@ -27,7 +27,7 @@ import com.dexafree.andfgc.app.utils.Logger;
 
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
 
-public class MainActivity extends ActionBarActivity implements FragmentManager.OnBackStackChangedListener {
+public class MainActivity extends ActionBarActivity {
 
     private final static String POSITION = "POSITION";
 
@@ -227,8 +227,5 @@ public class MainActivity extends ActionBarActivity implements FragmentManager.O
         outState.putInt(POSITION, mPosition);
     }
 
-    @Override
-    public void onBackStackChanged(){
-        Logger.d("BACKCOUNT", getSupportFragmentManager().getBackStackEntryCount()+"");
-    }
+
 }

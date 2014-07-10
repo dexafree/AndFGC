@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.dexafree.andfgc.app.beans.Twit;
 import com.dexafree.andfgc.app.controllers.TwitController;
 import com.dexafree.andfgc.app.events.BusProvider;
 import com.dexafree.andfgc.app.events.TweetListLoadedEvent;
+import com.quentindommerc.superlistview.SuperListview;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class TwitterFragment extends Fragment {
 
     private Context mContext;
 
-    private ListView mListView;
+    private SuperListview mListView;
     private ProgressDialog dialog;
 
     private ArrayList<Twit> mTweetList;
@@ -45,7 +47,7 @@ public class TwitterFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.sample_listview, null);
+        View v = inflater.inflate(R.layout.sample_refreshlistview, null);
 
         mContext = getActivity();
 
@@ -65,9 +67,18 @@ public class TwitterFragment extends Fragment {
     }
 
     private void bindViews(View v){
-        mListView = (ListView)v.findViewById(R.id.listView);
-        mListView.setDivider(null);
-        mListView.setDividerHeight(10);
+        mListView = (SuperListview)v.findViewById(R.id.listView);
+
+        mListView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mTweetList.clear();
+                dialog = new ProgressDialog(mContext);
+                dialog.setTitle(R.string.please_wait);
+                dialog.show();
+                TwitController.getLastTweets(mContext);
+            }
+        });
     }
 
     private void loadSavedState(Bundle savedState){

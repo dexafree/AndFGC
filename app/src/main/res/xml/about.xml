@@ -11,6 +11,7 @@
         <Preference android:title="BetterPickers" android:summary="Derek Brameyer" android:key="betterpickers" />
         <Preference android:title="JSoup" android:summary="Jonathan Hedley" android:key="jsoup" />
         <Preference android:title="Joda Time" android:summary="joda.org" android:key="joda" />
+        <Preference android:title="SuperListView" android:summary="Quentin Dommerc" android:key="superlistview" />
 
     </PreferenceCategory>
     <PreferenceCategory android:title="APP">
