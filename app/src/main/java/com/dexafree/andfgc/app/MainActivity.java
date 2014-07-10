@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.databases.DataBaseHelper;
+import com.dexafree.andfgc.app.fragments.AboutFragment;
 import com.dexafree.andfgc.app.fragments.AlertsNewsFragment;
 import com.dexafree.andfgc.app.fragments.DownloadTimetablesFragment;
 import com.dexafree.andfgc.app.fragments.FavoritesFragment;
@@ -86,7 +87,6 @@ public class MainActivity extends ActionBarActivity {
         } else {
 
             mPosition = savedInstanceState.getInt(POSITION);
-
 
         }
 
@@ -183,6 +183,10 @@ public class MainActivity extends ActionBarActivity {
                     break;
                 case 6:
                     f = new TwitterFragment();
+                    mPosition = position;
+                    break;
+                case 7:
+                    f = new AboutFragment();
                     mPosition = position;
                     break;
                 default:

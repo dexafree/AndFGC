@@ -69,6 +69,8 @@ public class FavoritesFragment extends Fragment {
 
     private void bindViews(View v){
         mListView = (ListView) v.findViewById(R.id.listView);
+        mListView.setDivider(null);
+        mListView.setDividerHeight(5);
     }
 
     private void loadFavoritos(){

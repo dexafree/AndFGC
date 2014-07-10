@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="OPEN SOURCE">
+
+        <Preference android:title="Otto" android:summary="Square" android:key="otto"/>
+        <Preference android:title="Ion" android:summary="Koushik Dutta" android:key="ion" />
+        <Preference android:title="GNavDrawer" android:summary="Arasthel" android:key="gnavdrawer" />
+        <Preference android:title="GSON" android:summary="Google" android:key="gson" />
+        <Preference android:title="BetterPickers" android:summary="Derek Brameyer" android:key="betterpickers" />
+        <Preference android:title="JSoup" android:summary="Jonathan Hedley" android:key="jsoup" />
+        <Preference android:title="Joda Time" android:summary="joda.org" android:key="joda" />
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="APP">
+
+        <Preference android:title="@string/developer" android:summary="Dexafree" android:key="dexafree" />
+        <Preference android:title="Version" android:key="version" />
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

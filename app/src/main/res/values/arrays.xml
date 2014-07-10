@@ -12,7 +12,22 @@
     <string-array name="navigation_secondary_sections">
         <item>Mapa</item>
         <item>Twitter</item>
+        <item>Aplicació</item>
     </string-array>
+
+    <array name="main_section_drawables">
+        <item>@drawable/ic_search_holo_light</item>
+        <item>@drawable/ic_action_important</item>
+        <item>@drawable/ic_action_warning</item>
+        <item>@drawable/ic_action_time</item>
+        <item>@drawable/ic_fa_euro</item>
+    </array>
+
+    <array name="secondary_section_drawables">
+        <item>@drawable/ic_action_map</item>
+        <item>@drawable/ic_fa_twitter</item>
+        <item>@drawable/ic_action_about</item>
+    </array>
 
     <string-array name="parades_completes">
         <item>ESTACIO_ABRERA</item>

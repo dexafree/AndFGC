@@ -13,4 +13,6 @@
     <color name="selected_background">#ffc1e9f7</color>
     <color name="green_ticket">#02927A</color>
     <color name="abs__bright_foreground_disabled_holo_dark">#ff4c4c4c</color>
+    <color name="main_drawer_background">#F9F9F9</color>
+    <color name="secondary_drawer_background">#F5F5F5</color>
 </resources>

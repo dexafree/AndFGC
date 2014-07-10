@@ -64,10 +64,13 @@ public class WebInfoController {
                             String day;
                             String month;
                             String year = now.getYear()+"";
+
                             if(dayInt < 10) day = "0"+dayInt;
                             else day = ""+dayInt;
+
                             if(monthInt < 10) month = "0"+monthInt;
                             else month = ""+monthInt;
+
                             statusDates.add(day+"/"+month+"/"+year);
                         }
 
