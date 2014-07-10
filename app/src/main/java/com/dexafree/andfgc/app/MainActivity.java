@@ -23,10 +23,11 @@ import com.dexafree.andfgc.app.fragments.ShowMapFragment;
 import com.dexafree.andfgc.app.fragments.ShowTarifesFragment;
 import com.dexafree.andfgc.app.fragments.TwitterFragment;
 import com.dexafree.andfgc.app.fragments.WelcomeFragment;
+import com.dexafree.andfgc.app.utils.Logger;
 
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements FragmentManager.OnBackStackChangedListener {
 
     private final static String POSITION = "POSITION";
 
@@ -153,6 +154,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void selectOption(int position){
+
+        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
         Fragment f;
 
         if(position != mPosition) {
@@ -221,5 +225,10 @@ public class MainActivity extends ActionBarActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(POSITION, mPosition);
+    }
+
+    @Override
+    public void onBackStackChanged(){
+        Logger.d("BACKCOUNT", getSupportFragmentManager().getBackStackEntryCount()+"");
     }
 }
