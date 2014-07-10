@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.dexafree.andfgc.app.MainActivity;
@@ -31,6 +32,7 @@ public class FavoritesFragment extends Fragment {
     private Context mContext;
 
     private ListView mListView;
+    private RelativeLayout emptyView;
 
     private ArrayList<Favorito> favoritosList;
 
@@ -42,13 +44,15 @@ public class FavoritesFragment extends Fragment {
        favoritosList = FavoritosController.getAllFavoritos(mContext);
 
        FavoritosAdapter adapter = new FavoritosAdapter(mContext, favoritosList);
+
        mListView.setAdapter(adapter);
+
 
    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.sample_listview, null);
+        View v = inflater.inflate(R.layout.listview_with_emptyview, null);
 
 
         mContext = getActivity();
@@ -69,8 +73,12 @@ public class FavoritesFragment extends Fragment {
 
     private void bindViews(View v){
         mListView = (ListView) v.findViewById(R.id.listView);
+
         mListView.setDivider(null);
         mListView.setDividerHeight(5);
+
+        emptyView = (RelativeLayout)v.findViewById(R.id.empty);
+
     }
 
     private void loadFavoritos(){
@@ -83,27 +91,41 @@ public class FavoritesFragment extends Fragment {
 
     private void setView(){
 
-        FavoritosAdapter adapter = new FavoritosAdapter(mContext, favoritosList);
+        if(favoritosList.size() > 0){
+            emptyView.setVisibility(View.GONE);
+            mListView.setVisibility(View.VISIBLE);
+            FavoritosAdapter adapter = new FavoritosAdapter(mContext, favoritosList);
 
-        mListView.setAdapter(adapter);
+            mListView.setAdapter(adapter);
 
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Logger.d("HAS", "PULSADO");
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Fragment f = new SearchFragment();
-                Bundle args = new Bundle();
-                args.putBoolean(SearchFragment.FROM_FAVORITO, true);
-                args.putParcelable("FAVORITO", favoritosList.get(i));
-                f.setArguments(args);
+                    Logger.d("HAS", "PULSADO");
 
-                ((MainActivity)mContext).changeFragment(f, 0);
+                    Fragment f = new SearchFragment();
+                    Bundle args = new Bundle();
+                    args.putBoolean(SearchFragment.FROM_FAVORITO, true);
+                    args.putParcelable("FAVORITO", favoritosList.get(i));
+                    f.setArguments(args);
 
-            }
-        });
+                    ((MainActivity)mContext).changeFragment(f, 0);
+
+                }
+            });
+
+        } else {
+
+            mListView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+
+
+        }
+
+
     }
 
     @Override

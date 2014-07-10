@@ -1,6 +1,9 @@
 package com.dexafree.andfgc.app.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -18,10 +21,14 @@ public class AboutFragment extends PreferenceFragment {
     public static final String JODATIME = "http://www.joda.org/joda-time/";
     public static final String DEXAFREE = "https://github.com/dexafree";
 
+    private Context mContext;
+
     @Override
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.about);
+
+        mContext = getActivity();
 
         findPreference("otto").setOnPreferenceClickListener(new Listener(OTTO));
         findPreference("ion").setOnPreferenceClickListener(new Listener(ION));
@@ -31,6 +38,21 @@ public class AboutFragment extends PreferenceFragment {
         findPreference("jsoup").setOnPreferenceClickListener(new Listener(JSOUP));
         findPreference("joda").setOnPreferenceClickListener(new Listener(JODATIME));
         findPreference("dexafree").setOnPreferenceClickListener(new Listener(DEXAFREE));
+        findPreference("version").setSummary(getVersionString());
+
+    }
+
+    private String getVersionString(){
+        String versionString;
+        try {
+            versionString = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0).versionName;
+
+        } catch (PackageManager.NameNotFoundException e){
+            e.printStackTrace();
+            versionString = "1.0";
+        }
+
+        return versionString;
 
     }
 

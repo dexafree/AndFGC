@@ -39,4 +39,5 @@
     <string name="time_ago">Hace </string>
     <string name="favorite_saved">Favorito guardado con éxito</string>
     <string name="developer">Developer</string>
+    <string name="empty_fav">No tienes ningún trayecto guardado como favorito!</string>
 </resources>
