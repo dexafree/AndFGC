@@ -39,11 +39,7 @@ public class ParadaController {
             do {
                 String nom = cursor.getString(cursor.getColumnIndex("COMPLET"));
                 parades.add(nom);
-                //String abreviatura = cursor.getString(cursor.getColumnIndex("ABREVIACIO"));
 
-                //Parada p = new Parada(nom, abreviatura);
-
-                //parades.add(p);
 
             } while(cursor.moveToNext());
         }

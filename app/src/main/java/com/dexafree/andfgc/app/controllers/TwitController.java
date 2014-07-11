@@ -5,6 +5,7 @@ import android.content.Context;
 import com.dexafree.andfgc.app.beans.Twit;
 import com.dexafree.andfgc.app.events.BusProvider;
 import com.dexafree.andfgc.app.events.TweetListLoadedEvent;
+import com.dexafree.andfgc.app.utils.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -24,6 +25,8 @@ public class TwitController {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+
+                        Logger.d("RESULT", result.getAsString());
 
                         ArrayList<Twit> tweetList = new ArrayList<Twit>();
 

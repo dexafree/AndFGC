@@ -40,4 +40,7 @@
     <string name="favorite_saved">Favorito guardado con éxito</string>
     <string name="developer">Developer</string>
     <string name="empty_fav">No tienes ningún trayecto guardado como favorito!</string>
+    <string name="dont_show_again">No volver a mostrar</string>
+    <string name="error">Error</string>
+    <string name="no_internet_alert">Esta función requiere de acceso a internet. Compruebe su conexión</string>
 </resources>

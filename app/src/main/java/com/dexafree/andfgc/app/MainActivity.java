@@ -1,5 +1,6 @@
 package com.dexafree.andfgc.app;
 
+import android.app.AlertDialog;
 import android.content.*;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -23,6 +24,8 @@ import com.dexafree.andfgc.app.fragments.ShowMapFragment;
 import com.dexafree.andfgc.app.fragments.ShowTarifesFragment;
 import com.dexafree.andfgc.app.fragments.TwitterFragment;
 import com.dexafree.andfgc.app.fragments.WelcomeFragment;
+import com.dexafree.andfgc.app.utils.Checkers;
+import com.dexafree.andfgc.app.utils.Constants;
 import com.dexafree.andfgc.app.utils.Logger;
 
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
@@ -40,6 +43,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         firstTime();
@@ -76,7 +80,14 @@ public class MainActivity extends ActionBarActivity {
 
 
         if(savedInstanceState == null) {
-            Fragment f = new WelcomeFragment();
+
+            Fragment f;
+
+            if(showWelcome())
+                f = new WelcomeFragment();
+            else
+                f = new SearchFragment();
+
 
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction()
@@ -157,52 +168,85 @@ public class MainActivity extends ActionBarActivity {
 
         getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-        Fragment f;
+        boolean mustChange = false;
+
+        Fragment f = new WelcomeFragment();
 
         if(position != mPosition) {
             switch (position) {
                 case 0:
                     f = new SearchFragment();
+                    mustChange = true;
                     mPosition = position;
                     break;
                 case 1:
                     f = new FavoritesFragment();
+                    mustChange = true;
                     mPosition = position;
                     break;
                 case 2:
-                    f = new AlertsNewsFragment();
-                    mPosition = position;
+                    if(Checkers.hasInternet(this)) {
+                        f = new AlertsNewsFragment();
+                        mustChange = true;
+                        mPosition = position;
+                    } else {
+                        showInternetDialog();
+                    }
                     break;
                 case 3:
-                    f = new DownloadTimetablesFragment();
-                    mPosition = position;
+                    if(Checkers.hasInternet(this)) {
+                        f = new DownloadTimetablesFragment();
+                        mustChange = true;
+                        mPosition = position;
+                    } else {
+                        showInternetDialog();
+                    }
                     break;
                 case 4:
-                    f = new ShowTarifesFragment();
-                    mPosition = position;
+                    if(Checkers.hasInternet(this)) {
+                        f = new ShowTarifesFragment();
+                        mustChange = true;
+                        mPosition = position;
+                    } else {
+                        showInternetDialog();
+                    }
                     break;
                 case 5:
-                    f = new ShowMapFragment();
-                    mPosition = position;
+                    if(Checkers.hasInternet(this)) {
+                        f = new ShowMapFragment();
+                        mustChange = true;
+                        mPosition = position;
+                    } else {
+                        showInternetDialog();
+                    }
                     break;
                 case 6:
-                    f = new TwitterFragment();
-                    mPosition = position;
+                    if(Checkers.hasInternet(this)) {
+                        f = new TwitterFragment();
+                        mustChange = true;
+                        mPosition = position;
+                    } else {
+                        showInternetDialog();
+                    }
                     break;
                 case 7:
                     f = new AboutFragment();
+                    mustChange = true;
                     mPosition = position;
                     break;
                 default:
                     f = new WelcomeFragment();
                     break;
             }
-            FragmentManager fm = getSupportFragmentManager();
+
+            if(mustChange) {
+                FragmentManager fm = getSupportFragmentManager();
 
 
-            fm.beginTransaction()
-                    .replace(R.id.content_layout, f)
-                    .commit();
+                fm.beginTransaction()
+                        .replace(R.id.content_layout, f)
+                        .commit();
+            }
         }
 
     }
@@ -218,6 +262,20 @@ public class MainActivity extends ActionBarActivity {
 
     public void changeNavDrawerSelection(int position){
         mDrawer.check(position);
+    }
+
+    private void showInternetDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.error);
+        builder.setMessage(R.string.no_internet_alert);
+        builder.create().show();
+    }
+
+    private boolean showWelcome(){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+
+        return sp.getBoolean(Constants.SHOW_WELCOME, true);
+
     }
 
 

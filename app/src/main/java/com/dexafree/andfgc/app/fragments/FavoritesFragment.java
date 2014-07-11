@@ -104,8 +104,6 @@ public class FavoritesFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                    Logger.d("HAS", "PULSADO");
-
                     Fragment f = new SearchFragment();
                     Bundle args = new Bundle();
                     args.putBoolean(SearchFragment.FROM_FAVORITO, true);
@@ -118,10 +116,8 @@ public class FavoritesFragment extends Fragment {
             });
 
         } else {
-
             mListView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
-
 
         }
 

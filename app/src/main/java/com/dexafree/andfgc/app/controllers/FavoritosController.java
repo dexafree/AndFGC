@@ -62,22 +62,25 @@ public class FavoritosController {
 
             Cursor cursor = db.rawQuery(sql, null);
 
+
             if(cursor.moveToFirst()){
-                while(cursor.moveToNext()){
+
+                do{
 
                     String from = cursor.getString(cursor.getColumnIndex("from_stop"));
                     String to = cursor.getString(cursor.getColumnIndex("to_stop"));
                     String title = cursor.getString(cursor.getColumnIndex("title"));
                     int line = cursor.getInt(cursor.getColumnIndex("line"));
                     int id = cursor.getInt(cursor.getColumnIndex("ID"));
-
                     favList.add(new Favorito(from, to, title, id, line));
 
-                }
+                } while(cursor.moveToNext());
             }
 
             db.close();
         }
+
+        Logger.d("SIZE", favList.size()+"");
 
         return favList;
     }

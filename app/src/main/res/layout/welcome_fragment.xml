@@ -12,13 +12,13 @@
         android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
         android:translationZ="3dp">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -59,6 +59,32 @@
                 android:layout_marginTop="4dp"
                 style="@style/CardFooterText"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/orange_fgc"
+                android:layout_marginTop="4dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/orange_fgc"
+                android:id="@+id/dont_show_again">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_fa_check_square_o"
+                    android:clickable="false"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:text="@string/dont_show_again"
+                    tools:text="No volver a mostrar"
+                    android:clickable="false"/>
+            </LinearLayout>
 
 
         </LinearLayout>
