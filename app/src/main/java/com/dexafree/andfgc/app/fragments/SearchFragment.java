@@ -1,10 +1,8 @@
 package com.dexafree.andfgc.app.fragments;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.*;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,7 +13,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.*;
 import com.dexafree.andfgc.app.MainActivity;
 import com.dexafree.andfgc.app.R;
-import com.dexafree.andfgc.app.beans.Cerca;
 import com.dexafree.andfgc.app.beans.Favorito;
 import com.dexafree.andfgc.app.beans.Parada;
 import com.dexafree.andfgc.app.connections.BuscaHoraris;
@@ -24,8 +21,6 @@ import com.dexafree.andfgc.app.events.BusProvider;
 import com.dexafree.andfgc.app.events.SearchFinishedEvent;
 import com.dexafree.andfgc.app.utils.Logger;
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
-import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
-import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
 import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
 import com.nineoldandroids.animation.Animator;
@@ -35,7 +30,6 @@ import com.squareup.otto.Subscribe;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 
@@ -364,6 +358,54 @@ public class SearchFragment extends Fragment {
 
         Animation rotate = AnimationUtils.loadAnimation(mContext, R.anim.rotate_button);
         swapPositionButton.startAnimation(rotate);
+
+
+
+        int[] location = new int[2];
+
+        departureStation.getLocationOnScreen(location);
+
+        final int departurePosition = location[1];
+
+        arrivalStation.getLocationOnScreen(location);
+
+        final int arrivalPosition = location[1];
+
+        int downTranslation = arrivalPosition - departurePosition;
+
+
+        animate(departureStation)
+                .translationYBy(downTranslation)
+                .setDuration(mAnimationTime)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        int[] departureStationLocation = new int[2];
+                        departureStation.getLocationOnScreen(departureStationLocation);
+                        Logger.d("DEPARTUREFINAL", departureStationLocation[1] + "");
+                        super.onAnimationEnd(animation);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        Logger.d("ANIMATION", "CANCELED");
+                        super.onAnimationCancel(animation);
+                    }
+                });
+
+        animate(arrivalStation)
+                .translationYBy(-downTranslation)
+                .setDuration(mAnimationTime)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        int[] arrivalStationLocation = new int[2];
+                        arrivalStation.getLocationOnScreen(arrivalStationLocation);
+                        Logger.d("ARRIVALFINAL", arrivalStationLocation[1]+"");
+                        super.onAnimationEnd(animation);
+                    }
+                });
+
     }
 
     private void performSwap(){
