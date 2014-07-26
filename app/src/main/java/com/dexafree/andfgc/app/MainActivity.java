@@ -121,6 +121,13 @@ public class MainActivity extends ActionBarActivity {
                 .commit();
     }
 
+    public void changeFragmentWithoutAddingToStack(Fragment f){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_layout, f)
+                .commit();
+    }
+
     public void changeFragment(Fragment f, int option){
 
         mDrawer.check(option);
