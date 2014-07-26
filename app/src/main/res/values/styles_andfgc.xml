@@ -26,7 +26,7 @@
         <item name="progressBarStyle">@style/ProgressBar.Andfgc</item>
     </style>
 	
-    <style name="PopupMenu.Andfgc" parent="@style/Widget.AppCompat.Light.PopupMenu">	
+    <style name="PopupMenu.Andfgc" parent="@style/Widget.AppCompat.Light.PopupMenu">
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_andfgc</item>	
     </style>
 	
@@ -60,7 +60,13 @@
 
 
 
-    <style name="tarifes_dialog" parent="Theme.Platform.AppCompat.Dialog">
+    <!--<style name="tarifes_dialog" parent="Theme.Platform.AppCompat.Dialog">
+        <item name="android:windowTitleStyle">@style/dialog_title_style</item>
+    </style>-->
+
+
+
+    <style name="tarifes_dialog" parent="Theme.AppCompat.CompactMenu.Dialog">
         <item name="android:windowTitleStyle">@style/dialog_title_style</item>
     </style>
 

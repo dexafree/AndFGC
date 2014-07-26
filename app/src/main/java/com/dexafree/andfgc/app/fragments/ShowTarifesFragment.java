@@ -22,9 +22,7 @@ import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 06/06/14.
- */
+
 public class ShowTarifesFragment extends Fragment {
 
     private final String TICKETS = "TICKETS";
@@ -37,7 +35,6 @@ public class ShowTarifesFragment extends Fragment {
     @Subscribe
     public void onTarifesSearchFinished(TarifesSearchFinishedEvent event){
         ticketsList = event.getTickets();
-        //setContent();
         dialog.dismiss();
 
         ((LinearLayout)getView().findViewById(R.id.mainLayout)).addView(generateCards());
@@ -55,7 +52,7 @@ public class ShowTarifesFragment extends Fragment {
         View v = inflater.inflate(R.layout.tarifas_layout, null);
 
         this.mContext = getActivity();
-        //bindViews(v);
+
         if(savedInstanceState == null){
             dialog = new ProgressDialog(mContext);
             dialog.setTitle(getString(R.string.downloading_tickets));
@@ -64,7 +61,7 @@ public class ShowTarifesFragment extends Fragment {
             TarifesController.getTarifes(mContext);
         } else {
             loadValues(savedInstanceState);
-            //setContent();
+
         }
         return v;
     }

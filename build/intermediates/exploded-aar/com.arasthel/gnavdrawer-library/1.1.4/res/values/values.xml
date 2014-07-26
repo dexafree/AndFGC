@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/arasthel/AndroidStudioProjects/GoogleNavigationDrawerMenu/GoogleNavigationDrawerMenuLibrary/src/main/res/values/colors.xml -->
+    <eat-comment />
+
+    <color name="main_section_selected">@android:color/transparent</color>
+    <color name="secondary_divider_color">#ccc</color>
+    <color name="secondary_section_selected">#ccc</color>
+    <!-- From: file:/Users/arasthel/AndroidStudioProjects/GoogleNavigationDrawerMenu/GoogleNavigationDrawerMenuLibrary/src/main/res/values/attrs.xml -->
+    <eat-comment />
+
+    <declare-styleable name="GoogleNavigationDrawer">
+        <attr name="list_paddingTop" format="dimension|reference" />
+        <attr name="list_paddingBottom" format="dimension|reference" />
+        <attr name="list_paddingLeft" format="dimension|reference" />
+        <attr name="list_paddingRight" format="dimension|reference" />
+        <attr name="list_mainSectionsEntries" format="reference" />
+        <attr name="list_secondarySectionsEntries" format="reference" />
+        <attr name="list_mainSectionsDrawables" format="reference" />
+        <attr name="list_secondarySectionsDrawables" format="reference" />
+        <attr name="list_mainSectionsBackground" format="reference" />
+        <attr name="list_secondarySectionsBackground" format="reference" />
+        <attr name="drawer_gravity">
+            <flag name="right" value="0x05" />
+            <flag name="left" value="0x03" />
+            <flag name="start" value="0x00800003" />
+            <flag name="end" value="0x00800005" />
+        </attr>
+        <attr name="list_headerView" format="reference" />
+        <attr name="list_footerView" format="reference" />
+        <attr name="list_headerClickable" format="boolean" />
+        <attr name="list_footerClickable" format="boolean" />
+        <attr name="list_background" format="reference|color" />
+        <attr name="list_width" format="dimension" />
+        <attr name="list_main_divider" format="reference|color" />
+        <attr name="list_main_divider_height" format="dimension" />
+        <attr name="list_secondary_divider" format="reference|color" />
+        <attr name="list_secondary_divider_height" format="dimension" />
+    </declare-styleable>
+    <!-- From: file:/Users/arasthel/AndroidStudioProjects/GoogleNavigationDrawerMenu/GoogleNavigationDrawerMenuLibrary/src/main/res/values/dimens.xml -->
+    <eat-comment />
+
+    <dimen name="main_section_icon_size">48dp</dimen>
+    <dimen name="main_section_item_height">64dp</dimen>
+    <dimen name="secondary_section_icon_size">32dp</dimen>
+    <dimen name="secondary_section_item_height">46dp</dimen>
+    <!-- From: file:/Users/arasthel/AndroidStudioProjects/GoogleNavigationDrawerMenu/GoogleNavigationDrawerMenuLibrary/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="app_name">GoogleNavigationDrawerMenu</string>
+    <!-- From: file:/Users/arasthel/AndroidStudioProjects/GoogleNavigationDrawerMenu/GoogleNavigationDrawerMenuLibrary/src/main/res/values/styles.xml -->
+    <eat-comment />
+
+    <style name="GoogleNavDrawer.MainSectionText" parent="android:TextAppearance.Medium">
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">21sp</item>
+        <item name="android:minHeight">@dimen/main_section_item_height</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+
+    <style name="GoogleNavDrawer.SecondarySectionText" parent="GoogleNavDrawer.MainSectionText">
+        <item name="android:textSize">13sp</item>
+        <item name="android:minHeight">@dimen/secondary_section_item_height</item>
+    </style>
+
+</resources>

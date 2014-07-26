@@ -36,7 +36,6 @@
         </activity>
 
         <service android:name=".services.DownloadService" />
-        <meta-data android:name="com.crashlytics.ApiKey" android:value="ad4ee4f5e9786e34806ad80b17313354dcb92332"/>
 
     </application>
 

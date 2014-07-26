@@ -1,7 +1,7 @@
 apply plugin: 'android'
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 19
     buildToolsVersion '20.0.0'
 
     lintOptions {
@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 21
+        targetSdkVersion 19
         versionCode 1
         versionName "1.0"
     }
@@ -24,7 +24,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:+'
+    compile 'com.android.support:appcompat-v7:19.+'
+
     // You must install or update the Support Repository through the SDK manager to use this dependency.
     compile 'com.android.support:support-v4:19.+'
     compile 'com.squareup:otto:1.3.4'
@@ -37,4 +38,5 @@ dependencies {
     compile 'com.google.android.gms:play-services:4.2.+'
     compile 'com.android.support:cardview-v7:+'
     compile 'com.quentindommerc.superlistview:library:1.5.2'
+    compile 'com.nineoldandroids:library:2.4.+'
 }
