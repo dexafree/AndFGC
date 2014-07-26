@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.*;
 import com.dexafree.andfgc.app.MainActivity;
 import com.dexafree.andfgc.app.R;
@@ -26,15 +28,17 @@ import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
 import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
 import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.ValueAnimator;
 import com.squareup.otto.Subscribe;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * Created by Carlos on 28/04/2014.
- */
+import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
+
 public class SearchFragment extends Fragment {
 
     public static final String FROM_MAP = "FROM_MAP";
@@ -51,6 +55,9 @@ public class SearchFragment extends Fragment {
     private TextView departureHour;
     private TextView buscarText;
     private TextView lineSelect;
+
+    private FrameLayout swapPositionButton;
+
     private CheckBox checkBox;
 
     private Context mContext;
@@ -80,6 +87,8 @@ public class SearchFragment extends Fragment {
     private int linia = -1;
     private int horaInt;
     private int minutosInt;
+
+    private int mAnimationTime;
 
     private MyDateSetHandler dsh;
 
@@ -146,6 +155,7 @@ public class SearchFragment extends Fragment {
         lineSelect = (TextView)v.findViewById(R.id.selecciona_linea);
         buscarText = (TextView)v.findViewById(R.id.routeoptions_textbox);
         checkBox = (CheckBox)v.findViewById(R.id.salida_llegada_checkbox);
+        swapPositionButton = (FrameLayout)v.findViewById(R.id.directions_swapwaypoints_button);
 
         DateTime now = DateTime.now();
 
@@ -257,6 +267,13 @@ public class SearchFragment extends Fragment {
                 isTimeArrival = b;
             }
         });
+
+        swapPositionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                swapPositions();
+            }
+        });
     }
 
     private void enableText(TextView tv){
@@ -337,6 +354,49 @@ public class SearchFragment extends Fragment {
     private void showTimeDialog(){
         tpb.show();
     }
+
+
+    private void swapPositions(){
+
+        mAnimationTime = mContext.getResources().getInteger(
+                android.R.integer.config_shortAnimTime);
+
+
+        Animation rotate = AnimationUtils.loadAnimation(mContext, R.anim.rotate_button);
+        swapPositionButton.startAnimation(rotate);
+    }
+
+    private void performSwap(){
+        final ViewGroup.LayoutParams lp = swapPositionButton.getLayoutParams();
+
+        final int originalHeight = swapPositionButton.getHeight();
+
+        ValueAnimator animator = ValueAnimator.ofInt(originalHeight, 1).setDuration(mAnimationTime);
+
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                onAnimationEnded();
+            }
+        });
+
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                lp.height = (Integer) valueAnimator.getAnimatedValue();
+                swapPositionButton.setLayoutParams(lp);
+            }
+        });
+
+        animator.start();
+    }
+
+    private void onAnimationEnded(){
+        Toast.makeText(mContext, "ALGO", Toast.LENGTH_SHORT).show();
+    }
+
+
+
 
     private class MyDateSetHandler implements CalendarDatePickerDialog.OnDateSetListener {
         @Override

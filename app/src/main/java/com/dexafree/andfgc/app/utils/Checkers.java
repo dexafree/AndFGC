@@ -3,6 +3,7 @@ package com.dexafree.andfgc.app.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 
 
 public class Checkers {
@@ -17,6 +18,10 @@ public class Checkers {
             if(!inf.isAvailable())return false;
         }
         return true;
+    }
+
+    public static boolean isLowerThanIcs(){
+        return Build.VERSION.SDK_INT <= 10;
     }
 
 }

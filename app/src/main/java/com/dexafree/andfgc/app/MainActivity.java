@@ -23,6 +23,7 @@ import com.dexafree.andfgc.app.fragments.SearchResultFragment;
 import com.dexafree.andfgc.app.fragments.ShowMapFragment;
 import com.dexafree.andfgc.app.fragments.ShowTarifesFragment;
 import com.dexafree.andfgc.app.fragments.TwitterFragment;
+import com.dexafree.andfgc.app.fragments.TwitterLowApiFragment;
 import com.dexafree.andfgc.app.fragments.WelcomeFragment;
 import com.dexafree.andfgc.app.utils.Checkers;
 import com.dexafree.andfgc.app.utils.Constants;
@@ -229,7 +230,7 @@ public class MainActivity extends ActionBarActivity {
                     break;
                 case 6:
                     if(Checkers.hasInternet(this)) {
-                        f = new TwitterFragment();
+                        f = Checkers.isLowerThanIcs() ? new TwitterLowApiFragment() : new TwitterFragment();
                         mustChange = true;
                         mPosition = position;
                     } else {

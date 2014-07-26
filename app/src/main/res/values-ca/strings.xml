@@ -43,4 +43,5 @@
     <string name="dont_show_again">No tornar a mostrar</string>
     <string name="error">Error</string>
     <string name="no_internet_alert">Aquesta funció requereix d\'accés a internet. Comprovi la seva connexió</string>
+    <string name="refresh">Actualitzar</string>
 </resources>

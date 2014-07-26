@@ -4,16 +4,16 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,21 +24,18 @@ import com.dexafree.andfgc.app.controllers.TwitController;
 import com.dexafree.andfgc.app.events.BusProvider;
 import com.dexafree.andfgc.app.events.ErrorEvent;
 import com.dexafree.andfgc.app.events.TweetListLoadedEvent;
-import com.dexafree.andfgc.app.utils.Logger;
-import com.quentindommerc.superlistview.SuperListview;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
 
-public class TwitterFragment extends Fragment {
+public class TwitterLowApiFragment extends Fragment {
 
     public static final String TWEET_LIST = "TWEET_LIST";
 
     private Context mContext;
-    private View mView;
 
-    private SuperListview mListView;
+    private ListView mListView;
     private ProgressDialog dialog;
 
     private ArrayList<Twit> mTweetList;
@@ -58,9 +55,14 @@ public class TwitterFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.sample_refreshlistview, null);
-        mView = v;
+        View v = inflater.inflate(R.layout.sample_listview, null);
 
         mContext = getActivity();
 
@@ -80,19 +82,7 @@ public class TwitterFragment extends Fragment {
     }
 
     private void bindViews(View v){
-        mListView = (SuperListview)v.findViewById(R.id.listView);
-
-
-        mListView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mTweetList.clear();
-                dialog = new ProgressDialog(mContext);
-                dialog.setTitle(R.string.please_wait);
-                dialog.show();
-                TwitController.getLastTweets(mContext);
-            }
-        });
+        mListView = (ListView)v.findViewById(R.id.listView);
 
     }
 
@@ -114,6 +104,30 @@ public class TwitterFragment extends Fragment {
             }
         });
     }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+
+        inflater.inflate(R.menu.twitter_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                dialog = new ProgressDialog(mContext);
+                dialog.setTitle(R.string.please_wait);
+                dialog.show();
+                TwitController.getLastTweets(mContext);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
