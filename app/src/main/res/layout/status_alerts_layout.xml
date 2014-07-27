@@ -4,40 +4,70 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-    android:background="@color/grey_background">
+              android:background="@color/grey_background">
 
     <RelativeLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:id="@+id/status_layout" android:layout_marginLeft="6dp"
-            android:layout_marginTop="4dp" android:layout_marginRight="6dp" android:layout_marginBottom="4dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/status_layout"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="4dp"
             android:background="@drawable/cards_back">
+
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/service_status"
                 android:id="@+id/status_title"
-                android:layout_alignParentTop="true" android:layout_centerHorizontal="true" android:textStyle="bold"
-                android:capitalize="characters" android:layout_marginTop="4dp" android:layout_marginBottom="4dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:capitalize="characters"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:textSize="20sp"/>
+
         <ListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/status_listview" android:layout_below="@+id/status_title"
-                android:layout_alignParentLeft="false" android:layout_alignParentStart="true"
+                android:id="@+id/status_listview"
+                android:layout_below="@+id/status_title"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"/>
     </RelativeLayout>
-    <RelativeLayout android:orientation="vertical" android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" android:id="@+id/alerts_layout" android:layout_marginLeft="6dp"
-                    android:layout_marginTop="4dp" android:layout_marginRight="6dp" android:layout_marginBottom="4dp"
+
+    <RelativeLayout android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/alerts_layout"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginBottom="4dp"
                     android:background="@drawable/cards_back">
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/service_alerts"
-                  android:id="@+id/alerts_title" android:layout_alignParentTop="true"
-                  android:layout_centerHorizontal="true" android:textStyle="bold" android:capitalize="characters"
-                  android:layout_marginTop="4dp" android:layout_marginBottom="4dp" android:textSize="20sp"/>
-        <ListView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:id="@+id/alerts_listview" android:layout_below="@+id/alerts_title"
-                  android:layout_alignParentLeft="false" android:layout_alignParentStart="true"
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/service_alerts"
+                  android:id="@+id/alerts_title"
+                  android:layout_alignParentTop="true"
+                  android:layout_centerHorizontal="true"
+                  android:textStyle="bold"
+                  android:capitalize="characters"
+                  android:layout_marginTop="4dp"
+                  android:layout_marginBottom="4dp"
+                  android:textSize="20sp"/>
+
+        <ListView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/alerts_listview"
+                  android:layout_below="@+id/alerts_title"
+                  android:layout_alignParentLeft="false"
+                  android:layout_alignParentStart="true"
                   android:layout_centerVertical="true"/>
     </RelativeLayout>
 </LinearLayout>

@@ -29,6 +29,7 @@ public class ShowTarifesFragment extends Fragment {
 
     private Context mContext;
     private ProgressDialog dialog;
+    private View mView;
 
     private ArrayList<Ticket> ticketsList;
 
@@ -37,7 +38,7 @@ public class ShowTarifesFragment extends Fragment {
         ticketsList = event.getTickets();
         dialog.dismiss();
 
-        ((LinearLayout)getView().findViewById(R.id.mainLayout)).addView(generateCards());
+        setViewContent();
     }
 
     @Subscribe
@@ -52,6 +53,7 @@ public class ShowTarifesFragment extends Fragment {
         View v = inflater.inflate(R.layout.tarifas_layout, null);
 
         this.mContext = getActivity();
+        mView = v;
 
         if(savedInstanceState == null){
             dialog = new ProgressDialog(mContext);
@@ -61,12 +63,16 @@ public class ShowTarifesFragment extends Fragment {
             TarifesController.getTarifes(mContext);
         } else {
             loadValues(savedInstanceState);
-
+            setViewContent();
         }
         return v;
     }
 
-    public void loadValues(Bundle savedState){
+    private void setViewContent(){
+        ((LinearLayout)mView.findViewById(R.id.mainLayout)).addView(generateCards());
+    }
+
+    private void loadValues(Bundle savedState){
         ticketsList = savedState.getParcelableArrayList(TICKETS);
     }
 

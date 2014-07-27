@@ -24,9 +24,6 @@ import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 02/07/14.
- */
 public class FavoritesFragment extends Fragment {
 
     private Context mContext;
@@ -43,9 +40,7 @@ public class FavoritesFragment extends Fragment {
 
        favoritosList = FavoritosController.getAllFavoritos(mContext);
 
-       FavoritosAdapter adapter = new FavoritosAdapter(mContext, favoritosList);
-
-       mListView.setAdapter(adapter);
+       setView();
 
 
    }
