@@ -30,6 +30,7 @@ import com.dexafree.andfgc.app.fragments.WelcomeFragment;
 import com.dexafree.andfgc.app.utils.Checkers;
 import com.dexafree.andfgc.app.utils.Constants;
 import com.dexafree.andfgc.app.utils.Logger;
+import com.dexafree.andfgc.app.utils.Utils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
@@ -40,6 +41,8 @@ public class MainActivity extends ActionBarActivity {
 
     private ActionBarDrawerToggle drawerToggle;
     private GoogleNavigationDrawer mDrawer;
+
+    private String[] sectionNames;
 
     private int mPosition;
 
@@ -52,6 +55,15 @@ public class MainActivity extends ActionBarActivity {
         // Load the main layout
         setContentView(R.layout.activity_main);
 
+        // Load the section names
+        String[] mainSections = getResources().getStringArray(R.array.navigation_main_sections);
+        String[] secondarySections = getResources().getStringArray(R.array.navigation_secondary_sections);
+
+        sectionNames = new String[mainSections.length + secondarySections.length];
+
+        sectionNames = Utils.concat(mainSections, secondarySections);
+
+
         // If Android Version is KitKat or higher, enable the status bar tint
         if(Checkers.isKitKatOrHigher()) {
 
@@ -59,13 +71,8 @@ public class MainActivity extends ActionBarActivity {
 
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
-            // enable navigation bar tint
-            tintManager.setNavigationBarTintEnabled(true);
 
             tintManager.setTintColor(getResources().getColor(R.color.orange_fgc));
-
-            tintManager.setNavigationBarTintColor(getResources().getColor(R.color.grey_background));
-
         }
 
         // Run the checkings and actions for the first time app launching
@@ -102,15 +109,18 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        // IF the app just launched, show the first fragment
+        // If the app just launched, show the first fragment
         if(savedInstanceState == null) {
 
             Fragment f;
 
-            if(showWelcome())
+            if(showWelcome()) {
                 f = new WelcomeFragment();
-            else
+                setTitle(R.string.welcome);
+            } else {
                 f = new SearchFragment();
+                setTitle(sectionNames[0]);
+            }
 
 
             FragmentManager fm = getSupportFragmentManager();
@@ -176,6 +186,8 @@ public class MainActivity extends ActionBarActivity {
                 .beginTransaction()
                 .replace(R.id.content_layout, f)
                 .commit();
+
+        setTitle(sectionNames[option]);
     }
 
     @Override
@@ -300,6 +312,8 @@ public class MainActivity extends ActionBarActivity {
                 fm.beginTransaction()
                         .replace(R.id.content_layout, f)
                         .commit();
+
+                setTitle(sectionNames[mPosition]);
             }
         }
 

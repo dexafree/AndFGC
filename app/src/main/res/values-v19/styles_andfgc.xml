@@ -14,7 +14,7 @@
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Andfgc</item>
 
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
 
         <item name="android:windowBackground">@color/orange_fgc</item>
 

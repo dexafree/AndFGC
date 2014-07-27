@@ -251,17 +251,25 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(isArrivalStationSelected && isDepartureStationSelected && isHourSelected) {
-                    pDialog = new ProgressDialog(mContext);
-                    pDialog.setMessage(getString(R.string.searching_message));
-                    pDialog.setTitle(getString(R.string.searching_title));
-                    pDialog.show();
-                    String sortidaArribada;
-                    if(isTimeArrival) sortidaArribada = "A";
-                    else sortidaArribada = "S";
 
-                    if(areStationsSwaped)buscaHoraris = new BuscaHoraris(linia, desti, origen, sortidaArribada, fecha, horaInt, minutosInt, mContext);
-                    else buscaHoraris = new BuscaHoraris(linia, origen, desti, sortidaArribada, fecha, horaInt, minutosInt, mContext);
-                    buscaHoraris.cercar();
+                    if(origen.equalsIgnoreCase(desti)){
+                        Toast.makeText(mContext, R.string.same_station, Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        pDialog = new ProgressDialog(mContext);
+                        pDialog.setMessage(getString(R.string.searching_message));
+                        pDialog.setTitle(getString(R.string.searching_title));
+                        pDialog.show();
+                        String sortidaArribada;
+                        if(isTimeArrival) sortidaArribada = "A";
+                        else sortidaArribada = "S";
+
+                        if(areStationsSwaped)buscaHoraris = new BuscaHoraris(linia, desti, origen, sortidaArribada, fecha, horaInt, minutosInt, mContext);
+                        else buscaHoraris = new BuscaHoraris(linia, origen, desti, sortidaArribada, fecha, horaInt, minutosInt, mContext);
+                        buscaHoraris.cercar();
+                    }
+
+
                 } else {
                     Toast.makeText(mContext, R.string.select_all, Toast.LENGTH_SHORT).show();
                 }

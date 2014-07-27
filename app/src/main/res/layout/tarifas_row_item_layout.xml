@@ -17,7 +17,8 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="SECT"
-            android:id="@+id/sectionTitle" />
+            android:id="@+id/sectionTitle"
+            android:gravity="center" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -30,42 +31,48 @@
                 android:layout_height="wrap_content"
                 android:text="0,00€"
                 android:id="@+id/zone1"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:gravity="center" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0,00€"
                 android:id="@+id/zone2"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0,00€"
                 android:id="@+id/zone3"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0,00€"
                 android:id="@+id/zone4"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/zone5"
                 android:text="0,00€"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0,00€"
                 android:id="@+id/zone6"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:gravity="center"/>
         </LinearLayout>
 
     </LinearLayout>

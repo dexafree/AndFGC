@@ -129,13 +129,13 @@ public class ShowTarifesFragment extends Fragment {
 
     private View generateHeaderView(){
         View headerView = View.inflate(mContext,R.layout.tarifas_row_item_layout, null);
-        ((TextView) headerView.findViewById(R.id.sectionTitle)).setText("");
-        ((TextView) headerView.findViewById(R.id.zone1)).setText("ZONA 1");
-        ((TextView) headerView.findViewById(R.id.zone2)).setText("ZONA 2");
-        ((TextView) headerView.findViewById(R.id.zone3)).setText("ZONA 3");
-        ((TextView) headerView.findViewById(R.id.zone4)).setText("ZONA 4");
-        ((TextView) headerView.findViewById(R.id.zone5)).setText("ZONA 5");
-        ((TextView) headerView.findViewById(R.id.zone6)).setText("ZONA 6");
+        ((TextView) headerView.findViewById(R.id.sectionTitle)).setText("ZONA");
+        ((TextView) headerView.findViewById(R.id.zone1)).setText("1");
+        ((TextView) headerView.findViewById(R.id.zone2)).setText("2");
+        ((TextView) headerView.findViewById(R.id.zone3)).setText("3");
+        ((TextView) headerView.findViewById(R.id.zone4)).setText("4");
+        ((TextView) headerView.findViewById(R.id.zone5)).setText("5");
+        ((TextView) headerView.findViewById(R.id.zone6)).setText("6");
         return headerView;
     }
 
