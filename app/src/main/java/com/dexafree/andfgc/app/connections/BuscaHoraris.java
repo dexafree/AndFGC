@@ -12,6 +12,7 @@ import com.dexafree.andfgc.app.beans.Transbord;
 import com.dexafree.andfgc.app.controllers.ParadaController;
 import com.dexafree.andfgc.app.controllers.TransbordController;
 import com.dexafree.andfgc.app.events.BusProvider;
+import com.dexafree.andfgc.app.events.ErrorEvent;
 import com.dexafree.andfgc.app.events.SearchFinishedEvent;
 import com.dexafree.andfgc.app.utils.Checkers;
 import com.dexafree.andfgc.app.utils.Logger;
@@ -158,74 +159,80 @@ public class BuscaHoraris {
                         @Override
                         public void onCompleted(Exception e, JsonArray result) {
                             try {
-                                Cerca c;
 
-                                ArrayList<Opcio> opcions = new ArrayList<Opcio>();
-                                JsonArray main = result.get(0).getAsJsonArray().get(0).getAsJsonArray();
-                                String paradaInici = "";
-                                String paradaFi = "";
+                                if(!result.isJsonNull()) {
+                                    Cerca c;
 
-                                for (int i = 0; i < main.size(); i++) {
+                                    ArrayList<Opcio> opcions = new ArrayList<Opcio>();
+                                    JsonArray main = result.get(0).getAsJsonArray().get(0).getAsJsonArray();
+                                    String paradaInici = "";
+                                    String paradaFi = "";
 
-                                    JsonArray transbords = main.get(i).getAsJsonArray();
-                                    ArrayList<Transbord> transbordsList = new ArrayList<Transbord>();
-                                    String linia = "";
-                                    String sortida = "";
-                                    String arribada = "";
+                                    for (int i = 0; i < main.size(); i++) {
 
-                                    for (int k = 0; k < transbords.size(); k++) {
+                                        JsonArray transbords = main.get(i).getAsJsonArray();
+                                        ArrayList<Transbord> transbordsList = new ArrayList<Transbord>();
+                                        String linia = "";
+                                        String sortida = "";
+                                        String arribada = "";
 
-                                        JsonObject mainObject = transbords.get(k).getAsJsonObject();
-                                        linia = mainObject.get("linia").getAsString();
-                                        sortida = mainObject.get("sortida").getAsString();
-                                        arribada = mainObject.get("arribada").getAsString();
-                                        JsonArray parades = mainObject.get("estacions").getAsJsonArray();
-                                        ArrayList<Parada> estacions = new ArrayList<Parada>();
+                                        for (int k = 0; k < transbords.size(); k++) {
 
-                                        for (int z = 0; z < parades.size(); z++) {
-                                            Parada p = ParadaController.getParadaFromAbreviatura(mContext, parades.get(z).getAsString());
-                                            p.setLinia(linia);
-                                            estacions.add(p);
+                                            JsonObject mainObject = transbords.get(k).getAsJsonObject();
+                                            linia = mainObject.get("linia").getAsString();
+                                            sortida = mainObject.get("sortida").getAsString();
+                                            arribada = mainObject.get("arribada").getAsString();
+                                            JsonArray parades = mainObject.get("estacions").getAsJsonArray();
+                                            ArrayList<Parada> estacions = new ArrayList<Parada>();
+
+                                            for (int z = 0; z < parades.size(); z++) {
+                                                Parada p = ParadaController.getParadaFromAbreviatura(mContext, parades.get(z).getAsString());
+                                                p.setLinia(linia);
+                                                estacions.add(p);
+                                            }
+
+                                            Transbord t = new Transbord(linia, sortida, arribada, estacions);
+                                            transbordsList.add(t);
                                         }
+                                        Opcio op = new Opcio();
+                                        op.setLinia(linia);
 
-                                        Transbord t = new Transbord(linia, sortida, arribada, estacions);
-                                        transbordsList.add(t);
+                                        if (tipus.equalsIgnoreCase("A"))
+                                            Collections.reverse(transbordsList);
+
+                                        sortida = transbordsList.get(0).getSortida();
+
+                                        arribada = transbordsList.get(transbordsList.size() - 1).getArribada();
+
+                                        op.setHoraSortida(sortida);
+                                        op.setHoraArribada(arribada);
+                                        op.setTransbords(transbordsList);
+                                        if (isOptionValid(op)) opcions.add(op);
                                     }
-                                    Opcio op = new Opcio();
-                                    op.setLinia(linia);
 
-                                    if(tipus.equalsIgnoreCase("A")) Collections.reverse(transbordsList);
+                                    c = new Cerca();
 
-                                    sortida = transbordsList.get(0).getSortida();
 
-                                    arribada = transbordsList.get(transbordsList.size()-1).getArribada();
+                                    ArrayList<Transbord> t = opcions
+                                            .get(0)
+                                            .getTransbords();
 
-                                    op.setHoraSortida(sortida);
-                                    op.setHoraArribada(arribada);
-                                    op.setTransbords(transbordsList);
-                                    if(isOptionValid(op)) opcions.add(op);
+
+                                    ArrayList<Parada> pa = TransbordController.getAllParadesFromTransbords(t);
+                                    paradaInici = pa.get(0).getNom();
+                                    paradaFi = pa.get(pa.size() - 1).getNom();
+
+                                    c.setOpcions(opcions);
+                                    c.setParadaInici(paradaInici);
+                                    c.setParadaFi(paradaFi);
+                                    c.setLiniaCercada(linea);
+                                    c.setParadaIniciAbr(origen);
+                                    c.setParadaFiAbr(desti);
+
+                                    BusProvider.getInstance().post(new SearchFinishedEvent(c));
+                                } else {
+                                    BusProvider.getInstance().post(new ErrorEvent());
                                 }
-
-                                c = new Cerca();
-
-
-                                ArrayList<Transbord> t = opcions
-                                        .get(0)
-                                        .getTransbords();
-
-
-                                ArrayList<Parada> pa = TransbordController.getAllParadesFromTransbords(t);
-                                paradaInici = pa.get(0).getNom();
-                                paradaFi = pa.get(pa.size()-1).getNom();
-
-                                c.setOpcions(opcions);
-                                c.setParadaInici(paradaInici);
-                                c.setParadaFi(paradaFi);
-                                c.setLiniaCercada(linea);
-                                c.setParadaIniciAbr(origen);
-                                c.setParadaFiAbr(desti);
-
-                                BusProvider.getInstance().post(new SearchFinishedEvent(c));
 
                             } catch (ClassCastException exception){
                                 JsonObject object = result.getAsJsonObject();

@@ -18,6 +18,7 @@ import com.dexafree.andfgc.app.beans.Parada;
 import com.dexafree.andfgc.app.connections.BuscaHoraris;
 import com.dexafree.andfgc.app.controllers.ParadaController;
 import com.dexafree.andfgc.app.events.BusProvider;
+import com.dexafree.andfgc.app.events.ErrorEvent;
 import com.dexafree.andfgc.app.events.SearchFinishedEvent;
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
@@ -98,6 +99,12 @@ public class SearchFragment extends Fragment {
     public void onSearchFinished(SearchFinishedEvent event){
         pDialog.dismiss();
         mainActivity.showSearchResults(event.getCerca(), fecha);
+    }
+
+    @Subscribe
+    public void onErrorOccured(ErrorEvent event){
+        pDialog.dismiss();
+        Toast.makeText(mContext, R.string.error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
