@@ -34,8 +34,8 @@
     </style>
 
     <style name="ActionBar.Solid.Andfgc" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
-        <item name="android:background">@drawable/ab_solid_andfgc</item>
-        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_andfgc</item>
+        <item name="android:background">@color/orange_fgc</item>
+        <item name="android:backgroundStacked">@color/orange_fgc</item>
         <item name="android:backgroundSplit">@drawable/ab_bottom_solid_andfgc</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Andfgc</item>
     </style>

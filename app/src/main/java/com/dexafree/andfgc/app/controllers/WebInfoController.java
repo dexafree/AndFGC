@@ -14,9 +14,7 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.Locale;
 
-/**
- * Created by Carlos on 18/05/2014.
- */
+
 public class WebInfoController {
 
     Context mContext;

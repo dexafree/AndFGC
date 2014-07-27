@@ -2,6 +2,8 @@ package com.dexafree.andfgc.app;
 
 import android.app.AlertDialog;
 import android.content.*;
+import android.graphics.Color;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -28,6 +30,7 @@ import com.dexafree.andfgc.app.fragments.WelcomeFragment;
 import com.dexafree.andfgc.app.utils.Checkers;
 import com.dexafree.andfgc.app.utils.Constants;
 import com.dexafree.andfgc.app.utils.Logger;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer;
 
@@ -46,6 +49,25 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        if(Checkers.isKitKatOrHigher()) {
+
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+
+            // enable status bar tint
+            tintManager.setStatusBarTintEnabled(true);
+            // enable navigation bar tint
+            tintManager.setNavigationBarTintEnabled(true);
+
+
+            tintManager.setTintColor(getResources().getColor(R.color.orange_fgc));
+
+            tintManager.setNavigationBarTintColor(getResources().getColor(R.color.grey_background));
+
+        }
+
+
+
 
         firstTime();
 

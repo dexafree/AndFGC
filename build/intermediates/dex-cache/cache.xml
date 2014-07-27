@@ -8,48 +8,6 @@
         revision="20.0.0"
         sha1="56498efd17752898cfcc3868c1b6211a07b12b8f"/>
     <item
-        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/library-2.4.0-e891b224634daf72c0f906cb83ecda69ec4e5d7e.jar"
-        jar="/Users/Carlos/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb"/>
-    <item
-        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-7c40760ccaf5bd8c437a054ca8cf856f5077cb83.jar"
-        jar="/Users/Carlos/Home/Apps/Android Studio_BAK.app/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
-    <item
-        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-b403b3dcb9ec3baaff49c4ed63581725941d1c85.jar"
-        jar="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
-    <item
-        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/gson-2.2.4-72a35cf3e3e638c7532e1934c2900edbe20ace46.jar"
-        jar="/Users/Carlos/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="a60a5e993c98c864010053cb901b7eab25306568"/>
-    <item
-        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/classes-c335f869a21fb8d79ec19d58adf1af165a4ec0cc.jar"
-        jar="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/exploded-aar/com.quentindommerc.superlistview/library/1.5.2/classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="283c59b1230f6d6ecc48780ae775628b0ab65aea"/>
-    <item
-        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/jsoup-1.7.2-41a13f5eb44e926c5d2b4a35d3511ea751561cb0.jar"
-        jar="/Users/Carlos/.gradle/caches/modules-2/files-2.1/org.jsoup/jsoup/1.7.2/d7e275ba05aa380ca254f72d0c0ffebaedc3adcf/jsoup-1.7.2.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="d7e275ba05aa380ca254f72d0c0ffebaedc3adcf"/>
-    <item
-        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/classes-bedf86575201cfa9708ac080d1d3f0b7b715623d.jar"
-        jar="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.2.42/classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="e5f81129dfb3d02df80126512bc98278ed2bb40a"/>
-    <item
         dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/otto-1.3.4-0856aecd30f4a35ae88e287486a716dab6b8931e.jar"
         jar="/Users/Carlos/.gradle/caches/modules-2/files-2.1/com.squareup/otto/1.3.4/4d72fb811c7b3c0e7f412112020d4430f044e510/otto-1.3.4.jar"
         jumboMode="false"
@@ -61,6 +19,18 @@
         jumboMode="false"
         revision="20.0.0"
         sha1="0041fa61e530755d95b68b8abb1a0ae9da0e2748"/>
+    <item
+        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-7c40760ccaf5bd8c437a054ca8cf856f5077cb83.jar"
+        jar="/Users/Carlos/Home/Apps/Android Studio_BAK.app/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+    <item
+        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/library-2.4.0-e891b224634daf72c0f906cb83ecda69ec4e5d7e.jar"
+        jar="/Users/Carlos/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb"/>
     <item
         dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/ion-1.2.4-7a06c290a1f3056807fa56279e00c291c2e43f59.jar"
         jar="/Users/Carlos/.gradle/caches/modules-2/files-2.1/com.koushikdutta.ion/ion/1.2.4/776baf5cac8eb4145dc0901254122cf956a784e3/ion-1.2.4.jar"
@@ -80,11 +50,23 @@
         revision="20.0.0"
         sha1="8dc7111050ee5f13a54b1206d47fee856159b2aa"/>
     <item
+        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-b403b3dcb9ec3baaff49c4ed63581725941d1c85.jar"
+        jar="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
         dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/classes-1ba9f42683bbea06926ca034f9bd2b761ff9a24d.jar"
         jar="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
+    <item
+        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/gson-2.2.4-72a35cf3e3e638c7532e1934c2900edbe20ace46.jar"
+        jar="/Users/Carlos/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568"/>
     <item
         dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/classes-2978775ab741b649dbc391c493ba736efa8f545c.jar"
         jar="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
@@ -97,5 +79,29 @@
         jumboMode="false"
         revision="20.0.0"
         sha1="25c58e61f70a3d78e5c5abcfc9db0555fc869b7d"/>
+    <item
+        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/systembartint-1.0.3-22b74bafbbadefad1e513e55612471e0ca96d943.jar"
+        jar="/Users/Carlos/.gradle/caches/modules-2/files-2.1/com.readystatesoftware.systembartint/systembartint/1.0.3/de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287/systembartint-1.0.3.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287"/>
+    <item
+        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/classes-c335f869a21fb8d79ec19d58adf1af165a4ec0cc.jar"
+        jar="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/exploded-aar/com.quentindommerc.superlistview/library/1.5.2/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="283c59b1230f6d6ecc48780ae775628b0ab65aea"/>
+    <item
+        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/classes-bedf86575201cfa9708ac080d1d3f0b7b715623d.jar"
+        jar="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.2.42/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e5f81129dfb3d02df80126512bc98278ed2bb40a"/>
+    <item
+        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/jsoup-1.7.2-41a13f5eb44e926c5d2b4a35d3511ea751561cb0.jar"
+        jar="/Users/Carlos/.gradle/caches/modules-2/files-2.1/org.jsoup/jsoup/1.7.2/d7e275ba05aa380ca254f72d0c0ffebaedc3adcf/jsoup-1.7.2.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="d7e275ba05aa380ca254f72d0c0ffebaedc3adcf"/>
 
 </pre-dex-items>

@@ -24,4 +24,8 @@ public class Checkers {
         return Build.VERSION.SDK_INT <= 10;
     }
 
+    public static boolean isKitKatOrHigher(){
+        return Build.VERSION.SDK_INT >= 19;
+    }
+
 }

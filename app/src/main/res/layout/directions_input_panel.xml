@@ -2,7 +2,8 @@
 <LinearLayout android:id="@+id/directions_input_panel" style="@style/DirectionsInputPanelContent"
               xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:layout_height="fill_parent">
+              android:layout_height="fill_parent"
+              android:background="@color/grey_background">
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"

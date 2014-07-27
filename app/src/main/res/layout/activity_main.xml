@@ -1,22 +1,28 @@
-<org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/navigation_drawer_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:drawer_gravity="start"
-        app:list_mainSectionsEntries="@array/navigation_main_sections"
-        app:list_mainSectionsDrawables="@array/main_section_drawables"
-        app:list_mainSectionsBackground="@color/main_drawer_background"
-        app:list_secondarySectionsEntries="@array/navigation_secondary_sections"
-        app:list_secondarySectionsDrawables="@array/secondary_section_drawables"
-        app:list_secondarySectionsBackground="@color/secondary_drawer_background">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <FrameLayout
-            android:id="@+id/content_layout"
+    <org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/navigation_drawer_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:drawer_gravity="start"
+            app:list_mainSectionsEntries="@array/navigation_main_sections"
+            app:list_mainSectionsDrawables="@array/main_section_drawables"
+            app:list_mainSectionsBackground="@color/main_drawer_background"
+            app:list_secondarySectionsEntries="@array/navigation_secondary_sections"
+            app:list_secondarySectionsDrawables="@array/secondary_section_drawables"
+            app:list_secondarySectionsBackground="@color/secondary_drawer_background">
 
-    </FrameLayout>
+        <FrameLayout
+                android:id="@+id/content_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-</org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer>
+
+    </org.arasthel.googlenavdrawermenu.views.GoogleNavigationDrawer>
+
+</FrameLayout>

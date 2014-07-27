@@ -18,9 +18,6 @@ import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 18/05/2014.
- */
 public class AlertsNewsFragment extends Fragment {
 
     private WebInfoController info;
