@@ -78,9 +78,12 @@ Por si algún día una persona quisiera empezar un proyecto relacionado con FGC,
 - [Bypassing authentication for basic Twitter operations](http://www.dexa-dev.com/bypassing-authentication-for-basic-twitter-operations/)
 - [Extrayendo coordenadas de las paradas de FGC](http://www.dexa-dev.com/python-extrayendo-coordenadas-de-las-paradas-de-fgc/)
 
+# Download
+https://github.com/dexafree/AndFGC/releases/
+
 # LICENSE
 
-This app and its database are licensed under Apachev2:
+This app and its database are licensed under Apache v2:
 
 >Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 >You may obtain a copy of the License at
