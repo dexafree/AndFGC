@@ -66,6 +66,8 @@ public class SearchFragment extends Fragment {
     private boolean isDepartureAnimating = false;
     private boolean isArrivalAnimating = false;
 
+    private boolean areStationsSwaped = false;
+
     private BuscaHoraris buscaHoraris;
 
     private String fecha;
@@ -250,7 +252,9 @@ public class SearchFragment extends Fragment {
                     String sortidaArribada;
                     if(isTimeArrival) sortidaArribada = "A";
                     else sortidaArribada = "S";
-                    buscaHoraris = new BuscaHoraris(linia, origen, desti, sortidaArribada, fecha, horaInt, minutosInt, mContext);
+
+                    if(areStationsSwaped)buscaHoraris = new BuscaHoraris(linia, desti, origen, sortidaArribada, fecha, horaInt, minutosInt, mContext);
+                    else buscaHoraris = new BuscaHoraris(linia, origen, desti, sortidaArribada, fecha, horaInt, minutosInt, mContext);
                     buscaHoraris.cercar();
                 } else {
                     Toast.makeText(mContext, R.string.select_all, Toast.LENGTH_SHORT).show();
@@ -435,6 +439,8 @@ public class SearchFragment extends Fragment {
                                 arrivalStation.getLocationOnScreen(arrivalStationLocation);
 
                                 isArrivalAnimating = false;
+
+                                areStationsSwaped = !areStationsSwaped;
 
                             }
                         });
