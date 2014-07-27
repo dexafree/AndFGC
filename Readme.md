@@ -22,3 +22,72 @@ AndFGC compta amb un estil cuidat que segueix els patrons de disseny suggerits p
 A més, és compatible amb versions d'Android a partir de 2.3, i el seu estil i funcionalitats s'adapten a la versió d'Android que estigui executant el telèfon.
 
 ## Captures de pantalla
+Veure al final
+
+## Base de dades
+Durant el desenvolupament de l'aplicació no vaig trobar cap base de dades que tingués les relacions de linia-parades, parades-abreviatures, parades-coordenades... Així que vaig fer la tasca de recerca, recopilar les dades i crear la base de dades.
+Per si algún dia una persona volgués començar un projecte relacionat amb FGC, que no dubti en agafar la base de dades, la qual està alliberada sota llicencia Apache v2 i es troba a la ruta app/src/main/assets/parades.sqlite.
+
+# AndFGC (Castellano)
+AndFGC es una aplicación de código libre creada para faficlitar la interacción de los usuarios con los servicios de Ferocarrils de la Generalitat de Catalunya.
+
+Esta aplicación nace a partir de la necesidad de una aplicación que cumpliera, entre otras cosas, con las guías de diseño para Android proporcionadas por Google.
+
+Además, después de ver el código fuente de la original, creí que era necesario hacer algunos cambios en la forma de obtener los datos mostrados, y consideré que tenía la capacidad de mejorar la aplicación actual y adaptarla a mis necesidades.
+
+Como considero que la información debería ser libre, ofrezco a cualquiera que crea que puede mejorarla o añadir funcionalidades que coja este desarrollo como base y que modifique lo que crea conveniente.
+
+## La aplicación
+AndFGC ofrece la posibilidad de:
+
+- Hacer búsquedas de trauectos en función de salida, llegada, y horarios
+- Guardar estas búsquedas como favoritas para tenerlas a mano en futuras ocasiones
+- Ver horarios alternativos a los escogidos para el mismo trayecto
+- Consultar el estado del servicio y ver las alertas disponibles
+- Descargar y visualizar los horarios de las diferentes líneas
+- Ver las tarifas actualizadas y obtener información acerca de ellas
+- Ver todas las paradas de FGC en un mapa, e incluso, iniciar una búsqueda de trayecto desde el mapa
+- Leer los últimos twits de la cuenta oficial de FGC en Twitter
+
+AndFGC cuenta con un estilo cuidado que sigue los patrones de diseño sugeridos por Google por tal de tener una apariencia similar en todas las aplicaciones, proporcionando así una experiencia de usuario intuitiva y satisfactoria.
+Además, es compatible con versiones de Android a partir de 2.3, y su estilo yb funcionalidades se adaptan a la versión de Android que esté ejecutando el teléfono.
+
+## Capturas de pantalla
+Ver al final
+
+## Base de datos
+Durante el desarrollo de la aplicación no encontré ninguna base de datos que tuviera las relaciones de línea-paradas, paradas-abreviaturas. paradas-coordenadas.. Así que realicé una tarea de investigación y recopilación de datos, y cree la base dedatos.
+Por si algún día una persona quisiera empezar un proyecto relacionado con FGC, que no dude en coger esa base de datos, la cual está liberada bajo licencia Apache v2 y se encuentra en la ruta app/src/main/assets/parades.sqlite.
+
+
+# Screenshots
+![Imgur](http://i.imgur.com/iuQa7HL.png)
+![Imgur](http://i.imgur.com/JsLgV3G.png)
+![Imgur](http://i.imgur.com/WvIZ4ep.png)
+![Imgur](http://i.imgur.com/GPdgZRA.png)
+![Imgur](http://i.imgur.com/3vS6nS1.png)
+![Imgur](http://i.imgur.com/9jY5WdC.png)
+![Imgur](http://i.imgur.com/cq3SSGz.png)
+![Imgur](http://i.imgur.com/aVopGHr.png)
+![Imgur](http://i.imgur.com/sbLPkjP.png)
+![Imgur](http://i.imgur.com/YGpJ1oI.png)
+
+# Artículos relacionados
+
+- [Sorteando la autenticación para operaciones básicas en Twitter](http://www.dexa-dev.com/sorteando-la-autenticacion-para-operaciones-basicas-en-twitter/)
+- [Bypassing authentication for basic Twitter operations](http://www.dexa-dev.com/bypassing-authentication-for-basic-twitter-operations/)
+- [Extrayendo coordenadas de las paradas de FGC](http://www.dexa-dev.com/python-extrayendo-coordenadas-de-las-paradas-de-fgc/)
+
+# LICENSE
+
+This app and its database are licensed under Apachev2:
+
+>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+>You may obtain a copy of the License at
+
+>    http://www.apache.org/licenses/LICENSE-2.0
+
+>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+>See the License for the specific language governing permissions and limitations under the License.
+
+This means you can use the application in whatever way you want, and also I take no responsibility of that uses.
