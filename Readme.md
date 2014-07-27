@@ -40,7 +40,7 @@ Como considero que la información debería ser libre, ofrezco a cualquiera que 
 ## La aplicación
 AndFGC ofrece la posibilidad de:
 
-- Hacer búsquedas de trauectos en función de salida, llegada, y horarios
+- Hacer búsquedas de trayectos en función de salida, llegada, y horarios
 - Guardar estas búsquedas como favoritas para tenerlas a mano en futuras ocasiones
 - Ver horarios alternativos a los escogidos para el mismo trayecto
 - Consultar el estado del servicio y ver las alertas disponibles
@@ -56,7 +56,7 @@ Además, es compatible con versiones de Android a partir de 2.3, y su estilo yb 
 Ver al final
 
 ## Base de datos
-Durante el desarrollo de la aplicación no encontré ninguna base de datos que tuviera las relaciones de línea-paradas, paradas-abreviaturas. paradas-coordenadas.. Así que realicé una tarea de investigación y recopilación de datos, y cree la base dedatos.
+Durante el desarrollo de la aplicación no encontré ninguna base de datos que tuviera las relaciones de línea-paradas, paradas-abreviaturas. paradas-coordenadas.. Así que realicé una tarea de investigación y recopilación de datos, y cree la base de datos.
 Por si algún día una persona quisiera empezar un proyecto relacionado con FGC, que no dude en coger esa base de datos, la cual está liberada bajo licencia Apache v2 y se encuentra en la ruta app/src/main/assets/parades.sqlite.
 
 
