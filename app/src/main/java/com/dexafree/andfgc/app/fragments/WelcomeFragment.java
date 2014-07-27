@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ public class WelcomeFragment extends Fragment {
     private Context mContext;
 
     private LinearLayout mLayout;
+    private CardView cardView;
 
     private long mAnimationTime;
     private int mViewWidth = 1; // 1 and not 0 to prevent dividing by zero
@@ -41,6 +43,7 @@ public class WelcomeFragment extends Fragment {
         mLayout = (LinearLayout) v.findViewById(R.id.mainLayout);
 
         mDownView = mLayout;
+        cardView = (CardView)v.findViewById(R.id.cardView);
 
         LinearLayout notShowAgain = (LinearLayout)v.findViewById(R.id.dont_show_again);
         notShowAgain.setOnClickListener(new View.OnClickListener() {
@@ -56,49 +59,23 @@ public class WelcomeFragment extends Fragment {
     private void dismissView(){
 
         if (mViewWidth < 2) {
-            mViewWidth = mLayout.getWidth();
+            mViewWidth = cardView.getWidth();
         }
 
         mAnimationTime = mContext.getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
 
-        animate(mDownView)
+        animate(cardView)
                 .translationX(mViewWidth)
                 .alpha(0)
                 .setDuration(mAnimationTime)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        performDismiss();
-
+                        onAnimationEnded();
                     }
                 });
 
-    }
-
-    private void performDismiss(){
-        final ViewGroup.LayoutParams lp = mLayout.getLayoutParams();
-
-        final int originalHeight = mLayout.getHeight();
-
-        ValueAnimator animator = ValueAnimator.ofInt(originalHeight, 1).setDuration(mAnimationTime);
-
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                onAnimationEnded();
-            }
-        });
-
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                lp.height = (Integer) valueAnimator.getAnimatedValue();
-                mLayout.setLayoutParams(lp);
-            }
-        });
-
-        animator.start();
     }
 
     private void onAnimationEnded(){

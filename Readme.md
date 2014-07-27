@@ -61,16 +61,16 @@ Por si algún día una persona quisiera empezar un proyecto relacionado con FGC,
 
 
 # Screenshots
-![Imgur](http://i.imgur.com/iuQa7HL.png)
-![Imgur](http://i.imgur.com/JsLgV3G.png)
-![Imgur](http://i.imgur.com/WvIZ4ep.png)
-![Imgur](http://i.imgur.com/GPdgZRA.png)
-![Imgur](http://i.imgur.com/3vS6nS1.png)
-![Imgur](http://i.imgur.com/9jY5WdC.png)
-![Imgur](http://i.imgur.com/cq3SSGz.png)
-![Imgur](http://i.imgur.com/aVopGHr.png)
-![Imgur](http://i.imgur.com/sbLPkjP.png)
-![Imgur](http://i.imgur.com/YGpJ1oI.png)
+![Imgur](http://i.imgur.com/BgRqhO0.png)
+![Imgur](http://i.imgur.com/s4C9U2v.png)
+![Imgur](http://i.imgur.com/fGk3C9E.png)
+![Imgur](http://i.imgur.com/SJ5nMBs.png)
+![Imgur](http://i.imgur.com/ikdHmG5.png)
+![Imgur](http://i.imgur.com/iHtI5PG.png)
+![Imgur](http://i.imgur.com/NHXkMF7.png)
+![Imgur](http://i.imgur.com/HsEWzp0.png)
+![Imgur](http://i.imgur.com/MSQDjcd.png)
+![Imgur](http://i.imgur.com/pMLYNx8.png)
 
 # Artículos relacionados
 
