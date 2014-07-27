@@ -4,9 +4,6 @@ import com.dexafree.andfgc.app.beans.Ticket;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 06/06/14.
- */
 public class TarifesSearchFinishedEvent {
 
     private ArrayList<Ticket> tickets;

@@ -4,9 +4,6 @@ import com.dexafree.andfgc.app.beans.Twit;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 07/07/14.
- */
 public class TweetListLoadedEvent {
 
     private ArrayList<Twit> twitList;

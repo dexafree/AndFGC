@@ -10,9 +10,6 @@ import com.dexafree.andfgc.app.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 18/05/2014.
- */
 public class ServiceStatusAdapter extends BaseAdapter {
 
     private Context mContext;

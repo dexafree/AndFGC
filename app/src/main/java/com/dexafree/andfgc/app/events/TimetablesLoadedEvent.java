@@ -4,9 +4,6 @@ import com.dexafree.andfgc.app.beans.Timetable;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 08/07/14.
- */
 public class TimetablesLoadedEvent {
 
     private ArrayList<Timetable> timetablesList;

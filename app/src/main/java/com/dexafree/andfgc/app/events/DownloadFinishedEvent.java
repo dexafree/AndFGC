@@ -2,9 +2,6 @@ package com.dexafree.andfgc.app.events;
 
 import java.io.File;
 
-/**
- * Created by Carlos on 26/05/2014.
- */
 public class DownloadFinishedEvent {
 
     private String filename;

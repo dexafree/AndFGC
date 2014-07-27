@@ -16,9 +16,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Created by Carlos on 27/04/2014.
- */
 public class DataBaseHelper {
 
     private Context context;

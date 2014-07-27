@@ -23,7 +23,11 @@ public class WebInfoController {
         this.mContext = c;
     }
 
-
+    /*
+     * Loads the web page information
+     * If mode is a 1, it loads the status messages
+     * If mode is a 2, it loads the alerts list
+     */
     private void load(final int mode){
         String localLang = Locale.getDefault().getLanguage();
         String language;
@@ -78,11 +82,12 @@ public class WebInfoController {
                 });
     }
 
+    // Starts the status loading
     public void getStatusText(){
         load(1);
     }
 
-
+    // Starts the alerts loading
     public void getAlertsText(){
         load(2);
     }

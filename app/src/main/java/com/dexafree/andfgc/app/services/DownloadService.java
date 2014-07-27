@@ -59,7 +59,6 @@ public class DownloadService extends IntentService {
 
             File file = new File(SDCardRoot+"/FGC/",fileName+".pdf");
 
-            //Intent tempIntent = new Intent(this, DownloadService.class);
             Intent tempIntent = new Intent(Intent.ACTION_VIEW);
             tempIntent.setDataAndType(Uri.fromFile(file), "application/pdf");
             tempIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -81,22 +80,12 @@ public class DownloadService extends IntentService {
 
             notificationManager.notify(id, n.build());
 
-
-
-            //set the download URL, a url that points to a file on the internet
-            //this is the file to be downloaded
             URL url = new URL(urlPath);
 
-            //create the new connection
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-
-            //set up some things on the connection
-
 
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
-
-
 
 
             FileOutputStream fileOutput = new FileOutputStream(file);

@@ -2,9 +2,6 @@ package com.dexafree.andfgc.app.events;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 23/05/2014.
- */
 public class StatusSearchFinishedEvent {
 
     private ArrayList<String> messages;

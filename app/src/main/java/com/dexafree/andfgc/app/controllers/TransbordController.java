@@ -5,11 +5,11 @@ import com.dexafree.andfgc.app.beans.Transbord;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 03/05/2014.
- */
 public class TransbordController {
 
+    /*
+     * Returns all the stations from a Transbord object
+     */
     public static ArrayList<Parada> getAllParadesFromTransbords(ArrayList<Transbord> transbords){
         ArrayList<Parada> parades = new ArrayList<Parada>();
 

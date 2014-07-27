@@ -14,9 +14,6 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 08/07/14.
- */
 public class TwitAdapter extends BaseAdapter {
 
     private Context mContext;
@@ -73,10 +70,15 @@ public class TwitAdapter extends BaseAdapter {
 
         String url = mTweetList.get(position).getAvatarUrl().replace("normal", "bigger");
 
+
+        //If the author of the twit is FGC, it will show the stored logo (network saving)
         if(!mTweetList.get(position).getAlt().equalsIgnoreCase("FGC")) displayImage(url, holder.image);
         else holder.image.setImageResource(R.drawable.fgclogo);
     }
 
+    /*
+     * Loads the image asynchronously and shows it at the imageview once downloaded
+     */
     private void displayImage(String url, ImageView image){
         Ion.with(image)
                 .placeholder(R.drawable.fgclogo)

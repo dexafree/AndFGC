@@ -12,12 +12,7 @@ public class Checkers {
         ConnectivityManager conMg = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo inf = conMg.getActiveNetworkInfo();
 
-        if(inf == null) return false;
-        if(inf != null){
-            if(!inf.isConnected()) return false;
-            if(!inf.isAvailable())return false;
-        }
-        return true;
+        return inf != null && inf.isConnected() && inf.isAvailable();
     }
 
     public static boolean isLowerThanIcs(){

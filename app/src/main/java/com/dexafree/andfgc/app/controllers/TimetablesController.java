@@ -19,11 +19,10 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 26/05/2014.
- */
 public class TimetablesController {
 
+
+    // Loads all the timetables and launches an Otto event
     public static void loadTables(Context context){
 
         Ion.with(context, "https://www.kimonolabs.com/api/67x3h6bc?apikey=f3c016707fe6e0c44c29c59a3f6cf9be")
@@ -53,6 +52,7 @@ public class TimetablesController {
                 });
     }
 
+    // Starts the download of a timetable
     public static void downloadTimetable(Timetable t, Context context){
         Intent i = new Intent(context, DownloadService.class);
         i.putExtra(DownloadService.FILENAME, t.getLinea());

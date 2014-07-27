@@ -12,11 +12,12 @@ import com.dexafree.andfgc.app.utils.Logger;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 02/07/14.
- */
+
 public class FavoritosController {
 
+    /*
+     * Returns a SQLiteDatabase instanec, and according the readable boolean, it will be readable or writable
+     */
     private static SQLiteDatabase getDb(Context context, boolean readable) {
 
         FavoritosDataBaseHelper dbHelper = new FavoritosDataBaseHelper(context, null, 1);
@@ -30,6 +31,9 @@ public class FavoritosController {
         return db;
     }
 
+    /*
+     * Inserts a new Favorito to the db
+     */
     public static void insertFavorito(Context context, Favorito fav){
 
         SQLiteDatabase db = getDb(context, false);
@@ -52,6 +56,9 @@ public class FavoritosController {
 
     }
 
+    /*
+     * Returns all the Favorito stored at the db
+     */
     public static ArrayList<Favorito> getAllFavoritos(Context context){
 
         SQLiteDatabase db = getDb(context, true);
@@ -85,6 +92,9 @@ public class FavoritosController {
         return favList;
     }
 
+    /*
+     * Deletes a Favorito with the selected ID
+     */
     public static void deleteFavoritoFromId(Context context, int id){
 
         SQLiteDatabase db = getDb(context, false);
@@ -102,6 +112,9 @@ public class FavoritosController {
         }
     }
 
+    /*
+     * Deletes a Favorito which contains the passed origin and destionation stations
+     */
     public static void deleteFavoritoFromStations(Context context, String origin, String destination){
 
         SQLiteDatabase db = getDb(context, false);
@@ -119,6 +132,9 @@ public class FavoritosController {
         }
     }
 
+    /*
+     * Checks if a origin-destionation combination is stored at the db
+     */
     public static boolean isFavoritoSaved(Context context, String origin, String destination){
 
         SQLiteDatabase db = getDb(context, true);

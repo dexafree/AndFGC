@@ -11,11 +11,11 @@ import com.dexafree.andfgc.app.utils.Logger;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 30/04/2014.
- */
 public class ParadaController {
 
+    /*
+     * Returns a SQLiteDatabase Instance
+     */
     private static SQLiteDatabase getDb(Context context) {
         DataBaseHelper dbHelper = new DataBaseHelper(context);
         SQLiteDatabase db = dbHelper.getDataBase();
@@ -25,6 +25,9 @@ public class ParadaController {
         return db;
     }
 
+    /*
+     * Returns all the station names in a line as a String[]
+     */
     public static String[] getParadesFromLiniaAsStringArray(Context context, int linia){
         ArrayList<String> parades;
 
@@ -51,6 +54,9 @@ public class ParadaController {
         return paradesArray;
     }
 
+    /*
+     * Returns all the stations in a line
+     */
     public static ArrayList<Parada> getParadesFromLiniaAsArrayList(Context context, int linia){
         ArrayList<Parada> parades;
 
@@ -78,6 +84,9 @@ public class ParadaController {
         return parades;
     }
 
+    /*
+     * Returns all the stations in the database
+     */
     public static ArrayList<Parada> getParades(Context context){
 
         ArrayList<Parada> parades;
@@ -106,6 +115,9 @@ public class ParadaController {
         return parades;
     }
 
+    /*
+     * Returns all the station names in the database as a String[]
+     */
     public static String[] getNomsParades(Context context){
 
         ArrayList<String> nomsParadesArrayList = new ArrayList<String>();
@@ -132,6 +144,9 @@ public class ParadaController {
         return nomsParades;
     }
 
+    /*
+     * Returns all the station abreviations in the database as a String[]
+     */
     public static String[] getAbreviaturesParades(Context context){
 
         ArrayList<String> abreviaturesParadesArrayList = new ArrayList<String>();
@@ -158,6 +173,9 @@ public class ParadaController {
         return nomsParades;
     }
 
+    /*
+     * Returns a Parada instance created from its abreviation
+     */
     public static Parada getParadaFromAbreviatura(Context c, String abreviatura){
         SQLiteDatabase db = getDb(c);
         String sqlSeq = "SELECT * FROM parades WHERE ABREVIACIO = '"+abreviatura+"'";
@@ -184,6 +202,9 @@ public class ParadaController {
         return p;
     }
 
+    /*
+     * Returns the coordinates of all the stations of the db
+     */
     public static ArrayList<Coordenada> getAllCoords(Context c){
         ArrayList<Coordenada> coords = new ArrayList<Coordenada>();
 
@@ -208,6 +229,9 @@ public class ParadaController {
         return coords;
     }
 
+    /*
+     * Returns the coordinates from a specific station
+     */
     public static Coordenada getCoordenadaFromParada(Context c, Parada p){
         Coordenada coord = new Coordenada();
 
@@ -234,6 +258,9 @@ public class ParadaController {
         return coord;
     }
 
+    /*
+     * Returns a Parada from the information of the Coordenada object received
+     */
     public static Parada getParadaFromCoordenada(Context c, Coordenada coord){
         Parada p = new Parada();
 

@@ -25,7 +25,6 @@ import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
 import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.ValueAnimator;
 import com.squareup.otto.Subscribe;
 import org.joda.time.DateTime;
 
@@ -455,37 +454,6 @@ public class SearchFragment extends Fragment {
         }
 
     }
-
-    private void performSwap(){
-        final ViewGroup.LayoutParams lp = swapPositionButton.getLayoutParams();
-
-        final int originalHeight = swapPositionButton.getHeight();
-
-        ValueAnimator animator = ValueAnimator.ofInt(originalHeight, 1).setDuration(mAnimationTime);
-
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                onAnimationEnded();
-            }
-        });
-
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                lp.height = (Integer) valueAnimator.getAnimatedValue();
-                swapPositionButton.setLayoutParams(lp);
-            }
-        });
-
-        animator.start();
-    }
-
-    private void onAnimationEnded(){
-        Toast.makeText(mContext, "ALGO", Toast.LENGTH_SHORT).show();
-    }
-
-
 
 
     private class MyDateSetHandler implements CalendarDatePickerDialog.OnDateSetListener {

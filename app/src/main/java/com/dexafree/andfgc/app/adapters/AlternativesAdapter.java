@@ -11,9 +11,7 @@ import com.dexafree.andfgc.app.beans.Opcio;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 04/05/2014.
- */
+
 public class AlternativesAdapter extends BaseAdapter {
 
     private ArrayList<Opcio> opcions;

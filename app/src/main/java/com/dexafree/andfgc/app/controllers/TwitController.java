@@ -16,11 +16,9 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 07/07/14.
- */
 public class TwitController {
 
+    // Loads the last tweets from the FGC official twitter account
     public static void getLastTweets(final Context context){
 
         Ion.with(context, "https://www.kimonolabs.com/api/2qvr1jng?apikey=f3c016707fe6e0c44c29c59a3f6cf9be")

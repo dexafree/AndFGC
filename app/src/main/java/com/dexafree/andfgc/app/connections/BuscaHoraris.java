@@ -24,6 +24,13 @@ import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
+/*
+ * This class manages all the trip searching, including the network connection, parsing the result...
+ * It launches two events via Otto:
+ *     - A SearchFinishedEvent with the search result
+ *     - A ErrorEvent if it has encountered any error
+ */
 public class BuscaHoraris {
 
     private int linea;
@@ -143,6 +150,8 @@ public class BuscaHoraris {
     }
 
     public void cercar(){
+
+        // Only make the search if there's an active connection
         if(Checkers.hasInternet(mContext)){
             Ion.with(mContext)
                     .load("POST", "http://www.fgc.cat/cercador/cerca.asp")
@@ -160,6 +169,7 @@ public class BuscaHoraris {
                         public void onCompleted(Exception e, JsonArray result) {
                             try {
 
+                                // First we'll check if the result is null, and if it's not, parse the JSON
                                 if(!result.isJsonNull()) {
                                     Cerca c;
 

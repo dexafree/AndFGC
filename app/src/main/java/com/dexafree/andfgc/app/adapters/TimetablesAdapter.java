@@ -11,9 +11,6 @@ import com.dexafree.andfgc.app.beans.Timetable;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 26/05/2014.
- */
 public class TimetablesAdapter extends BaseAdapter {
 
     private ArrayList<Timetable> timetables;

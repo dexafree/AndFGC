@@ -48,8 +48,11 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        // Load the main layout
         setContentView(R.layout.activity_main);
 
+        // If Android Version is KitKat or higher, enable the status bar tint
         if(Checkers.isKitKatOrHigher()) {
 
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
@@ -59,16 +62,13 @@ public class MainActivity extends ActionBarActivity {
             // enable navigation bar tint
             tintManager.setNavigationBarTintEnabled(true);
 
-
             tintManager.setTintColor(getResources().getColor(R.color.orange_fgc));
 
             tintManager.setNavigationBarTintColor(getResources().getColor(R.color.grey_background));
 
         }
 
-
-
-
+        // Run the checkings and actions for the first time app launching
         firstTime();
 
         /*
@@ -90,7 +90,7 @@ public class MainActivity extends ActionBarActivity {
         mDrawer.setDrawerListener(drawerToggle); //Attach the DrawerListener
 
 
-
+        // Set the behaviour on a NavigationSection selection
         mDrawer.setOnNavigationSectionSelected(new GoogleNavigationDrawer.OnNavigationSectionSelected() {
             @Override
             public void onSectionSelected(View view, int i, long l) {
@@ -98,10 +98,11 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        // Actionbar setting
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-
+        // IF the app just launched, show the first fragment
         if(savedInstanceState == null) {
 
             Fragment f;
@@ -121,6 +122,7 @@ public class MainActivity extends ActionBarActivity {
 
         } else {
 
+            // Else, retrieve the last position
             mPosition = savedInstanceState.getInt(POSITION);
 
         }
@@ -128,6 +130,11 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+    /*
+     * Starts a new SearchResultFragment with the search results
+     * Cerca cerca: contains the search results
+     * String dataBuscada: contains the date of the trip
+     */
     public void showSearchResults(Cerca cerca, String dataBuscada){
         getSupportFragmentManager()
                 .beginTransaction()
@@ -136,6 +143,9 @@ public class MainActivity extends ActionBarActivity {
                 .commit();
     }
 
+    /*
+     * Starts a new Fragment f adding it to backstack
+     */
     public void changeFragment(Fragment f){
         getSupportFragmentManager()
                 .beginTransaction()
@@ -144,6 +154,9 @@ public class MainActivity extends ActionBarActivity {
                 .commit();
     }
 
+    /*
+     * Starts a new Fragment f without adding it to backstack
+     */
     public void changeFragmentWithoutAddingToStack(Fragment f){
         getSupportFragmentManager()
                 .beginTransaction()
@@ -151,6 +164,9 @@ public class MainActivity extends ActionBarActivity {
                 .commit();
     }
 
+    /*
+     * Starts a new Fragment f and changes the navigation drawer selection
+     */
     public void changeFragment(Fragment f, int option){
 
         mDrawer.check(option);
@@ -169,6 +185,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
+    /*
+     * Load the menu settings
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -194,8 +213,12 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /*
+     * Handle the NavigationSection selection
+     */
     private void selectOption(int position){
 
+        // Empty the backstack
         getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
         boolean mustChange = false;
@@ -269,6 +292,7 @@ public class MainActivity extends ActionBarActivity {
                     break;
             }
 
+            // We only change the fragment if it's required
             if(mustChange) {
                 FragmentManager fm = getSupportFragmentManager();
 
@@ -281,11 +305,18 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+    /*
+     * Checks if the app is launched for the first time and acts in consequence
+     */
     private void firstTime(){
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(this);
         if(p.getBoolean("first_time", true)){
+
+            // Copy the db stored in assets
             DataBaseHelper dbH = new DataBaseHelper(this);
             dbH.copyDB("parades.sqlite");
+
+            // Store in a sharedpreference that the app has already been launched once
             p.edit().putBoolean("first_time", false).commit();
         }
     }
@@ -294,6 +325,9 @@ public class MainActivity extends ActionBarActivity {
         mDrawer.check(position);
     }
 
+    /*
+     * Shows a dialog to the user telling him that the cation requires internet connection
+     */
     private void showInternetDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.error);
@@ -301,6 +335,9 @@ public class MainActivity extends ActionBarActivity {
         builder.create().show();
     }
 
+    /*
+     * Returns if the user must be shown a welcome fragment
+     */
     private boolean showWelcome(){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 

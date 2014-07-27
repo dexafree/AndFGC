@@ -17,9 +17,6 @@ import com.dexafree.andfgc.app.events.FavoriteDeletedEvent;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 02/07/14.
- */
 public class FavoritosAdapter extends BaseAdapter {
 
     private Context mContext;
