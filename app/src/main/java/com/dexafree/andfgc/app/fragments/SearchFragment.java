@@ -19,7 +19,6 @@ import com.dexafree.andfgc.app.connections.BuscaHoraris;
 import com.dexafree.andfgc.app.controllers.ParadaController;
 import com.dexafree.andfgc.app.events.BusProvider;
 import com.dexafree.andfgc.app.events.SearchFinishedEvent;
-import com.dexafree.andfgc.app.utils.Logger;
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
 import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
@@ -62,6 +61,10 @@ public class SearchFragment extends Fragment {
     private boolean isArrivalStationSelected = false;
 
     private boolean isTimeArrival = false;
+
+    private boolean isButtonAnimating = false;
+    private boolean isDepartureAnimating = false;
+    private boolean isArrivalAnimating = false;
 
     private BuscaHoraris buscaHoraris;
 
@@ -352,59 +355,91 @@ public class SearchFragment extends Fragment {
 
     private void swapPositions(){
 
-        mAnimationTime = mContext.getResources().getInteger(
-                android.R.integer.config_shortAnimTime);
+        if(origen != null && desti != null) {
+
+            mAnimationTime = mContext.getResources().getInteger(
+                    android.R.integer.config_shortAnimTime);
 
 
-        Animation rotate = AnimationUtils.loadAnimation(mContext, R.anim.rotate_button);
-        swapPositionButton.startAnimation(rotate);
-
-
-
-        int[] location = new int[2];
-
-        departureStation.getLocationOnScreen(location);
-
-        final int departurePosition = location[1];
-
-        arrivalStation.getLocationOnScreen(location);
-
-        final int arrivalPosition = location[1];
-
-        int downTranslation = arrivalPosition - departurePosition;
-
-
-        animate(departureStation)
-                .translationYBy(downTranslation)
-                .setDuration(mAnimationTime)
-                .setListener(new AnimatorListenerAdapter() {
+            if(!isButtonAnimating) {
+                Animation rotate = AnimationUtils.loadAnimation(mContext, R.anim.rotate_button);
+                rotate.setAnimationListener(new Animation.AnimationListener() {
                     @Override
-                    public void onAnimationEnd(Animator animation) {
-                        int[] departureStationLocation = new int[2];
-                        departureStation.getLocationOnScreen(departureStationLocation);
-                        Logger.d("DEPARTUREFINAL", departureStationLocation[1] + "");
-                        super.onAnimationEnd(animation);
+                    public void onAnimationStart(Animation animation) {
+                        isButtonAnimating = true;
                     }
 
                     @Override
-                    public void onAnimationCancel(Animator animation) {
-                        Logger.d("ANIMATION", "CANCELED");
-                        super.onAnimationCancel(animation);
+                    public void onAnimationEnd(Animation animation) {
+                        isButtonAnimating = false;
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
                     }
                 });
+                swapPositionButton.startAnimation(rotate);
+            }
 
-        animate(arrivalStation)
-                .translationYBy(-downTranslation)
-                .setDuration(mAnimationTime)
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        int[] arrivalStationLocation = new int[2];
-                        arrivalStation.getLocationOnScreen(arrivalStationLocation);
-                        Logger.d("ARRIVALFINAL", arrivalStationLocation[1]+"");
-                        super.onAnimationEnd(animation);
-                    }
-                });
+
+            int[] location = new int[2];
+
+            departureStation.getLocationOnScreen(location);
+
+            final int departurePosition = location[1];
+
+            arrivalStation.getLocationOnScreen(location);
+
+            final int arrivalPosition = location[1];
+
+            int downTranslation = arrivalPosition - departurePosition;
+
+            if(!isDepartureAnimating){
+                animate(departureStation)
+                        .translationYBy(downTranslation)
+                        .setDuration(mAnimationTime)
+                        .setListener(new AnimatorListenerAdapter() {
+
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+                                super.onAnimationStart(animation);
+                                isDepartureAnimating = true;
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                isDepartureAnimating = false;
+
+                            }
+                        });
+            }
+
+            if(!isArrivalAnimating) {
+                animate(arrivalStation)
+                        .translationYBy(-downTranslation)
+                        .setDuration(mAnimationTime)
+                        .setListener(new AnimatorListenerAdapter() {
+
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+                                super.onAnimationStart(animation);
+                                isArrivalAnimating = true;
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                int[] arrivalStationLocation = new int[2];
+                                arrivalStation.getLocationOnScreen(arrivalStationLocation);
+
+                                isArrivalAnimating = false;
+
+                            }
+                        });
+            }
+        }
 
     }
 
