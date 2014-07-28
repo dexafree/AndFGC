@@ -63,12 +63,13 @@
             android:layout_marginRight="6dp">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/directions_left_icon_area_width"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:paddingLeft="8dp"
+                android:paddingLeft="@dimen/directions_input_panel_left_padding"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_fa_money"
                 android:id="@+id/money_icon"/>
 
@@ -95,7 +96,7 @@
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
                 android:id="@+id/view_more_prices_icon"
-                android:src="@drawable/ic_fa_caret_square_o_right"
+                android:src="@drawable/ic_fa_chevron_right"
                 android:layout_alignParentRight="true"/>
 
         </RelativeLayout>

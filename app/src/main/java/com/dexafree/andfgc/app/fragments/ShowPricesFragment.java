@@ -50,6 +50,11 @@ public class ShowPricesFragment extends Fragment {
     private CardView discapCardView;
     private CardView pensionCardView;
 
+    private TextView standardText;
+    private TextView fnumText;
+    private TextView discapText;
+    private TextView pensionText;
+
     private ArrayList<Tarifa> standardTarifes;
     private ArrayList<Tarifa> fnumTarifes;
     private ArrayList<Tarifa> discapTarifes;
@@ -93,6 +98,10 @@ public class ShowPricesFragment extends Fragment {
         discapPricesList = (LinearLayout)v.findViewById(R.id.discap_listview);
         pensionPricesList = (LinearLayout)v.findViewById(R.id.pension_listview);
 
+        standardText = (TextView)v.findViewById(R.id.stand_text);
+        fnumText = (TextView)v.findViewById(R.id.fnum_text);
+        discapText = (TextView)v.findViewById(R.id.discap_text);
+        pensionText = (TextView)v.findViewById(R.id.pension_text);
 
         fnumCardView = (CardView)v.findViewById(R.id.fnum_cardview);
         discapCardView = (CardView)v.findViewById(R.id.discap_cardview);
@@ -113,6 +122,8 @@ public class ShowPricesFragment extends Fragment {
 
     private void setContent(){
 
+        String zonesString = " ("+zones +" "+ mContext.getString(R.string.zones)+")";
+
         if(line == 3){
             fnumCardView.setVisibility(View.GONE);
             discapCardView.setVisibility(View.GONE);
@@ -120,11 +131,16 @@ public class ShowPricesFragment extends Fragment {
 
         } else {
             fnumPricesList.addView(generateList(fnumTarifes));
+            fnumText.setText(mContext.getString(R.string.fnumerosa)+zonesString);
             discapPricesList.addView(generateList(discapTarifes));
+            discapText.setText(mContext.getString(R.string.discapacitat)+zonesString);
             pensionPricesList.addView(generateList(pensionTarifes));
+            pensionText.setText(mContext.getString(R.string.pensionista)+zonesString);
         }
 
         standardPricesList.addView(generateList(standardTarifes));
+        standardText.setText(mContext.getString(R.string.standard)+zonesString);
+
     }
 
     private View generateList(ArrayList<Tarifa> tarifes){

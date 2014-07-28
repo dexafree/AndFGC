@@ -30,6 +30,7 @@
                     android:paddingLeft="8dp"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
+                    android:id="@+id/stand_text"
                     style="@style/DirectionsWaypointTextBox"
                     android:text="@string/standard"/>
 
@@ -60,6 +61,7 @@
                     android:paddingLeft="8dp"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
+                    android:id="@+id/fnum_text"
                     style="@style/DirectionsWaypointTextBox"
                     android:text="@string/fnumerosa"/>
 
@@ -90,6 +92,7 @@
                     android:paddingLeft="8dp"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
+                    android:id="@+id/discap_text"
                     style="@style/DirectionsWaypointTextBox"
                     android:text="@string/discapacitat"/>
 
@@ -121,6 +124,7 @@
                     android:paddingLeft="8dp"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
+                    android:id="@+id/pension_text"
                     style="@style/DirectionsWaypointTextBox"
                     android:text="@string/pensionista"/>
 
