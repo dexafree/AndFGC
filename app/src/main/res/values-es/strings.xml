@@ -46,4 +46,9 @@
     <string name="refresh">Actualizar</string>
     <string name="welcome">Bienvenido</string>
     <string name="same_station">Tienes que seleccionar estaciones diferentes</string>
+    <string name="price">Precio: </string>
+    <string name="standard">Estándar</string>
+    <string name="fnumerosa">Familia numerosa</string>
+    <string name="discapacitat">Discapacitado</string>
+    <string name="pensionista">Pensionista</string>
 </resources>

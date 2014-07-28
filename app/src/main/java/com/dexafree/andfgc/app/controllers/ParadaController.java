@@ -286,4 +286,44 @@ public class ParadaController {
         return p;
     }
 
+    public static int getZonesFromParades(Context c, Parada origen, Parada desti){
+
+        String abrOrigen = origen.getAbreviatura();
+        String abrDesti = desti.getAbreviatura();
+
+        return getZonesFromAbreviatures(c, abrOrigen, abrDesti);
+
+    }
+
+
+    public static int getZonesFromAbreviatures(Context c, String origen, String desti){
+
+        SQLiteDatabase db = getDb(c);
+
+        String sqlSeq = "SELECT ABREVIACIO, ZONA FROM parades WHERE ("
+                +"ABREVIACIO = '"+origen+"'"
+                +" OR "
+                +"ABREVIACIO = '"+desti+"');";
+
+        Cursor cursor = db.rawQuery(sqlSeq, null);
+
+        int numZones = 0;
+
+        int i = 0;
+        int[] zones = new int[2];
+
+        if(cursor.moveToFirst()){
+            do{
+                zones[i] = cursor.getInt(cursor.getColumnIndex("ZONA"));
+                i++;
+            } while(cursor.moveToNext());
+        }
+
+        numZones = Math.abs(zones[0] - zones[1]);
+
+        return numZones + 1;
+
+    }
+
+
 }

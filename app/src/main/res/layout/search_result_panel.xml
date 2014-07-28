@@ -3,7 +3,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-    android:background="#d1d1d1">
+            android:background="#d1d1d1">
     <LinearLayout android:id="@+id/directions_input_panel" style="@style/DirectionsInputPanelContent"
                    android:divider="@color/transparent">
         <LinearLayout
@@ -53,6 +53,53 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:paddingLeft="8dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:src="@drawable/ic_fa_money"
+                android:id="@+id/money_icon"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:fontFamily="sans-serif-light"
+                android:textSize="@dimen/text_size_medium"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:id="@+id/price_text"
+                tools:text="Precio:"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/money_icon"
+                android:layout_toEndOf="@+id/money_icon" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/money_icon"
+                android:paddingRight="8dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:id="@+id/view_more_prices_icon"
+                android:src="@drawable/ic_fa_caret_square_o_right"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"

@@ -1,11 +1,15 @@
 package com.dexafree.andfgc.app.controllers;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.beans.Property;
+import com.dexafree.andfgc.app.beans.Tarifa;
 import com.dexafree.andfgc.app.beans.Ticket;
+import com.dexafree.andfgc.app.databases.DataBaseHelper;
 import com.dexafree.andfgc.app.events.BusProvider;
 import com.dexafree.andfgc.app.events.ErrorEvent;
 import com.dexafree.andfgc.app.events.TarifesSearchFinishedEvent;
@@ -20,10 +24,19 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.Locale;
 
-/**
- * Created by Carlos on 06/06/14.
- */
 public class TarifesController {
+
+    /*
+     * Returns a SQLiteDatabase Instance
+     */
+    private static SQLiteDatabase getDb(Context context) {
+        DataBaseHelper dbHelper = new DataBaseHelper(context);
+        SQLiteDatabase db = dbHelper.getDataBase();
+        if (db == null) {
+            db = getDb(context);
+        }
+        return db;
+    }
 
     public static void getTarifes(final Context c){
         String language;
@@ -121,5 +134,110 @@ public class TarifesController {
         }
 
         return description;
+    }
+
+    private static ArrayList<Tarifa> baseGetTarifa(Context c, String table, int zones){
+
+        ArrayList<Tarifa> tarifes = new ArrayList<Tarifa>();
+
+        SQLiteDatabase db = getDb(c);
+
+
+        String sqlSeq = "SELECT * FROM "+table;
+
+        Cursor cursor = db.rawQuery(sqlSeq, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                String concepte = cursor.getString(cursor.getColumnIndex("concepte"));
+                float preu = cursor.getFloat(cursor.getColumnIndex("zona"+zones));
+
+                Tarifa t = new Tarifa(concepte, preu);
+                tarifes.add(t);
+            } while(cursor.moveToNext());
+        }
+        db.close();
+
+        return tarifes;
+
+    }
+
+    public static double getPreuNormal(Context c, int linia, int zones){
+
+        double preu = 0;
+
+        SQLiteDatabase db = getDb(c);
+
+        if(linia == 3){
+            String sqlSeq = "SELECT * FROM preus_lleida";
+
+            Cursor cursor = db.rawQuery(sqlSeq, null);
+
+            if(cursor.moveToFirst()){
+
+                preu = cursor.getFloat(cursor.getColumnIndex("zona"+zones));
+
+            }
+
+        } else {
+            String sqlSeq = "SELECT * FROM preus_standard";
+
+            Cursor cursor = db.rawQuery(sqlSeq, null);
+
+            if(cursor.moveToFirst()){
+
+                preu = cursor.getFloat(cursor.getColumnIndex("zona"+zones));
+
+            }
+        }
+        db.close();
+
+        return preu;
+    }
+
+    public static ArrayList<Tarifa> getTarifaStandard(Context c, int linia, int zones){
+
+        ArrayList<Tarifa> tarifes;
+
+        SQLiteDatabase db = getDb(c);
+
+        if(linia == 3){
+            tarifes = new ArrayList<Tarifa>();
+            String sqlSeq = "SELECT * FROM preus_lleida";
+
+            Cursor cursor = db.rawQuery(sqlSeq, null);
+
+            if(cursor.moveToFirst()){
+                String concepte = cursor.getString(cursor.getColumnIndex("concepte"));
+                double preu = cursor.getDouble(cursor.getColumnIndex("zona"+zones));
+
+                Tarifa t = new Tarifa(concepte, preu);
+                tarifes.add(t);
+            }
+        } else {
+
+            tarifes = baseGetTarifa(c, "preus_standard", zones);
+        }
+        db.close();
+
+        return tarifes;
+
+    }
+
+    public static ArrayList<Tarifa> getTarifaDiscapacitat(Context c, int zones){
+
+        return baseGetTarifa(c, "preus_discapacitat", zones);
+
+    }
+
+    public static ArrayList<Tarifa> getTarifaFamiliaNombrosa(Context c, int zones){
+
+        return baseGetTarifa(c, "preus_familia_nombrosa", zones);
+
+    }
+    public static ArrayList<Tarifa> getTarifaPensionista(Context c, int zones){
+
+        return baseGetTarifa(c, "preus_pensionista", zones);
+
     }
 }

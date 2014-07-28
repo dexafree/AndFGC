@@ -5,9 +5,6 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 02/05/2014.
- */
 public class Transbord implements Parcelable {
 
     private String linia;

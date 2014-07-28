@@ -5,9 +5,6 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-/**
- * Created by Carlos on 06/06/14.
- */
 public class Ticket implements Parcelable {
 
     private String name;

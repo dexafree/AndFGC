@@ -324,7 +324,8 @@ public class MainActivity extends ActionBarActivity {
      */
     private void firstTime(){
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(this);
-        if(p.getBoolean("first_time", true)){
+
+        if(p.getBoolean("first_time", true) || Checkers.hasAppBeenUpdated(this)){
 
             // Copy the db stored in assets
             DataBaseHelper dbH = new DataBaseHelper(this);

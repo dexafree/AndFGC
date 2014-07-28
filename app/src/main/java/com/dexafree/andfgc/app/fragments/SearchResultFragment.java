@@ -21,11 +21,21 @@ import com.dexafree.andfgc.app.beans.Opcio;
 import com.dexafree.andfgc.app.beans.Parada;
 import com.dexafree.andfgc.app.beans.Transbord;
 import com.dexafree.andfgc.app.controllers.FavoritosController;
+import com.dexafree.andfgc.app.controllers.ParadaController;
+import com.dexafree.andfgc.app.controllers.TarifesController;
 import com.dexafree.andfgc.app.controllers.TransbordController;
+import com.dexafree.andfgc.app.utils.Logger;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SearchResultFragment extends Fragment {
+
+    public final static String CERCA = "CERCA";
+    public final static String OPCIO = "OPCIO";
+    public final static String DATABUSCADA = "DATABUSCADA";
+    public final static String FROMSEARCH = "FROMSEARCH";
+
 
     private Context mContext;
     private Cerca c;
@@ -36,7 +46,15 @@ public class SearchResultFragment extends Fragment {
     private TextView departureHour;
     private TextView arrivalHour;
 
+    private TextView tripPrice;
+    private ImageView viewMorePrices;
+
     private String dataBuscada;
+
+    private String origen;
+    private String desti;
+    private int linia;
+    private int zones;
 
     private MenuItem favIcon;
     private MenuItem unFavIcon;
@@ -112,6 +130,8 @@ public class SearchResultFragment extends Fragment {
         arrivalHour = (TextView)v.findViewById(R.id.arrival_hour);
         paradasLayout = (LinearLayout)v.findViewById(R.id.stations_layout);
         moreOptionsLayout = (RelativeLayout)v.findViewById(R.id.more_options_layout);
+        tripPrice = (TextView)v.findViewById(R.id.price_text);
+        viewMorePrices = (ImageView)v.findViewById(R.id.view_more_prices_icon);
     }
 
     private void setTexts(LayoutInflater inflater){
@@ -126,11 +146,20 @@ public class SearchResultFragment extends Fragment {
         departureHour.setText(preparaHora(op.getHoraSortida()));
         arrivalHour.setText(preparaHora(op.getHoraArribada()));
 
+        setPreuText(op);
+
         moreOptionsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlternativeOptionsFragment fragment = AlternativeOptionsFragment.newInstance(c, dataBuscada, parades.get(0).getNom(),parades.get(parades.size()-1).getNom());
                 ((MainActivity)mContext).changeFragment(fragment);
+            }
+        });
+
+        viewMorePrices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showMorePrices();
             }
         });
 
@@ -141,11 +170,32 @@ public class SearchResultFragment extends Fragment {
         }
     }
 
+    private void setPreuText(Opcio op){
+
+        origen = op.getPrimeraParada(mContext).getAbreviatura();
+        desti = op.getUltimaParada(mContext).getAbreviatura();
+
+        linia = c.getLiniaCercada();
+
+        zones = ParadaController.getZonesFromAbreviatures(mContext, origen, desti);
+
+        double preu = TarifesController.getPreuNormal(mContext, c.getLiniaCercada(), zones);
+
+
+        String price = mContext.getString(R.string.price);
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        String preuString = df.format(preu);
+
+        tripPrice.setText(price+" "+preuString+" €");
+
+    }
+
     private void loadValues(Bundle savedState){
-        c = savedState.getParcelable("CERCA");
-        opcio = savedState.getParcelable("OPCIO");
-        dataBuscada = savedState.getString("DATABUSCADA");
-        fromSearch = savedState.getBoolean("FROMSEARCH");
+        c = savedState.getParcelable(CERCA);
+        opcio = savedState.getParcelable(OPCIO);
+        dataBuscada = savedState.getString(DATABUSCADA);
+        fromSearch = savedState.getBoolean(FROMSEARCH);
     }
 
     private View getParadaView(Parada paradaActual, LayoutInflater inflater){
@@ -218,13 +268,26 @@ public class SearchResultFragment extends Fragment {
         unFavIcon.setVisible(false);
     }
 
+    private void showMorePrices(){
+        Bundle args = new Bundle();
+        args.putInt(ShowPricesFragment.LINE, linia);
+        args.putInt(ShowPricesFragment.ZONES, zones);
+        args.putString(ShowPricesFragment.DEPARTURE_STATION, origen);
+        args.putString(ShowPricesFragment.ARRIVAL_STATION, desti);
+
+        ShowPricesFragment f = new ShowPricesFragment();
+        f.setArguments(args);
+
+        ((MainActivity)mContext).changeFragment(f);
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable("CERCA", c);
-        outState.putParcelable("OPCIO", opcio);
-        outState.putString("DATABUSCADA", dataBuscada);
-        outState.putBoolean("FROMSEARCH", fromSearch);
+        outState.putParcelable(CERCA, c);
+        outState.putParcelable(OPCIO, opcio);
+        outState.putString(DATABUSCADA, dataBuscada);
+        outState.putBoolean(FROMSEARCH, fromSearch);
     }
 
     @Override

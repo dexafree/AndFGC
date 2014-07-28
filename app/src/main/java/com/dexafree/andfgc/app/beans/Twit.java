@@ -3,9 +3,6 @@ package com.dexafree.andfgc.app.beans;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Carlos on 07/07/14.
- */
 public class Twit implements Parcelable {
 
     private String message;

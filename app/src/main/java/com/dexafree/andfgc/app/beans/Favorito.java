@@ -3,9 +3,6 @@ package com.dexafree.andfgc.app.beans;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Carlos on 02/07/14.
- */
 public class Favorito implements Parcelable {
 
     private String origen;

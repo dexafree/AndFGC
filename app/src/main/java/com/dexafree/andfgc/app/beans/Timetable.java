@@ -5,9 +5,6 @@ import android.os.Parcelable;
 
 import com.dexafree.andfgc.app.utils.Logger;
 
-/**
- * Created by Carlos on 26/05/2014.
- */
 public class Timetable implements Parcelable {
 
     private String name;

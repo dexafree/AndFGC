@@ -3,9 +3,6 @@ package com.dexafree.andfgc.app.beans;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Carlos on 04/06/14.
- */
 public class Coordenada implements Parcelable {
 
     private String nom;

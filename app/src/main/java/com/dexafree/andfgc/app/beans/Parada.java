@@ -1,19 +1,8 @@
 package com.dexafree.andfgc.app.beans;
 
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
-import com.dexafree.andfgc.app.databases.DataBaseHelper;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-/**
- * Created by Carlos on 27/04/2014.
- */
 public class Parada implements Parcelable {
 
     private String nom;
