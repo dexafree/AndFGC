@@ -137,7 +137,6 @@ public class MainActivity extends ActionBarActivity {
 
         }
 
-
     }
 
     /*
@@ -365,6 +364,10 @@ public class MainActivity extends ActionBarActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(POSITION, mPosition);
+    }
+
+    public void setActionBarTitle(int position){
+        setTitle(sectionNames[position]);
     }
 
 

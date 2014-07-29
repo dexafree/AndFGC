@@ -47,7 +47,7 @@ public class TwitterFragment extends Fragment {
     @Subscribe
     public void onTweetListLoaded(TweetListLoadedEvent event){
         mTweetList = event.getTwitList();
-        dialog.dismiss();
+        if(dialog.isShowing()) dialog.dismiss();
         setContent();
     }
 
@@ -87,9 +87,6 @@ public class TwitterFragment extends Fragment {
             @Override
             public void onRefresh() {
                 mTweetList.clear();
-                dialog = new ProgressDialog(mContext);
-                dialog.setTitle(R.string.please_wait);
-                dialog.show();
                 TwitController.getLastTweets(mContext);
             }
         });

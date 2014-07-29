@@ -26,13 +26,10 @@ public class WelcomeFragment extends Fragment {
 
     private Context mContext;
 
-    private LinearLayout mLayout;
     private CardView cardView;
 
     private long mAnimationTime;
-    private int mViewWidth = 1; // 1 and not 0 to prevent dividing by zero
-
-    private View mDownView;
+    private int mViewWidth = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,9 +37,6 @@ public class WelcomeFragment extends Fragment {
 
         mContext = getActivity();
 
-        mLayout = (LinearLayout) v.findViewById(R.id.mainLayout);
-
-        mDownView = mLayout;
         cardView = (CardView)v.findViewById(R.id.cardView);
 
         LinearLayout notShowAgain = (LinearLayout)v.findViewById(R.id.dont_show_again);
@@ -82,6 +76,7 @@ public class WelcomeFragment extends Fragment {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
         sp.edit().putBoolean(Constants.SHOW_WELCOME, false).commit();
 
+        ((MainActivity)mContext).setActionBarTitle(0);
         ((MainActivity)mContext).changeFragmentWithoutAddingToStack(new SearchFragment());
     }
 
