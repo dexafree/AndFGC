@@ -3,15 +3,15 @@
 <resources>
 
     <style name="Theme.Andfgc" parent="@style/Theme.AppCompat.Light">
-        <item name="actionBarItemBackground">@drawable/selectable_background_andfgc</item>
-        <item name="popupMenuStyle">@style/PopupMenu.Andfgc</item>
-        <item name="dropDownListViewStyle">@style/DropDownListView.Andfgc</item>
-        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Andfgc</item>
-        <item name="actionDropDownStyle">@style/DropDownNav.Andfgc</item>
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_andfgc</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Andfgc</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Andfgc</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Andfgc</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Andfgc</item>
         <item name="android:actionBarStyle">@style/ActionBar.Solid.Andfgc</item>
-        <item name="actionModeBackground">@drawable/cab_background_top_andfgc</item>
-        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_andfgc</item>
-        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Andfgc</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_andfgc</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_andfgc</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Andfgc</item>
 
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">false</item>

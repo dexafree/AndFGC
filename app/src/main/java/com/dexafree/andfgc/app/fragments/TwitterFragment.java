@@ -86,7 +86,6 @@ public class TwitterFragment extends Fragment {
         mListView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mTweetList.clear();
                 TwitController.getLastTweets(mContext);
             }
         });
