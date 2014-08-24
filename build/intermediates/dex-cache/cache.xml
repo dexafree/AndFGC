@@ -26,12 +26,6 @@
         revision="20.0.0"
         sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
     <item
-        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/gson-2.2.4-72a35cf3e3e638c7532e1934c2900edbe20ace46.jar"
-        jar="/Users/Carlos/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="a60a5e993c98c864010053cb901b7eab25306568"/>
-    <item
         dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/classes-c335f869a21fb8d79ec19d58adf1af165a4ec0cc.jar"
         jar="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/exploded-aar/com.quentindommerc.superlistview/library/1.5.2/classes.jar"
         jumboMode="false"
@@ -79,6 +73,12 @@
         jumboMode="false"
         revision="20.0.0"
         sha1="73d0c7e564f21532cdda0b0c93b07be5aee87e7d"/>
+    <item
+        dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/gson-2.3-a6f60bf370c805e359543b7e03ff4e9e6af0f4b2.jar"
+        jar="/Users/Carlos/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3/5fc52c41ef0239d1093a1eb7c3697036183677ce/gson-2.3.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce"/>
     <item
         dex="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/pre-dexed/debug/classes-1ba9f42683bbea06926ca034f9bd2b761ff9a24d.jar"
         jar="/Users/Carlos/Home/Projects/AndFGC/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"

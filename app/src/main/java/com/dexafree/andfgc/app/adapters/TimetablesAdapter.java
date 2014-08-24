@@ -1,6 +1,7 @@
 package com.dexafree.andfgc.app.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.dexafree.andfgc.app.R;
 import com.dexafree.andfgc.app.beans.Timetable;
+import com.dexafree.andfgc.app.controllers.TimetablesController;
 
 import java.util.ArrayList;
 
@@ -52,6 +54,9 @@ public class TimetablesAdapter extends BaseAdapter {
 
     private void setViewsContent(ViewHolder holder, int position){
         holder.name.setText(timetables.get(position).getName());
+        boolean isDownloaded = TimetablesController.isTimetableDownloaded(timetables.get(position));
+        if(isDownloaded) holder.name.setTypeface(null, Typeface.BOLD);
+        else holder.name.setTypeface(null, Typeface.NORMAL);
     }
 
     @Override

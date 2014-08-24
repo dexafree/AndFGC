@@ -1,6 +1,7 @@
 package com.dexafree.andfgc.app.fragments;
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.dexafree.andfgc.app.R;
@@ -39,11 +41,19 @@ public class DownloadTimetablesFragment extends Fragment {
     @Subscribe
     public void onDownloadFinished(DownloadFinishedEvent event){
         Toast.makeText(mContext, getString(R.string.timetable_downloaded)+event.getFilename(), Toast.LENGTH_SHORT).show();
+
+        TimetablesController.newTimetableDownloaded(event.getTimetable());
+        refreshListView();
+
         File file = event.getFile();
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.fromFile(file), "application/pdf");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e){
+            Toast.makeText(mContext, R.string.activity_pdf_not_found, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Subscribe
@@ -84,7 +94,9 @@ public class DownloadTimetablesFragment extends Fragment {
         timetableList = (ListView)v.findViewById(R.id.listView);
     }
 
-
+    private void refreshListView(){
+        timetableList.setAdapter(new TimetablesAdapter(mContext, mTimetables));
+    }
 
     private void setTimetables(){
         TimetablesAdapter adapter = new TimetablesAdapter(mContext, mTimetables);
@@ -94,7 +106,17 @@ public class DownloadTimetablesFragment extends Fragment {
         timetableList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                TimetablesController.downloadTimetable(mTimetables.get(i), mContext);
+                if(TimetablesController.isTimetableDownloaded(mTimetables.get(i))){
+                    Intent intent = TimetablesController.getIntentFromTimetable(mTimetables.get(i));
+                    try{
+                        startActivity(intent);
+                    } catch (ActivityNotFoundException e){
+                        Toast.makeText(mContext, R.string.activity_pdf_not_found, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    TimetablesController.downloadTimetable(mTimetables.get(i), mContext);
+                }
+
             }
         });
     }

@@ -52,4 +52,5 @@
     <string name="discapacitat">Discapacitado</string>
     <string name="pensionista">Pensionista</string>
     <string name="zones">Zonas</string>
+    <string name="activity_pdf_not_found">No tienes ninguna aplicación que pueda abrir el formato pdf</string>
 </resources>

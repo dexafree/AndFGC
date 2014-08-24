@@ -26,6 +26,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.dexafree.andfgc.app.R;
+import com.dexafree.andfgc.app.beans.Timetable;
 import com.dexafree.andfgc.app.events.BusProvider;
 import com.dexafree.andfgc.app.events.DownloadFinishedEvent;
 import com.dexafree.andfgc.app.utils.Logger;
@@ -36,6 +37,9 @@ public class DownloadService extends IntentService {
     public static final String URL = "urlpath";
     public static final String FILENAME = "filename";
     public static final String TIMETABLE = "timetable";
+    public static final String TIMETABLE_OBJECT = "TIMETABLE_OBJECT";
+
+    private Timetable mTimetable;
 
     int id = 1;
 
@@ -50,6 +54,7 @@ public class DownloadService extends IntentService {
         String urlPath = intent.getStringExtra(URL);
         String fileName = intent.getStringExtra(FILENAME);
         String timetable = intent.getStringExtra(TIMETABLE);
+        mTimetable = intent.getParcelableExtra(TIMETABLE_OBJECT);
 
         try{
 
@@ -130,6 +135,6 @@ public class DownloadService extends IntentService {
     }
 
     private void publishResults(String filename, File file) {
-        BusProvider.getInstance().post(new DownloadFinishedEvent(filename, file));
+        BusProvider.getInstance().post(new DownloadFinishedEvent(filename, file, mTimetable));
     }
 }
