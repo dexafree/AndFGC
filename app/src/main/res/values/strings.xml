@@ -40,7 +40,7 @@
     <string name="developer">Developer</string>
     <string name="empty_fav">You don\'t have any trip marked as favourite!</string>
     <string name="dont_show_again">Don\'t show again</string>
-    <string name="error">Error</string>
+    <string name="error">An error has occurred</string>
     <string name="no_internet_alert">This function needs an active Internet connection. Please check your connection</string>
     <string name="refresh">Refresh</string>
     <string name="welcome">Welcome</string>

@@ -27,29 +27,33 @@ public class TwitController {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
-                        if(!result.isJsonNull()) {
-                            ArrayList<Twit> tweetList = new ArrayList<Twit>();
+                        try {
+                            if (!result.isJsonNull()) {
+                                ArrayList<Twit> tweetList = new ArrayList<Twit>();
 
-                            JsonArray collection = result.get("results").getAsJsonObject().get("collection1").getAsJsonArray();
+                                JsonArray collection = result.get("results").getAsJsonObject().get("collection1").getAsJsonArray();
 
-                            for (int i = 0; i < collection.size(); i++) {
+                                for (int i = 0; i < collection.size(); i++) {
 
-                                JsonObject object = collection.get(i).getAsJsonObject();
+                                    JsonObject object = collection.get(i).getAsJsonObject();
 
-                                String message = object.get("message").getAsString();
-                                String time = object.get("time").getAsString();
-                                String link = object.get("link").getAsString();
-                                String account = object.get("account").getAsString();
-                                JsonObject image = object.get("image").getAsJsonObject();
+                                    String message = object.get("message").getAsString();
+                                    String time = object.get("time").getAsString();
+                                    String link = object.get("link").getAsString();
+                                    String account = object.get("account").getAsString();
+                                    JsonObject image = object.get("image").getAsJsonObject();
 
-                                String avatarUrl = image.get("src").getAsString();
-                                String alt = image.get("alt").getAsString();
+                                    String avatarUrl = image.get("src").getAsString();
+                                    String alt = image.get("alt").getAsString();
 
-                                tweetList.add(new Twit(message, time, link, account, avatarUrl, alt));
+                                    tweetList.add(new Twit(message, time, link, account, avatarUrl, alt));
+                                }
+
+                                BusProvider.getInstance().post(new TweetListLoadedEvent(tweetList));
+                            } else {
+                                BusProvider.getInstance().post(new ErrorEvent());
                             }
-
-                            BusProvider.getInstance().post(new TweetListLoadedEvent(tweetList));
-                        } else {
+                        } catch (NullPointerException exc){
                             BusProvider.getInstance().post(new ErrorEvent());
                         }
 

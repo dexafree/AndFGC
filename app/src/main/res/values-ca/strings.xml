@@ -41,7 +41,7 @@
     <string name="developer">Desenvolupador</string>
     <string name="empty_fav">No tens cap trajecte guardat com a favorit!</string>
     <string name="dont_show_again">No tornar a mostrar</string>
-    <string name="error">Error</string>
+    <string name="error">Ha succeït un error</string>
     <string name="no_internet_alert">Aquesta funció requereix d\'accés a internet. Comprovi la seva connexió</string>
     <string name="refresh">Actualitzar</string>
     <string name="welcome">Benvingut</string>

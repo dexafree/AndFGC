@@ -38,6 +38,13 @@
         <item name="android:backgroundStacked">@color/orange_fgc</item>
         <item name="android:backgroundSplit">@drawable/ab_bottom_solid_andfgc</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Andfgc</item>
+        <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
+    </style>
+
+    <style name="MyActionBarTitleText"
+        parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
+        <!-- The textColor property is backward compatible with the Support Library -->
     </style>
 
     <style name="ActionBar.Transparent.Andfgc" parent="@style/Widget.AppCompat.Light.ActionBar">

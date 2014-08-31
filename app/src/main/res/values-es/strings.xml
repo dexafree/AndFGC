@@ -41,7 +41,7 @@
     <string name="developer">Developer</string>
     <string name="empty_fav">No tienes ningún trayecto guardado como favorito!</string>
     <string name="dont_show_again">No volver a mostrar</string>
-    <string name="error">Error</string>
+    <string name="error">Ha ocurrido un error</string>
     <string name="no_internet_alert">Esta función requiere de acceso a internet. Compruebe su conexión</string>
     <string name="refresh">Actualizar</string>
     <string name="welcome">Bienvenido</string>
